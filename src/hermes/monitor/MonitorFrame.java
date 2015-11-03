@@ -24,11 +24,23 @@ public class MonitorFrame extends JFrame {
         content.setLayout(new GridBagLayout());
         
         content.add(new FiltersPanel(),
-        			new GridBagConstraintsBuilder().at(0, 0).size(1).fill(GridBagConstraints.VERTICAL).build());
+        			new GridBagConstraintsBuilder()
+        				.at(0, 0).size(1)
+        				.fill(GridBagConstraints.VERTICAL)
+        				.build());
+        
         content.add(new TagsPanel(),
-        			new GridBagConstraintsBuilder().at(1, 0).size(1).fill(GridBagConstraints.VERTICAL).build());
+        			new GridBagConstraintsBuilder()
+        				.at(1, 0).size(1)
+        				.fill(GridBagConstraints.VERTICAL)
+        				.build());
+        
         content.add(new NotificationsPanel(),
-        			new GridBagConstraintsBuilder().at(0, 1).size(2, 1).build());
+        			new GridBagConstraintsBuilder()
+        				.at(0, 1)
+        				.size(2, 1)
+        				.fill(GridBagConstraints.BOTH)
+        				.build());
 	}
 	
 }
