@@ -1,52 +1,41 @@
 package hermes.monitor.notifications;
 
-import hermes.helpers.GridBagConstraintsBuilder;
+
+import hermes.enums.Category;
+import hermes.enums.Content;
+import hermes.enums.Context;
+import hermes.enums.Kid;
+import hermes.enums.Tag;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-
-import com.sun.jmx.snmp.Timestamp;
+import javax.swing.RowFilter;
+import javax.swing.RowFilter.ComparisonType;
 
 public class NotificationsPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public NotificationsPanel() {
-		setBorder(BorderFactory.createTitledBorder("Notificaciones"));
-		
-		
-		
-		setLayout(new BorderLayout());
-		
-		JTable table = new JTable(new NotificationsModel()){
-		    public TableCellRenderer getCellRenderer(int row, int column) {
-		        if ((column == 0)) {
-		            return new DefaultTableCellRenderer(){
-		            	@Override
-		            	public void setValue(Object value) {
-		                    setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(((GregorianCalendar) value).getTimeInMillis()));
-		                }
-		            };
-		        }
-		        return super.getCellRenderer(row, column);
-		    }
-		};
-		JScrollPane scrollPane = new JScrollPane(table);
-		table.setFillsViewportHeight(true);
-		add(scrollPane, BorderLayout.CENTER);
-	}
+	private NotificationsTable table;
 	
+	public NotificationsPanel(Object [][] data) {
+		
+		setBorder(BorderFactory.createTitledBorder("Notificaciones"));
+		setLayout(new BorderLayout());
+		table = new NotificationsTable(data);
+		
+		add(new JScrollPane(table), BorderLayout.CENTER);
+	}
+
+	public NotificationsTable getTable() {
+		return table;
+	}
+
 }
