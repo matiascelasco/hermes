@@ -57,7 +57,7 @@ public class FiltersPanel extends JPanel {
 	private static RowFilter<NotificationsTableModel, Object> orDateTimeFilter(Date dateTime, ComparisonType... types){
 		List<RowFilter<NotificationsTableModel, Object>> filters = new ArrayList<RowFilter<NotificationsTableModel, Object>>();
 		for (ComparisonType t : types){
-			RowFilter<NotificationsTableModel, Object> filter = RowFilter.dateFilter(t, dateTime);
+			RowFilter<NotificationsTableModel, Object> filter = RowFilter.dateFilter(t, dateTime, 0);
 			filters.add(filter);
 		}
 		return RowFilter.orFilter(filters);
@@ -97,28 +97,29 @@ public class FiltersPanel extends JPanel {
 				
 				RowFilter<NotificationsTableModel, Object> dateFromGE = orDateTimeFilter(fromDate, ComparisonType.AFTER, ComparisonType.EQUAL);
 				RowFilter<NotificationsTableModel, Object> dateToLE = orDateTimeFilter(toDate, ComparisonType.BEFORE, ComparisonType.EQUAL);
-				if (context != null){
-					RowFilter<NotificationsTableModel, Object> contextFilter = RowFilter.regexFilter(context.toString());
-					filters.add(contextFilter);					
-				}
 				
 				if (content != null){
-					RowFilter<NotificationsTableModel, Object> contentFilter = RowFilter.regexFilter(content.toString());
+					RowFilter<NotificationsTableModel, Object> contentFilter = RowFilter.regexFilter(content.toString(), 1);
 					filters.add(contentFilter);
 				}
 				
+				if (context != null){
+					RowFilter<NotificationsTableModel, Object> contextFilter = RowFilter.regexFilter(context.toString(), 2);
+					filters.add(contextFilter);					
+				}
+				
 				if (category != null){
-					RowFilter<NotificationsTableModel, Object> categoryFilter = RowFilter.regexFilter(category.toString());
+					RowFilter<NotificationsTableModel, Object> categoryFilter = RowFilter.regexFilter(category.toString(), 3);
 					filters.add(categoryFilter);
 				}
 				
 				if (kid != null){
-					RowFilter<NotificationsTableModel, Object> kidFilter = RowFilter.regexFilter(kid.toString());
+					RowFilter<NotificationsTableModel, Object> kidFilter = RowFilter.regexFilter(kid.toString(), 4);
 					filters.add(kidFilter);
 				}
 				
 				if (tag != null){
-					RowFilter<NotificationsTableModel, Object> tagFilter = RowFilter.regexFilter(tag.toString());
+					RowFilter<NotificationsTableModel, Object> tagFilter = RowFilter.regexFilter(tag.toString(), 5);
 					filters.add(tagFilter);
 				}
 				
