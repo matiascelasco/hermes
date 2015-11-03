@@ -14,7 +14,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -36,6 +35,7 @@ public class FiltersPanel extends JPanel {
 			new GridBagConstraintsBuilder()
 				.at(x,  y)
 				.size(1)
+				.weightX(1).weightY(1)
 				.anchor(GridBagConstraints.EAST)
 				.insets(new Insets(0, 5, 0, 0))
 				.build());
@@ -44,6 +44,7 @@ public class FiltersPanel extends JPanel {
 			new GridBagConstraintsBuilder()
 				.at(x + 1,  y)
 				.size(1)
+				.weightX(1).weightY(1)
 				.fill(GridBagConstraints.HORIZONTAL)
 				.insets(new Insets(5, 0, 5, 5))
 				.build());
@@ -126,13 +127,13 @@ public class FiltersPanel extends JPanel {
 				.insets(new Insets(5, 0, 5, 70))
 				.build());
 		add(clearButton,
-				new GridBagConstraintsBuilder()
-					.at(1,  5)
-					.width(3)
-					.height(1)
-					.fill(GridBagConstraints.HORIZONTAL)
-					.insets(new Insets(5, 0, 5, 70))
-					.build());
+			new GridBagConstraintsBuilder()
+				.at(1,  5)
+				.width(3)
+				.height(1)
+				.fill(GridBagConstraints.HORIZONTAL)
+				.insets(new Insets(5, 0, 5, 70))
+				.build());
 	}
 	
 }

@@ -1,6 +1,8 @@
 package hermes.monitor.notifications;
 
 
+import hermes.dataloader.Notification;
+
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
@@ -13,7 +15,7 @@ public class NotificationsPanel extends JPanel {
 
 	private NotificationsTable table;
 	
-	public NotificationsPanel(Object [][] data) {
+	public NotificationsPanel(Notification[] data) {
 		
 		setBorder(BorderFactory.createTitledBorder("Notificaciones"));
 		setLayout(new BorderLayout());

@@ -25,13 +25,16 @@ public class TagsPanel extends JPanel {
 		add(new JLabel(labelString),
 				new GridBagConstraintsBuilder()
 					.at(0, row)
+					.anchor(GridBagConstraints.EAST)
 					.size(1)
+					.weightX(1).weightY(1)
 					.build());
 		
 		add(component,
 			new GridBagConstraintsBuilder()
 				.at(1, row)
 				.size(1)
+				.weightX(1).weightY(1)
 				.insets(new Insets(10, 5, 10, 5))
 				.fill(GridBagConstraints.HORIZONTAL)
 				.build());
@@ -41,6 +44,7 @@ public class TagsPanel extends JPanel {
 					new GridBagConstraintsBuilder()
 			.at(3, row)
 			.size(1)
+			.weightX(1).weightY(1)
 			.fill(GridBagConstraints.HORIZONTAL)
 			.build());			
 		}

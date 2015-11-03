@@ -1,5 +1,7 @@
 package hermes.monitor.notifications;
 
+import hermes.dataloader.Notification;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +32,7 @@ public class NotificationsTable extends JTable {
 	
 	private TableRowSorter<NotificationsTableModel> sorter;
 	
-	public NotificationsTable(Object[][] data) {
+	public NotificationsTable(Notification[] data) {
 		super(new NotificationsTableModel(data));
 		sorter = new TableRowSorter<NotificationsTableModel>((NotificationsTableModel) getModel());
 		setRowSorter(sorter);
@@ -41,11 +43,27 @@ public class NotificationsTable extends JTable {
 		sorter.setRowFilter(filter);
 	}
 	
+	public Object getValueAt(int row, int column) {
+		Object value = super.getValueAt(row, column);
+		if (column == 0){
+			return (Date) value;
+		}
+		return value;
+    }
+
+	
     public TableCellRenderer getCellRenderer(int row, int column) {
-        if ((column == 0)) {
+    	if ((column == 0)) {
             return dateTimeRenderer;
         }
         return super.getCellRenderer(row, column);
     }
-	
+    
+    public Class<?> getColumnClass(int column) {
+    	if (column == 0){
+    		return Date.class;
+    	}
+    	return super.getColumnClass(column);
+    }
+    
 }

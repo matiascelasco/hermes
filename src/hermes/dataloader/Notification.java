@@ -6,6 +6,7 @@ import hermes.enums.Category;
 import hermes.enums.Content;
 import hermes.enums.Context;
 import hermes.enums.Kid;
+import hermes.enums.Tag;
 
 public class Notification {
 	
@@ -13,8 +14,9 @@ public class Notification {
     private Date fechaHoraEnvio;
     private Date fechaHoraRecepcion;
     private Content content;
-    private Category category; 
+    private Category category;
     private Context context;
+    private Tag tag;
     
 	public Kid getKid() {
 		return kid;
@@ -52,9 +54,15 @@ public class Notification {
 	public void setContext(Context context) {
 		this.context = context;
 	}
-    
-   public String toString(){
-	  return this.content.toString(); 
-   } 
+	
+	public String toString(){
+		return this.content.toString(); 
+	}
+	public Tag getTag() {
+		return tag;
+	}
+	public void setTag(Tag tag) {
+		this.tag = tag;
+	} 
 
 }
