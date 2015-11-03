@@ -3,7 +3,6 @@ package hermes.monitor.notifications;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.JTable;
 import javax.swing.RowFilter;

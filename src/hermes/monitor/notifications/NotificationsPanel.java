@@ -1,23 +1,11 @@
 package hermes.monitor.notifications;
 
 
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
-
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.RowFilter;
-import javax.swing.RowFilter.ComparisonType;
 
 public class NotificationsPanel extends JPanel {
 
