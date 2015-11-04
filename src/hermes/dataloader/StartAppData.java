@@ -1,5 +1,6 @@
 package hermes.dataloader;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import hermes.enums.Category;
 import hermes.enums.Content;
 import hermes.enums.Kid;
 
-public class Prueba {
+public class StartAppData {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -46,8 +47,9 @@ public class Prueba {
 		
 		list.add(n4);
 		
-		for(Notification it: list){
-			System.out.println(it.toString());
+		Connection c = DBConnection.getDBConnection();
+		for(Notification n: list){
+			NotificationDAO.persist(n);
 		}
 		
 		
