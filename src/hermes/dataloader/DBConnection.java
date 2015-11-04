@@ -16,8 +16,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 import com.opencsv.CSVReader;
 
@@ -58,6 +56,7 @@ public class DBConnection {
 			    	
 					new NotificationDAOforJDBC().persist(n);
 			     }
+			     reader.close();
 				//persist				
 				}
 				catch(IOException e){

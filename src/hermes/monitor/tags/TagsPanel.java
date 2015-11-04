@@ -37,7 +37,7 @@ public class TagsPanel extends JPanel {
 					.size(1)
 					.weightX(1).weightY(1)
 					.build());
-		
+
 		add(component,
 			new GridBagConstraintsBuilder()
 				.at(1, row)
@@ -46,7 +46,7 @@ public class TagsPanel extends JPanel {
 				.insets(new Insets(10, 5, 10, 5))
 				.fill(GridBagConstraints.HORIZONTAL)
 				.build());
-	
+
 		if (button != null){
 			add(button,
 					new GridBagConstraintsBuilder()
@@ -54,43 +54,41 @@ public class TagsPanel extends JPanel {
 			.size(1)
 			.weightX(1).weightY(1)
 			.fill(GridBagConstraints.HORIZONTAL)
-			.build());			
+			.build());
 		}
 	}
-	
+
 	public TagsPanel(final NotificationsTable notificationsTable) {
-		GridBagConstraintsBuilder separatorConstrainsBuilder = 
+		GridBagConstraintsBuilder separatorConstrainsBuilder =
 			new GridBagConstraintsBuilder()
 				.x(0)
 				.width(5)
 				.height(1)
 				.weightY(1)
 				.fill(GridBagConstraints.HORIZONTAL);
-		
+
 		setBorder(BorderFactory.createTitledBorder("Etiquetas"));
-		
+
 		setLayout(new GridBagLayout());
-		
+
 		TagDAOforJDBC tagDao = new TagDAOforJDBC();
 		List<Tag> listOfTags;
 		try {
 			listOfTags = tagDao.findAll();
 			Tag[] tags = new Tag[listOfTags.size()];
 			listOfTags.toArray(tags);
-			
-			System.out.println(tags.length);
-			
+
 			final JTextField newTagNameField = new JTextField();
 			final JTextField renameTagNameField = new JTextField();
 			final JComboBox<Tag> tagForRemoveComboBox = new JComboBox<Tag>(tags);
 			final JComboBox<Tag> tagForAssingComboBox = new JComboBox<Tag>(tags);
 			final JComboBox<Tag> tagForRenameComboBox = new JComboBox<Tag>(tags);
-			
+
 			JButton createButton = new JButton("Crear");
 			JButton removeButton = new JButton("Eliminar");
 			JButton assignButton = new JButton("Asignar");
 			JButton renameButton = new JButton("Renombrar");
-			
+
 			createButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Tag tag = new Tag();
@@ -102,9 +100,9 @@ public class TagsPanel extends JPanel {
 					}
 				}
 			});
-			
+
 			renameButton.addActionListener(new ActionListener() {
-				
+
 				public void actionPerformed(ActionEvent e) {
 					Tag tag = (Tag) tagForRenameComboBox.getSelectedItem();
 					tag.setName(renameTagNameField.getText());
@@ -115,9 +113,9 @@ public class TagsPanel extends JPanel {
 					}
 				}
 			});
-			
+
 			removeButton.addActionListener(new ActionListener() {
-				
+
 				public void actionPerformed(ActionEvent e) {
 					Tag tag = (Tag) tagForRemoveComboBox.getSelectedItem();
 					tag.setName(renameTagNameField.getText());
@@ -128,7 +126,7 @@ public class TagsPanel extends JPanel {
 					}
 				}
 			});
-			
+
 			assignButton.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent e) {
@@ -145,9 +143,9 @@ public class TagsPanel extends JPanel {
 						}
 					}
 				}
-				
+
 			});
-			
+
 			addLabelComponentAndButton("Crear etiqueta:", newTagNameField, createButton, 0);
 			add(new JSeparator(), separatorConstrainsBuilder.y(1).build());
 			addLabelComponentAndButton("Eliminar etiqueta:", tagForRemoveComboBox, removeButton, 2);
@@ -160,7 +158,7 @@ public class TagsPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 	}
-	
+
 }

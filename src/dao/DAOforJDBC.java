@@ -38,36 +38,33 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 		Connection conn =  DBConnection.getDBConnection();
 		String sql;
 		if (exists(obj)){
-			System.out.println("esiste");
 			sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
 		} else {
-			System.out.println("no esiste");
 			String fields = String.join(",", getFieldNames());
-			sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));			
+			sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
 		}
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
-		
+
 
 	}
-	
+
 	public boolean exists(T obj) throws SQLException{
 		Connection conn =  DBConnection.getDBConnection();
 		String sql;
-		sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));			
+		sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
 		Statement st = conn.createStatement();
-		System.out.println(sql);
 		return st.executeQuery(sql).next();
 	}
-	
+
 	public void delete(T obj) throws SQLException{
 		Connection conn =  DBConnection.getDBConnection();
 		String sql;
-		sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));			
+		sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 	}
-	
+
 	protected abstract String prepareWhere(T obj);
 	protected abstract String prepareForUpdate(T obj);
 	protected abstract String prepareValues(T obj);
