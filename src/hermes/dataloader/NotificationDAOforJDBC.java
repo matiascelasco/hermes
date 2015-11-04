@@ -62,7 +62,10 @@ public class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setContext(Context.values()[result.getInt("context_id")]);
 		n.setContent(Content.values()[result.getInt("content_id")]);
 		n.setKid(Kid.values()[result.getInt("kid_id")]);
-//		n.setTag(FactoryDAO.getTagDAO().retrieve(result.getInt("kid_id")));
+		int tag_id = result.getInt("tag_id");
+		if (tag_id > 0){
+			n.setTag(FactoryDAO.getTagDAO().retrieve(tag_id));
+		}
 		return n;
 	}
 
