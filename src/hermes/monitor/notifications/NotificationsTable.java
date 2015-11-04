@@ -66,5 +66,5 @@ public class NotificationsTable extends JTable {
     	}
     	return super.getColumnClass(column);
     }
-    
+
 }

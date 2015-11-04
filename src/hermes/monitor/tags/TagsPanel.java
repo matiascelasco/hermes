@@ -64,9 +64,10 @@ public class TagsPanel extends JPanel {
 	final private JComboBox<Tag> tagForAssingComboBox = new JComboBox<Tag>();
 	final private JComboBox<Tag> tagForRenameComboBox = new JComboBox<Tag>();
 	
-	private void updateTagComboBoxes() throws SQLException{
-		TagDAOforJDBC tagDao = new TagDAOforJDBC();
-		List<Tag> listOfTags = tagDao.findAll();
+	final private NotificationsTable notificationsTable;
+	
+	private void update() throws SQLException{
+		List<Tag> listOfTags = FactoryDAO.getTagDAO().findAll();
 		Tag[] tags = new Tag[listOfTags.size()];
 		listOfTags.toArray(tags);
 		tagForAssingComboBox.removeAllItems();
@@ -77,9 +78,12 @@ public class TagsPanel extends JPanel {
 			tagForRemoveComboBox.addItem(tag);
 			tagForRenameComboBox.addItem(tag);	
 		}
+		((NotificationsTableModel) notificationsTable.getModel()).updateData();
+		notificationsTable.repaint();
 	}
 	
 	public TagsPanel(final NotificationsTable notificationsTable) {
+		this.notificationsTable = notificationsTable;
 		GridBagConstraintsBuilder separatorConstrainsBuilder =
 			new GridBagConstraintsBuilder()
 				.x(0)
@@ -92,10 +96,9 @@ public class TagsPanel extends JPanel {
 
 		setLayout(new GridBagLayout());
 
-		TagDAOforJDBC tagDao = new TagDAOforJDBC();
 		List<Tag> listOfTags;
 		try {
-			listOfTags = tagDao.findAll();
+			listOfTags = FactoryDAO.getTagDAO().findAll();
 			Tag[] tags = new Tag[listOfTags.size()];
 			listOfTags.toArray(tags);
 			for (Tag tag : tags) {
@@ -115,7 +118,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(newTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().persist(tag);
-						updateTagComboBoxes();
+						update();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -129,7 +132,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(renameTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().persist(tag);
-						updateTagComboBoxes();
+						update();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -143,7 +146,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(renameTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().delete(tag);
-						updateTagComboBoxes();
+						update();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -160,8 +163,7 @@ public class TagsPanel extends JPanel {
 						n.setTag(tag);
 						try {
 							FactoryDAO.getNotificationDAO().persist(n);
-							updateTagComboBoxes();
-							notificationsTable.repaint();
+							update();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

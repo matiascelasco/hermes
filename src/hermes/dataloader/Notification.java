@@ -1,5 +1,6 @@
 package hermes.dataloader;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import hermes.enums.Category;
@@ -72,6 +73,17 @@ public class Notification {
 	}
 	public void setTag(Tag tag) {
 		this.tag = tag;
+	}
+
+	public void refresh() throws SQLException {
+		Notification newVersion = FactoryDAO.getNotificationDAO().retrieve(id);
+		tag = newVersion.getTag();
+		context = newVersion.getContext();
+		content = newVersion.getContent();
+		category = newVersion.getCategory();
+		kid = newVersion.getKid();
+		dateTimeReceived = newVersion.getDateTimeReceived();
+		dateTimeSended = newVersion.getDateTimeSended();
 	} 
 
 }

@@ -30,8 +30,9 @@ public class TagDAOforJDBC extends DAOforJDBC<Tag>{
 
 	@Override
 	protected Tag buildFromSqlResult(ResultSet result) throws SQLException {
+		int id = result.getInt("ID");
 		Tag tag = new Tag();
-		tag.setId(result.getInt("ID"));
+		tag.setId(id);
 		tag.setName(result.getString("name"));
 		return tag;
 	}

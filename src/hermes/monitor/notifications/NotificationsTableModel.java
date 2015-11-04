@@ -1,4 +1,5 @@
 package hermes.monitor.notifications;
+import java.sql.SQLException;
 import java.util.List;
 
 import hermes.dataloader.Notification;
@@ -55,6 +56,17 @@ public class NotificationsTableModel extends AbstractTableModel {
 				return (Object) data.get(rowIndex).getTag();
 			default:
 				throw new IllegalArgumentException("columnIndex must be between 0 and 5");
+		}
+	}
+	
+	public void updateData(){
+		try {
+			for (Notification n : data) {
+				n.refresh();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
