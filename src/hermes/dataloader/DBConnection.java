@@ -22,8 +22,20 @@ public class DBConnection {
 			   System.err.println( "something went wrong: "+e.getClass().getName() + ": " + e.getMessage() );	    
 		   }		   
 	   }
-	   return connection;
-	  
+	   return connection;	   	  	  
+	}
+	
+	public static void closeDBConnection(){
+		if(connection != null){
+			try{
+				connection.close();
+				System.out.println("Database connection succesfully close!");
+			}
+			catch ( Exception e ) {
+				System.err.println( "something went wrong: "+e.getClass().getName() + ": " + e.getMessage() );	
+			}
+		}
+		
 	}
 		
 }

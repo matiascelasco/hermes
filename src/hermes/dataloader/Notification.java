@@ -9,30 +9,42 @@ import hermes.enums.Kid;
 
 public class Notification {
 	
+	private static int instanceNumber = 1;
+	
+	private int id;
 	private Kid kid;
-    private Date fechaHoraEnvio;
-    private Date fechaHoraRecepcion;
+    private Date dateTimeSended;
+    private Date dateTimeReceived;
     private Content content;
     private Category category; 
-    private Context context;
+    private Context context;   
     
+    public Notification(){
+    	this.id = instanceNumber;
+    	instanceNumber++;
+    }
+    
+	public int getId() {
+		return id;
+	}
+	
 	public Kid getKid() {
 		return kid;
 	}
 	public void setKid(Kid kid) {
 		this.kid = kid;
 	}
-	public Date getFechaHoraEnvio() {
-		return fechaHoraEnvio;
+	public Date getDateTimeSended() {
+		return dateTimeSended;
 	}
-	public void setFechaHoraEnvio(Date fechaHoraEnvio) {
-		this.fechaHoraEnvio = fechaHoraEnvio;
+	public void setDateTimeSended(Date fechaHoraEnvio) {
+		this.dateTimeSended = fechaHoraEnvio;
 	}
-	public Date getFechaHoraRecepcion() {
-		return fechaHoraRecepcion;
+	public Date getDateTimeReceived() {
+		return dateTimeReceived;
 	}
-	public void setFechaHoraRecepcion(Date fechaHoraRecepcion) {
-		this.fechaHoraRecepcion = fechaHoraRecepcion;
+	public void setDateTimeReceived(Date fechaHoraRecepcion) {
+		this.dateTimeReceived = fechaHoraRecepcion;
 	}
 	public Content getContent() {
 		return content;
