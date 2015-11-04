@@ -54,7 +54,7 @@ public class DBConnection {
 			    	n.setCategory(Category.values()[category_id-1]);
 			    	n.setContext(Context.values()[context_id-1]);	    	    
 			    	
-					new NotificationDAOforJDBC().persist(n);
+					FactoryDAO.getNotificationDAO().persist(n);
 			     }
 			     reader.close();
 				//persist				
@@ -78,18 +78,20 @@ public class DBConnection {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
 			if (!alreadyExists){
-				String sql = "CREATE TABLE Notifications" +
-						"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
-						" kid_id         INT    			NOT NULL, " +
-						" sended         VARCHAR(20)     	NOT NULL, " +
-						" received       VARCHAR(20)     	, " +
-						" content_id     INT     			NOT NULL, " +
-						" category_id    INT, " +
-						" tag_id    INT, " +
-						" context_id     INT);"
-				+ "CREATE TABLE Tags" +
-						"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
-						" name         VARCHAR(20)     	NOT NULL);";
+				String sql = 
+					"PRAGMA foreign_keys = ON;CREATE TABLE Tags" +
+							"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
+							" name         VARCHAR(20)     	NOT NULL);" +
+					"CREATE TABLE Notifications (" +
+						"ID             INTEGER      PRIMARY KEY NOT NULL," +
+						"kid_id         INT          NOT NULL," +
+						"sended         VARCHAR(20)  NOT NULL," +
+						"received       VARCHAR(20), " +
+						"content_id     INT          NOT NULL," +
+						"category_id    INT," +
+						"tag_id         INT," +       
+						"context_id     INT," +
+						"FOREIGN KEY(tag_id) REFERENCES Tags(ID) ON DELETE SET NULL);";
 				statement.executeUpdate(sql);
 				loadData();
 			}

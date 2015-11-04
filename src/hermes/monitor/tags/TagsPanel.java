@@ -43,8 +43,8 @@ public class TagsPanel extends JPanel {
 				.at(1, row)
 				.size(1)
 				.weightX(1).weightY(1)
-				.insets(new Insets(10, 5, 10, 5))
 				.fill(GridBagConstraints.HORIZONTAL)
+				.insets(new Insets(10, 5, 10, 5))
 				.build());
 
 		if (button != null){
@@ -77,9 +77,6 @@ public class TagsPanel extends JPanel {
 			tagForRemoveComboBox.addItem(tag);
 			tagForRenameComboBox.addItem(tag);	
 		}
-		tagForAssingComboBox.repaint();
-		tagForRemoveComboBox.repaint();
-		tagForRenameComboBox.repaint();
 	}
 	
 	public TagsPanel(final NotificationsTable notificationsTable) {
@@ -132,6 +129,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(renameTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().persist(tag);
+						updateTagComboBoxes();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -145,6 +143,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(renameTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().delete(tag);
+						updateTagComboBoxes();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -161,6 +160,8 @@ public class TagsPanel extends JPanel {
 						n.setTag(tag);
 						try {
 							FactoryDAO.getNotificationDAO().persist(n);
+							updateTagComboBoxes();
+							notificationsTable.repaint();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
