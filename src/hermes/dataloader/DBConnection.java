@@ -70,12 +70,10 @@ public class DBConnection {
 			System.out.println("Opened database successfully");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
+			String sql = "PRAGMA foreign_keys = ON;";
 			if (!alreadyExists){
-				
-				String sql = 
+				sql += 
 						
-					"PRAGMA foreign_keys = ON;" +
-				
 					"CREATE TABLE Tags (" +
 						"ID           INTEGER 	     PRIMARY KEY NOT NULL," +
 						"name         VARCHAR(20)    NOT NULL" +
@@ -92,14 +90,14 @@ public class DBConnection {
 						"context_id     INT," +
 						"FOREIGN KEY(tag_id) REFERENCES Tags(ID) ON DELETE SET NULL" +
 					");";
+			}
 				
-				statement.executeUpdate(sql);
-				try {
-					loadData();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			statement.executeUpdate(sql);
+			try {
+				loadData();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			statement.close();
 

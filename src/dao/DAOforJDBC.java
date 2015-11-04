@@ -16,6 +16,9 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 		Statement st = conn.createStatement();
 		String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i);
 		ResultSet result = st.executeQuery(sql);
+		if (!result.next()){
+		    return null;
+		}
 		T n = buildFromSqlResult(result);
 		st.close();
 		return n;

@@ -2,7 +2,6 @@ package hermes.monitor.tags;
 
 import hermes.dataloader.FactoryDAO;
 import hermes.dataloader.Notification;
-import hermes.dataloader.TagDAOforJDBC;
 import hermes.enums.Tag;
 import hermes.helpers.GridBagConstraintsBuilder;
 import hermes.monitor.notifications.NotificationsTable;
@@ -112,7 +111,7 @@ public class TagsPanel extends JPanel {
 
 			JButton createButton = new JButton("Crear");
 			JButton removeButton = new JButton("Eliminar");
-			JButton assignButton = new JButton("Asignar");
+			JButton assignButton = new JButton("Asignar/Desasignar");
 			JButton renameButton = new JButton("Renombrar");
 
 			createButton.addActionListener(new ActionListener() {
@@ -163,7 +162,11 @@ public class TagsPanel extends JPanel {
 					NotificationsTableModel tableModel = (NotificationsTableModel) notificationsTable.getModel();
 					for (int x :notificationsTable.getSelectedRows()){
 						Notification n = tableModel.getNotification(notificationsTable.convertRowIndexToModel(x));
-						n.setTag(tag);
+						if (n.getTag() != null && n.getTag().equals(tag)){
+							n.setTag(null);
+						} else {
+							n.setTag(tag);
+						}
 						try {
 							FactoryDAO.getNotificationDAO().persist(n);
 							update();
