@@ -5,6 +5,7 @@ import java.util.Date;
 
 import hermes.enums.Category;
 import hermes.enums.Content;
+import hermes.enums.Context;
 import hermes.enums.Kid;
 
 public class StartAppData {
@@ -18,7 +19,9 @@ public class StartAppData {
 		n1.setCategory(Category.PREDETERMINADA);
 		n1.setContent(Content.ENTUSIASMADO);
 		n1.setDateTimeSended(new Date());
+		n1.setDateTimeReceived(new Date());
 		n1.setKid(Kid.JIMMY);
+		n1.setContext(Context.HOGAR);
 		
 		list.add(n1);
 		
@@ -26,7 +29,9 @@ public class StartAppData {
 		n2.setCategory(Category.EMOCIONES);
 		n2.setContent(Content.MOLESTO);
 		n2.setDateTimeSended(new Date());
+		n2.setDateTimeReceived(new Date());
 		n2.setKid(Kid.BATMAN);
+		n2.setContext(Context.HOGAR);
 		
 		list.add(n2);
 		
@@ -34,7 +39,9 @@ public class StartAppData {
 		n3.setCategory(Category.EMOCIONES);
 		n3.setContent(Content.MOLESTO);
 		n3.setDateTimeSended(new Date());
+		n3.setDateTimeReceived(new Date());
 		n3.setKid(Kid.ROBIN);
+		n3.setContext(Context.HOGAR);
 		
 		list.add(n3);
 		
@@ -42,12 +49,16 @@ public class StartAppData {
 		n4.setCategory(Category.PREDETERMINADA);
 		n4.setContent(Content.ALEGRE);
 		n4.setDateTimeSended(new Date());
+		n4.setDateTimeReceived(new Date());
 		n4.setKid(Kid.ROBIN);
+		n4.setContext(Context.HOGAR);
 		
 		list.add(n4);
+		
+		DBConnection.getDBConnection();
 				
 		for(Notification n: list){
-			//NotificationDAO.persist(n);
+			NotificationDAO.persist(n);
 			System.out.println(String.valueOf(n.getId()));
 		}
 		
