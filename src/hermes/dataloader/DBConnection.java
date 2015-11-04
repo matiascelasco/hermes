@@ -6,12 +6,20 @@ import hermes.enums.Context;
 import hermes.enums.Kid;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
+
+import com.opencsv.CSVReader;
 
 public class DBConnection {
 	private static Connection connection;
@@ -19,30 +27,42 @@ public class DBConnection {
 
 	private static void loadData() throws SQLException{
 
-		Random random = new Random();
-
-		System.out.println("QWEWQEQWEQWEQWEWQEWE");
-		
-		for (int i = 0; i < 50; i++){
-			Notification n = new Notification();
-			n.setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
-											   random.nextInt(12),
-											   random.nextInt(28),
-											   random.nextInt(24),
-											   random.nextInt(60),
-											   random.nextInt(60)).getTime());
-			n.setDateTimeReceived(new GregorianCalendar(2013 + random.nextInt(3),
-											   random.nextInt(12),
-											   random.nextInt(28),
-											   random.nextInt(24),
-											   random.nextInt(60),
-											   random.nextInt(60)).getTime());
-			n.setContent(Content.values()[random.nextInt(Content.values().length)]);
-			n.setContext(Context.values()[random.nextInt(Context.values().length)]);
-			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
-			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
-			FactoryDAO.getNotificationDAO().persist(n);
-		}
+		//load from CSV file
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				
+				try{
+				CSVReader reader = new CSVReader(new FileReader("hermes.csv"));
+			     String [] nextLine;
+			     while ((nextLine = reader.readNext()) != null) {
+			        //creates notification with readed data	   
+			    	Date sended;
+			    	Date received;	    	
+			    	int content_id, context_id, category_id, kid_id;
+			    	//id sended received content_id context_id, category_id, kid_id
+			    	
+			    	content_id = Integer.valueOf(nextLine[3]);
+			    	context_id = Integer.valueOf(nextLine[4]);
+			    	category_id = Integer.valueOf(nextLine[5]);
+			    	kid_id = Integer.valueOf(nextLine[6]);	    	
+			    	sended = Date.from(LocalDate.parse(nextLine[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
+			    	received = Date.from(LocalDate.parse(nextLine[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());            
+			    	
+			    	
+			    	Notification n = new Notification();
+			    	n.setDateTimeSended(sended);
+			    	n.setDateTimeReceived(received);
+			    	n.setKid(Kid.values()[kid_id-1]);
+			    	n.setContent(Content.values()[content_id-1]);
+			    	n.setCategory(Category.values()[category_id-1]);
+			    	n.setContext(Context.values()[context_id-1]);	    	    
+			    	
+					new NotificationDAOforJDBC().persist(n);
+			     }
+				//persist				
+				}
+				catch(IOException e){
+					System.out.println("error trying reading data from CSV file");
+				}		
 
 	}
 
