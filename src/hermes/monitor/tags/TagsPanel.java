@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 
+import javafx.scene.control.ComboBox;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -68,18 +70,18 @@ public class TagsPanel extends JPanel {
 	
 	final private NotificationsTable notificationsTable;
 	
-	private void update() throws SQLException{
-		List<Tag> listOfTags = FactoryDAO.getTagDAO().findAll();
-		Tag[] tags = new Tag[listOfTags.size()];
-		listOfTags.toArray(tags);
-		tagForAssingComboBox.removeAllItems();
-		tagForRemoveComboBox.removeAllItems();
-		tagForRenameComboBox.removeAllItems();
+	private void populateComboBoxWithTags(JComboBox<Tag> comboBox) throws SQLException{
+		List<Tag> tags = FactoryDAO.getTagDAO().findAll();
+		comboBox.removeAllItems();
 		for (Tag tag : tags) {
-			tagForAssingComboBox.addItem(tag);
-			tagForRemoveComboBox.addItem(tag);
-			tagForRenameComboBox.addItem(tag);	
+			comboBox.addItem(tag);	
 		}
+	}
+	
+	private void update() throws SQLException{
+		populateComboBoxWithTags(tagForAssingComboBox);
+		populateComboBoxWithTags(tagForRemoveComboBox);
+		populateComboBoxWithTags(tagForRenameComboBox);
 		((NotificationsTableModel) notificationsTable.getModel()).updateData();
 		notificationsTable.repaint();
 	}
@@ -98,99 +100,84 @@ public class TagsPanel extends JPanel {
 
 		setLayout(new GridBagLayout());
 
-		List<Tag> listOfTags;
-		try {
-			listOfTags = FactoryDAO.getTagDAO().findAll();
-			Tag[] tags = new Tag[listOfTags.size()];
-			listOfTags.toArray(tags);
-			for (Tag tag : tags) {
-				tagForAssingComboBox.addItem(tag);
-				tagForRemoveComboBox.addItem(tag);
-				tagForRenameComboBox.addItem(tag);				
+		JButton createButton = new JButton("Crear");
+		JButton removeButton = new JButton("Eliminar");
+		JButton assignButton = new JButton("Asignar/Desasignar");
+		JButton renameButton = new JButton("Renombrar");
+
+		createButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Tag tag = new Tag();
+				tag.setName(newTagNameField.getText());
+				try {
+					FactoryDAO.getTagDAO().persist(tag);
+					update();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		renameButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				Tag tag = (Tag) tagForRenameComboBox.getSelectedItem();
+				tag.setName(renameTagNameField.getText());
+				try {
+					FactoryDAO.getTagDAO().persist(tag);
+					update();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		removeButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				Tag tag = (Tag) tagForRemoveComboBox.getSelectedItem();
+				tag.setName(renameTagNameField.getText());
+				try {
+					FactoryDAO.getTagDAO().delete(tag);
+					update();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+
+		assignButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				Tag tag = (Tag) tagForAssingComboBox.getSelectedItem();
+				NotificationsTableModel tableModel = (NotificationsTableModel) notificationsTable.getModel();
+				for (int x :notificationsTable.getSelectedRows()){
+					Notification n = tableModel.getNotification(notificationsTable.convertRowIndexToModel(x));
+					if (n.getTag() != null && n.getTag().equals(tag)){
+						n.setTag(null);
+					} else {
+						n.setTag(tag);
+					}
+					try {
+						FactoryDAO.getNotificationDAO().persist(n);
+						update();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 
-			JButton createButton = new JButton("Crear");
-			JButton removeButton = new JButton("Eliminar");
-			JButton assignButton = new JButton("Asignar/Desasignar");
-			JButton renameButton = new JButton("Renombrar");
+		});
 
-			createButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					Tag tag = new Tag();
-					tag.setName(newTagNameField.getText());
-					try {
-						FactoryDAO.getTagDAO().persist(tag);
-						update();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-
-			renameButton.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					Tag tag = (Tag) tagForRenameComboBox.getSelectedItem();
-					tag.setName(renameTagNameField.getText());
-					try {
-						FactoryDAO.getTagDAO().persist(tag);
-						update();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-
-			removeButton.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					Tag tag = (Tag) tagForRemoveComboBox.getSelectedItem();
-					tag.setName(renameTagNameField.getText());
-					try {
-						FactoryDAO.getTagDAO().delete(tag);
-						update();
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				}
-			});
-
-			assignButton.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					Tag tag = (Tag) tagForAssingComboBox.getSelectedItem();
-					NotificationsTableModel tableModel = (NotificationsTableModel) notificationsTable.getModel();
-					for (int x :notificationsTable.getSelectedRows()){
-						Notification n = tableModel.getNotification(notificationsTable.convertRowIndexToModel(x));
-						if (n.getTag() != null && n.getTag().equals(tag)){
-							n.setTag(null);
-						} else {
-							n.setTag(tag);
-						}
-						try {
-							FactoryDAO.getNotificationDAO().persist(n);
-							update();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				}
-
-			});
-
-			addLabelComponentAndButton("Crear etiqueta:", newTagNameField, createButton, 0);
-			add(new JSeparator(), separatorConstrainsBuilder.y(1).build());
-			addLabelComponentAndButton("Eliminar etiqueta:", tagForRemoveComboBox, removeButton, 2);
-			add(new JSeparator(), separatorConstrainsBuilder.y(3).build());
-			addLabelComponentAndButton("Asignar/desasignar:", tagForAssingComboBox, assignButton, 4);
-			add(new JSeparator(), separatorConstrainsBuilder.y(5).build());
-			addLabelComponentAndButton("Renombrar etiqueta:", tagForRenameComboBox, null, 6);
-			addLabelComponentAndButton("Nuevo nombre:", renameTagNameField, renameButton, 7);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		addLabelComponentAndButton("Crear etiqueta:", newTagNameField, createButton, 0);
+		add(new JSeparator(), separatorConstrainsBuilder.y(1).build());
+		addLabelComponentAndButton("Eliminar etiqueta:", tagForRemoveComboBox, removeButton, 2);
+		add(new JSeparator(), separatorConstrainsBuilder.y(3).build());
+		addLabelComponentAndButton("Asignar/desasignar:", tagForAssingComboBox, assignButton, 4);
+		add(new JSeparator(), separatorConstrainsBuilder.y(5).build());
+		addLabelComponentAndButton("Renombrar etiqueta:", tagForRenameComboBox, null, 6);
+		addLabelComponentAndButton("Nuevo nombre:", renameTagNameField, renameButton, 7);
 
 	}
 
