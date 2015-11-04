@@ -9,6 +9,8 @@ import hermes.enums.Kid;
 import hermes.enums.Tag;
 
 public class Notification {
+	
+	private static int instanceNumer = 1;
 			
 	private int id;
 	private Kid kid;
@@ -19,6 +21,10 @@ public class Notification {
     private Context context;
     private Tag tag;
     
+    public Notification(){
+    	this.id = instanceNumer;
+    	instanceNumer++;
+    }
 	public int getId() {
 		return id;
 	}

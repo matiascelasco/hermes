@@ -15,8 +15,8 @@ public enum Content {
 
 	@Override
 	public String toString() {
-	       return this.description;
-	   }
+       return this.description;
+   }
 	
 	public String getDescription(){
 		return description;
