@@ -1,4 +1,6 @@
 package hermes.monitor.notifications;
+import java.util.List;
+
 import hermes.dataloader.Notification;
 
 import javax.swing.table.AbstractTableModel;
@@ -15,9 +17,9 @@ public class NotificationsTableModel extends AbstractTableModel {
 		"Etiquetas"
 	};
 	
-	private Notification[] data;
+	private List<Notification> data;
 	
-	public NotificationsTableModel(Notification[] data) {
+	public NotificationsTableModel(List<Notification> data) {
 		this.data = data;
 	}
 	
@@ -26,7 +28,7 @@ public class NotificationsTableModel extends AbstractTableModel {
     }
 	
 	public int getRowCount() {
-		return data.length;
+		return data.size();
 	}
 
 	public int getColumnCount() {
@@ -36,17 +38,17 @@ public class NotificationsTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 			case 0:
-				return (Object) data[rowIndex].getDateTimeSended();
+				return (Object) data.get(rowIndex).getDateTimeSended();
 			case 1:
-				return (Object) data[rowIndex].getContext();
+				return (Object) data.get(rowIndex).getContext();
 			case 2:
-				return (Object) data[rowIndex].getContent();
+				return (Object) data.get(rowIndex).getContent();
 			case 3:
-				return (Object) data[rowIndex].getCategory();
+				return (Object) data.get(rowIndex).getCategory();
 			case 4:
-				return (Object) data[rowIndex].getKid();
+				return (Object) data.get(rowIndex).getKid();
 			case 5:
-				return (Object) data[rowIndex].getTag();
+				return (Object) data.get(rowIndex).getTag();
 			default:
 				throw new IllegalArgumentException("columnIndex must be between 0 and 5");
 		}

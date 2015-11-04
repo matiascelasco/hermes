@@ -5,6 +5,7 @@ import hermes.dataloader.Notification;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -32,7 +33,7 @@ public class NotificationsTable extends JTable {
 	
 	private TableRowSorter<NotificationsTableModel> sorter;
 	
-	public NotificationsTable(Notification[] data) {
+	public NotificationsTable(List<Notification> data) {
 		super(new NotificationsTableModel(data));
 		sorter = new TableRowSorter<NotificationsTableModel>((NotificationsTableModel) getModel());
 		setRowSorter(sorter);

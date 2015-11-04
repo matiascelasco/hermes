@@ -1,11 +1,7 @@
 package hermes.monitor;
 import hermes.monitor.filters.FiltersPanel;
 import hermes.dataloader.Notification;
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
+import hermes.dataloader.NotificationDAO;
 import hermes.helpers.GridBagConstraintsBuilder;
 import hermes.monitor.notifications.NotificationsPanel;
 import hermes.monitor.tags.TagsPanel;
@@ -13,9 +9,10 @@ import hermes.monitor.tags.TagsPanel;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -24,29 +21,12 @@ public class MonitorFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public MonitorFrame() {
+	public MonitorFrame() throws SQLException {
 		super("Hermes Monitor");
 		
 		Container content = this.getContentPane();
 
-		Notification[] data = new Notification[50];
-		
-		Random random = new Random();
-		
-		for (int i = 0; i < 50; i++){
-			data[i] = new Notification();
-			data[i].setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
-											   random.nextInt(12),
-											   random.nextInt(28),
-											   random.nextInt(24),
-											   random.nextInt(60),
-											   random.nextInt(60)).getTime());
-			data[i].setContent(Content.values()[random.nextInt(Content.values().length)]);
-			data[i].setContext(Context.values()[random.nextInt(Context.values().length)]);
-			data[i].setCategory(Category.values()[random.nextInt(Category.values().length)]);
-			data[i].setKid(Kid.values()[random.nextInt(Kid.values().length)]);
-			data[i].setTag(Tag.values()[random.nextInt(Tag.values().length)]);
-		}
+		List<Notification> data = NotificationDAO.findAll();
 		
 		NotificationsPanel notificationsPanel = new NotificationsPanel(data);
 		
@@ -63,9 +43,13 @@ public class MonitorFrame extends JFrame {
         TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.5 en vez de 1.4)
         */
         
-        if (data.length > 0){
-        	minDate = data[0].getDateTimeSended();
-        	maxDate = data[0].getDateTimeSended();
+        if (data.isEmpty()){
+        	minDate = new GregorianCalendar().getTime();
+        	maxDate = new GregorianCalendar().getTime();
+        }
+        else {
+        	minDate = data.get(0).getDateTimeSended();
+        	maxDate = data.get(0).getDateTimeSended();
         	
         	for (Notification notification: data){
         		if (notification.getDateTimeSended().before(minDate)){
@@ -75,10 +59,6 @@ public class MonitorFrame extends JFrame {
         			maxDate = notification.getDateTimeSended();
         		}
         	}        	
-        }
-        else {
-        	minDate = new GregorianCalendar().getTime();
-        	maxDate = new GregorianCalendar().getTime();
         }
         
         content.add(new FiltersPanel(notificationsPanel.getTable(), minDate, maxDate),
