@@ -75,7 +75,7 @@ public class NotificationDAO {
 
 		Date sended = Date.from(LocalDate.parse(result.getString("sended"), formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date received = Date.from(LocalDate.parse(result.getString("received"), formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-
+		n.setId(result.getInt("ID"));
 		n.setDateTimeSended(sended);
 		n.setDateTimeReceived(received);
 		n.setCategory(Category.values()[result.getInt("category_id")]);
