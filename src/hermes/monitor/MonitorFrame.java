@@ -57,9 +57,10 @@ public class MonitorFrame extends JFrame {
         Date maxDate;
         
         /*
+        TODO: si achico el frame la tabla se descuajeringa toda
         TODO: el ordenamiento de la columna de fecha no anda
+        TODO: que los fields de fecha se actualizen automáticamente de manera tal que Desde nunca sea mayor que Hasta
         TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.5 en vez de 1.4)
-        TODO: no se como hacer que la tabla sea responsive. el problema es que en ese panel use un tipo distinto de layout
         */
         
         if (data.length > 0){
