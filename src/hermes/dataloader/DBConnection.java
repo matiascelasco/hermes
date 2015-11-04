@@ -23,45 +23,38 @@ public class DBConnection {
 	private static Connection connection;
 	private static String dbName = "hermes.db";
 
-	private static void loadData() throws SQLException{
+	private static void loadData() throws SQLException, IOException{
 
 		//load from CSV file
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-				
-				try{
-				CSVReader reader = new CSVReader(new FileReader("hermes.csv"));
-			     String [] nextLine;
-			     while ((nextLine = reader.readNext()) != null) {
-			        //creates notification with readed data	   
-			    	Date sended;
-			    	Date received;	    	
-			    	int content_id, context_id, category_id, kid_id;
-			    	//id sended received content_id context_id, category_id, kid_id
-			    	
-			    	content_id = Integer.valueOf(nextLine[3]);
-			    	context_id = Integer.valueOf(nextLine[4]);
-			    	category_id = Integer.valueOf(nextLine[5]);
-			    	kid_id = Integer.valueOf(nextLine[6]);	    	
-			    	sended = Date.from(LocalDate.parse(nextLine[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-			    	received = Date.from(LocalDate.parse(nextLine[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());            
-			    	
-			    	
-			    	Notification n = new Notification();
-			    	n.setDateTimeSended(sended);
-			    	n.setDateTimeReceived(received);
-			    	n.setKid(Kid.values()[kid_id-1]);
-			    	n.setContent(Content.values()[content_id-1]);
-			    	n.setCategory(Category.values()[category_id-1]);
-			    	n.setContext(Context.values()[context_id-1]);	    	    
-			    	
-					FactoryDAO.getNotificationDAO().persist(n);
-			     }
-			     reader.close();
-				//persist				
-				}
-				catch(IOException e){
-					System.out.println("error trying reading data from CSV file");
-				}		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		CSVReader reader = new CSVReader(new FileReader("hermes.csv"));
+		String [] nextLine;
+		while ((nextLine = reader.readNext()) != null) {
+		    //creates notification with readed data	   
+			Date sended;
+			Date received;	    	
+			int content_id, context_id, category_id, kid_id;
+			//id sended received content_id context_id, category_id, kid_id
+			
+			content_id = Integer.valueOf(nextLine[3]);
+			context_id = Integer.valueOf(nextLine[4]);
+			category_id = Integer.valueOf(nextLine[5]);
+			kid_id = Integer.valueOf(nextLine[6]);	    	
+			sended = Date.from(LocalDate.parse(nextLine[1], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
+			received = Date.from(LocalDate.parse(nextLine[2], formatter).atStartOfDay(ZoneId.systemDefault()).toInstant());            
+			
+			
+			Notification n = new Notification();
+			n.setDateTimeSended(sended);
+			n.setDateTimeReceived(received);
+			n.setKid(Kid.values()[kid_id-1]);
+			n.setContent(Content.values()[content_id-1]);
+			n.setCategory(Category.values()[category_id-1]);
+			n.setContext(Context.values()[context_id-1]);	    	    
+
+			FactoryDAO.getNotificationDAO().persist(n);
+	     }
+	     reader.close();
 
 	}
 
@@ -78,10 +71,16 @@ public class DBConnection {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // set timeout to 30 sec.
 			if (!alreadyExists){
+				
 				String sql = 
-					"PRAGMA foreign_keys = ON;CREATE TABLE Tags" +
-							"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
-							" name         VARCHAR(20)     	NOT NULL);" +
+						
+					"PRAGMA foreign_keys = ON;" +
+				
+					"CREATE TABLE Tags (" +
+						"ID           INTEGER 	     PRIMARY KEY NOT NULL," +
+						"name         VARCHAR(20)    NOT NULL" +
+					");" +
+							
 					"CREATE TABLE Notifications (" +
 						"ID             INTEGER      PRIMARY KEY NOT NULL," +
 						"kid_id         INT          NOT NULL," +
@@ -91,9 +90,16 @@ public class DBConnection {
 						"category_id    INT," +
 						"tag_id         INT," +       
 						"context_id     INT," +
-						"FOREIGN KEY(tag_id) REFERENCES Tags(ID) ON DELETE SET NULL);";
+						"FOREIGN KEY(tag_id) REFERENCES Tags(ID) ON DELETE SET NULL" +
+					");";
+				
 				statement.executeUpdate(sql);
-				loadData();
+				try {
+					loadData();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			statement.close();
 

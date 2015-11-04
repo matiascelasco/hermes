@@ -9,6 +9,7 @@ import hermes.monitor.notifications.NotificationsTable;
 import hermes.monitor.notifications.NotificationsTableModel;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -37,7 +38,9 @@ public class TagsPanel extends JPanel {
 					.size(1)
 					.weightX(1).weightY(1)
 					.build());
-
+		
+		component.setPreferredSize(new Dimension(150, 20));
+		
 		add(component,
 			new GridBagConstraintsBuilder()
 				.at(1, row)

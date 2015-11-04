@@ -32,7 +32,7 @@ public class FiltersPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private <E extends Enum<E>> void addBoxWithLabel(String labelString, Component component, int x, int y){
+	private void addBoxWithLabel(String labelString, Component component, int x, int y){
 		
 		add(new JLabel(labelString),
 			new GridBagConstraintsBuilder()
