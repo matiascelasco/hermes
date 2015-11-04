@@ -40,7 +40,7 @@ public class DBConnection {
 			n.setContext(Context.values()[random.nextInt(Context.values().length)]);
 			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
 			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
-			new NotificationDAO().persist(n);
+			new NotificationDAOforJDBC().persist(n);
 		}
 		
 	}

@@ -16,7 +16,7 @@ import java.util.List;
 
 import dao.DAOforJDBC;
 
-public class NotificationDAO extends DAOforJDBC<Notification>{
+public class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 

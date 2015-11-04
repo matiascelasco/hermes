@@ -11,7 +11,7 @@ import java.util.List;
 
 import dao.DAOforJDBC;
 
-public class TagDAO extends DAOforJDBC<Tag>{
+public class TagDAOforJDBC extends DAOforJDBC<Tag>{
 
 	@Override
 	protected String prepareValues(Tag obj) {

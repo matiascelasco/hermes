@@ -1,6 +1,6 @@
 package hermes.monitor.tags;
 
-import hermes.dataloader.TagDAO;
+import hermes.dataloader.TagDAOforJDBC;
 import hermes.enums.Tag;
 import hermes.helpers.GridBagConstraintsBuilder;
 
@@ -66,7 +66,7 @@ public class TagsPanel extends JPanel {
 		
 		setLayout(new GridBagLayout());
 		
-		TagDAO tagDao = new TagDAO();
+		TagDAOforJDBC tagDao = new TagDAOforJDBC();
 		List<Tag> listOfTags;
 		try {
 			listOfTags = tagDao.findAll();

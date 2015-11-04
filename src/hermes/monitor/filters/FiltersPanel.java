@@ -1,6 +1,6 @@
 package hermes.monitor.filters;
 
-import hermes.dataloader.TagDAO;
+import hermes.dataloader.TagDAOforJDBC;
 import hermes.enums.Category;
 import hermes.enums.Content;
 import hermes.enums.Context;
@@ -63,7 +63,7 @@ public class FiltersPanel extends JPanel {
 	{
 		List<Tag> listOfTags;
 		try {
-			listOfTags = new TagDAO().findAll();
+			listOfTags = new TagDAOforJDBC().findAll();
 			Tag[] tags = new Tag[listOfTags.size()];
 			listOfTags.toArray(tags);
 			tagComboBox = new JComboBox<Tag>(tags);

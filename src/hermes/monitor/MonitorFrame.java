@@ -1,7 +1,7 @@
 package hermes.monitor;
 import hermes.monitor.filters.FiltersPanel;
 import hermes.dataloader.Notification;
-import hermes.dataloader.NotificationDAO;
+import hermes.dataloader.NotificationDAOforJDBC;
 import hermes.helpers.GridBagConstraintsBuilder;
 import hermes.monitor.notifications.NotificationsPanel;
 import hermes.monitor.tags.TagsPanel;
@@ -26,7 +26,7 @@ public class MonitorFrame extends JFrame {
 		
 		Container content = this.getContentPane();
 
-		List<Notification> data = new NotificationDAO().findAll();
+		List<Notification> data = new NotificationDAOforJDBC().findAll();
 		
 		NotificationsPanel notificationsPanel = new NotificationsPanel(data);
 		
