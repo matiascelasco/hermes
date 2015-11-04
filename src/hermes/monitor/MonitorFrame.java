@@ -35,7 +35,7 @@ public class MonitorFrame extends JFrame {
 		
 		for (int i = 0; i < 50; i++){
 			data[i] = new Notification();
-			data[i].setFechaHoraEnvio(new GregorianCalendar(2013 + random.nextInt(3),
+			data[i].setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
 											   random.nextInt(12),
 											   random.nextInt(28),
 											   random.nextInt(24),
@@ -63,15 +63,15 @@ public class MonitorFrame extends JFrame {
         */
         
         if (data.length > 0){
-        	minDate = data[0].getFechaHoraEnvio();
-        	maxDate = data[0].getFechaHoraEnvio();
+        	minDate = data[0].getDateTimeSended();
+        	maxDate = data[0].getDateTimeSended();
         	
         	for (Notification notification: data){
-        		if (notification.getFechaHoraEnvio().before(minDate)){
-        			minDate = notification.getFechaHoraEnvio();
+        		if (notification.getDateTimeSended().before(minDate)){
+        			minDate = notification.getDateTimeSended();
         		}
-        		if (notification.getFechaHoraEnvio().after(maxDate)){
-        			maxDate = notification.getFechaHoraEnvio();
+        		if (notification.getDateTimeSended().after(maxDate)){
+        			maxDate = notification.getDateTimeSended();
         		}
         	}        	
         }

@@ -36,7 +36,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 			case 0:
-				return (Object) data[rowIndex].getFechaHoraEnvio();
+				return (Object) data[rowIndex].getDateTimeSended();
 			case 1:
 				return (Object) data[rowIndex].getContext();
 			case 2:
