@@ -8,24 +8,21 @@ import hermes.enums.Context;
 import hermes.enums.Kid;
 
 public class Notification {
-	
-	private static int instanceNumber = 1;
-	
+			
 	private int id;
 	private Kid kid;
     private Date dateTimeSended;
     private Date dateTimeReceived;
     private Content content;
     private Category category; 
-    private Context context;   
-    
-    public Notification(){
-    	this.id = instanceNumber;
-    	instanceNumber++;
-    }
+    private Context context;        
     
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id){
+		this.id = id;
 	}
 	
 	public Kid getKid() {

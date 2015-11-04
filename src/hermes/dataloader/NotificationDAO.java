@@ -9,7 +9,7 @@ public class NotificationDAO {
 	public static void persist(Notification n){
 		Connection conn =  DBConnection.getDBConnection();
 		//prepare "values" part of script 
-		String values = String.valueOf(n.getId()) +","+ //id notification
+		String values = "null,"+/* String.valueOf(n.getId()) +","+ *///id notification
 				        String.valueOf(n.getKid().getId())+","+ //kid_id
 				        "\'"+n.getKid().getName()+"\'"+","+ //kid_name
 						"\'"+String.valueOf(n.getDateTimeSended())+"\'"+","+

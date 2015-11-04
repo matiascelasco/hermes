@@ -21,7 +21,7 @@ public class DBConnection {
 			   System.out.println("Drop notifications table if exists");
 			   
 			   String sql = "CREATE TABLE Notifications " +
-					   		"(ID 			 INT 	PRIMARY KEY NOT NULL," +
+					   		"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
 					   		" kid_id         INT    			NOT NULL, " + 
 					   		" kid       	 VARCHAR(50)     	NOT NULL, " + 
 					   		" sended         VARCHAR(20)     	NOT NULL, " +
