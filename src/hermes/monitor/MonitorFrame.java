@@ -1,7 +1,7 @@
 package hermes.monitor;
 import hermes.monitor.filters.FiltersPanel;
+import hermes.dataloader.FactoryDAO;
 import hermes.dataloader.Notification;
-import hermes.dataloader.NotificationDAOforJDBC;
 import hermes.helpers.GridBagConstraintsBuilder;
 import hermes.monitor.notifications.NotificationsPanel;
 import hermes.monitor.tags.TagsPanel;
@@ -23,26 +23,26 @@ public class MonitorFrame extends JFrame {
 
 	public MonitorFrame() throws SQLException {
 		super("Hermes Monitor");
-		
+
 		Container content = this.getContentPane();
 
-		List<Notification> data = new NotificationDAOforJDBC().findAll();
-		
+		List<Notification> data = FactoryDAO.getNotificationDAO().findAll();
+
 		NotificationsPanel notificationsPanel = new NotificationsPanel(data);
-		
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         content.setLayout(new GridBagLayout());
 
         Date minDate;
         Date maxDate;
-        
+
         /*
         TODO: si achico el frame la tabla se descuajeringa toda
         TODO: el ordenamiento de la columna de fecha no anda
         TODO: que los fields de fecha se actualizen automáticamente de manera tal que Desde nunca sea mayor que Hasta
         TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.5 en vez de 1.4)
         */
-        
+
         if (data.isEmpty()){
         	minDate = new GregorianCalendar().getTime();
         	maxDate = new GregorianCalendar().getTime();
@@ -50,7 +50,7 @@ public class MonitorFrame extends JFrame {
         else {
         	minDate = data.get(0).getDateTimeSended();
         	maxDate = data.get(0).getDateTimeSended();
-        	
+
         	for (Notification notification: data){
         		if (notification.getDateTimeSended().before(minDate)){
         			minDate = notification.getDateTimeSended();
@@ -58,23 +58,23 @@ public class MonitorFrame extends JFrame {
         		if (notification.getDateTimeSended().after(maxDate)){
         			maxDate = notification.getDateTimeSended();
         		}
-        	}        	
+        	}
         }
-        
+
         content.add(new FiltersPanel(notificationsPanel.getTable(), minDate, maxDate),
         			new GridBagConstraintsBuilder()
         				.at(0, 0).size(1)
         				.weightX(1).weightY(1)
         				.fill(GridBagConstraints.BOTH)
         				.build());
-        
-        content.add(new TagsPanel(),
+
+        content.add(new TagsPanel(notificationsPanel.getTable()),
         			new GridBagConstraintsBuilder()
         				.at(1, 0).size(1)
         				.weightX(1).weightY(1)
         				.fill(GridBagConstraints.BOTH)
         				.build());
-        
+
         content.add(notificationsPanel,
         			new GridBagConstraintsBuilder()
         				.at(0, 1)
@@ -83,5 +83,5 @@ public class MonitorFrame extends JFrame {
         				.fill(GridBagConstraints.BOTH)
         				.build());
 	}
-	
+
 }

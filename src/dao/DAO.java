@@ -11,7 +11,7 @@ public interface DAO<T> {
 
 	 public void persist(T obj) throws SQLException;
 	 
-//	 void delete(T obj);
+	 void delete(T obj) throws SQLException;
 
 //	 void deleteAll();
 	 

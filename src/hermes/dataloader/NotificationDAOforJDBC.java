@@ -62,7 +62,26 @@ public class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setContext(Context.values()[result.getInt("context_id")]);
 		n.setContent(Content.values()[result.getInt("content_id")]);
 		n.setKid(Kid.values()[result.getInt("kid_id")]);
+//		n.setTag(FactoryDAO.getTagDAO().retrieve(result.getInt("kid_id")));
 		return n;
+	}
+
+	@Override
+	protected String prepareWhere(Notification obj) {
+		return String.format("ID = %d", obj.getId());
+	}
+
+	@Override
+	protected String prepareForUpdate(Notification obj) {
+		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d, tag_id = %s",
+			formatter.format(obj.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
+			formatter.format(obj.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
+			obj.getContent().ordinal(),
+			obj.getContext().ordinal(),
+			obj.getCategory().ordinal(),
+			obj.getKid().ordinal(),
+			obj.getTag() == null ? "null": String.valueOf(obj.getTag().getId())
+		);
 	}
 
 }

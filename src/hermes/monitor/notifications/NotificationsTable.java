@@ -26,7 +26,7 @@ public class NotificationsTable extends JTable {
 		public void setValue(Object value) {
 			Date date = (Date) value;
 			setText(dateFormatter.format(date.getTime()));
-		}		
+		}
 	}
 	
 	private static TableCellRenderer dateTimeRenderer = new DateTimeCellRenderer();

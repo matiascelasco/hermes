@@ -35,6 +35,10 @@ public class NotificationsTableModel extends AbstractTableModel {
 		return columnNames.length;
 	}
 
+	public Notification getNotification(int rowIndex){
+		return data.get(rowIndex);
+	}
+	
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 			case 0:

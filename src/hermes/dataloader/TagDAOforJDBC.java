@@ -15,7 +15,7 @@ public class TagDAOforJDBC extends DAOforJDBC<Tag>{
 
 	@Override
 	protected String prepareValues(Tag obj) {
-		return obj.getName();
+		return String.format("'%s'", obj.getName());
 	}
 
 	@Override
@@ -36,6 +36,16 @@ public class TagDAOforJDBC extends DAOforJDBC<Tag>{
 		tag.setId(result.getInt("ID"));
 		tag.setName(result.getString("name"));
 		return tag;
+	}
+
+	@Override
+	protected String prepareWhere(Tag obj) {
+		return String.format("ID = %d", obj.getId());
+	}
+
+	@Override
+	protected String prepareForUpdate(Tag obj) {
+		return String.format("name = '%s'", obj.getName());
 	}
 
 	

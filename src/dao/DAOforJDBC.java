@@ -1,7 +1,6 @@
 package dao;
 
 import hermes.dataloader.DBConnection;
-import hermes.enums.Tag;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +14,9 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 	public T retrieve(long i) throws SQLException {
 		Connection conn =  DBConnection.getDBConnection();
 		Statement st = conn.createStatement();
-		ResultSet result = st.executeQuery(String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i));		
+		String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i);
+		ResultSet result = st.executeQuery(sql);
+		System.out.println(sql);
 		T n = buildFromSqlResult(result);
 		st.close();
 		return n;
@@ -35,15 +36,40 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 
 	public void persist(T obj) throws SQLException {
 		Connection conn =  DBConnection.getDBConnection();
+		String sql;
+		if (exists(obj)){
+			System.out.println("esiste");
+			sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
+		} else {
+			System.out.println("no esiste");
+			String fields = String.join(",", getFieldNames());
+			sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));			
+		}
+		Statement st = conn.createStatement();
+		st.executeUpdate(sql);
+		
 
-		String fields = String.join(",", getFieldNames());
-
-		String sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
-
+	}
+	
+	public boolean exists(T obj) throws SQLException{
+		Connection conn =  DBConnection.getDBConnection();
+		String sql;
+		sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));			
+		Statement st = conn.createStatement();
+		System.out.println(sql);
+		return st.executeQuery(sql).next();
+	}
+	
+	public void delete(T obj) throws SQLException{
+		Connection conn =  DBConnection.getDBConnection();
+		String sql;
+		sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));			
 		Statement st = conn.createStatement();
 		st.executeUpdate(sql);
 	}
 	
+	protected abstract String prepareWhere(T obj);
+	protected abstract String prepareForUpdate(T obj);
 	protected abstract String prepareValues(T obj);
 	protected abstract List<String> getFieldNames();
 	protected abstract String getTableName();
