@@ -12,28 +12,31 @@ public class DBConnection {
 		   try {
 			   Class.forName("org.sqlite.JDBC");
 			   connection = DriverManager.getConnection("jdbc:sqlite:hermes.db");
-			   connection.setAutoCommit(false);
+			   connection.setAutoCommit(true);
 			   
 			   System.out.println("Opened database successfully");
 			   Statement statement = connection.createStatement();
-			   statement.setQueryTimeout(30);  // set timeout to 30 sec.
-			   statement.executeUpdate("drop table if exists notifications");
+			   
+			   statement.executeUpdate("drop table if exists Notifications");
 			   System.out.println("Drop notifications table if exists");
 			   
-			   String sql = "CREATE TABLE Notifications " +
+			   String sql = "CREATE TABLE Notifications" +
 					   		"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
-					   		" kid_id         INT    			NOT NULL, " + 
-					   		" kid       	 VARCHAR(50)     	NOT NULL, " + 
-					   		" sended         VARCHAR(20)     	NOT NULL, " +
-					   		" received       VARCHAR(20)     	, " +
-					   		" content_id     INT     			NOT NULL, " +
-					   		" content        VARCHAR(50), " +
-					   		" category_id    INT, " +
-					   		" category       VARCHAR(50), " +
-					   		" context_id     INT, " +
-					   		" context        VARCHAR(50)) ";					   						   	
+					   		" kid_id         INTEGER    			NOT NULL, " + 
+					   		" kid       	 TEXT     	NOT NULL, " + 
+					   		" sended         TEXT     	NOT NULL, " +
+					   		" received       TEXT     	, " +
+					   		" content_id     INTEGER     			NOT NULL, " +
+					   		" content        TEXT, " +
+					   		" category_id    INTEGER, " +
+					   		" category       TEXT, " +
+					   		" context_id     INTEGER, " +
+					   		" context        TEXT); ";	
+			   System.out.println(sql);
 			   statement.executeUpdate(sql);
-			   System.out.println("Creation of notification table");			   
+			   statement.close();		   
+			   
+			   System.out.println("Creation of notifications table");			   
 		   } catch ( Exception e ) {
 			   System.err.println( "something went wrong: "+e.getClass().getName() + ": " + e.getMessage() );	    
 		   }		   
