@@ -1,5 +1,6 @@
 package hermes.monitor.filters;
 
+import hermes.dataloader.TagDAO;
 import hermes.enums.Category;
 import hermes.enums.Content;
 import hermes.enums.Context;
@@ -14,7 +15,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -56,7 +59,19 @@ public class FiltersPanel extends JPanel {
 	private JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
 	private JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
 	private JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
-	private JComboBox<Tag> tagComboBox = new JComboBox<Tag>(Tag.values());
+	private JComboBox<Tag> tagComboBox;
+	{
+		List<Tag> listOfTags;
+		try {
+			listOfTags = new TagDAO().findAll();
+			Tag[] tags = new Tag[listOfTags.size()];
+			listOfTags.toArray(tags);
+			tagComboBox = new JComboBox<Tag>(tags);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private Date minDate;
 	private Date maxDate;
 	

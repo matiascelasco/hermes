@@ -1,5 +1,6 @@
 package hermes.monitor.tags;
 
+import hermes.dataloader.TagDAO;
 import hermes.enums.Tag;
 import hermes.helpers.GridBagConstraintsBuilder;
 
@@ -7,6 +8,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -63,14 +66,25 @@ public class TagsPanel extends JPanel {
 		
 		setLayout(new GridBagLayout());
 		
-		addLabelComponentAndButton("Crear etiqueta:", new JTextField(), "Crear", 0);
-		add(new JSeparator(), separatorConstrainsBuilder.y(1).build());
-		addLabelComponentAndButton("Eliminar etiqueta:", new JComboBox<Tag>(Tag.values()), "Eliminar", 2);
-		add(new JSeparator(), separatorConstrainsBuilder.y(3).build());
-		addLabelComponentAndButton("Asignar/desasignar:", new JComboBox<Tag>(Tag.values()), "Asignar", 4);
-		add(new JSeparator(), separatorConstrainsBuilder.y(5).build());
-		addLabelComponentAndButton("Renombrar etiqueta:", new JComboBox<Tag>(Tag.values()), null, 6);
-		addLabelComponentAndButton("Nuevo nombre:", new JTextField(), "Renombrar", 7);
+		TagDAO tagDao = new TagDAO();
+		List<Tag> listOfTags;
+		try {
+			listOfTags = tagDao.findAll();
+			Tag[] tags = new Tag[listOfTags.size()];
+			listOfTags.toArray(tags);
+			
+			addLabelComponentAndButton("Crear etiqueta:", new JTextField(), "Crear", 0);
+			add(new JSeparator(), separatorConstrainsBuilder.y(1).build());
+			addLabelComponentAndButton("Eliminar etiqueta:", new JComboBox<Tag>(tags), "Eliminar", 2);
+			add(new JSeparator(), separatorConstrainsBuilder.y(3).build());
+			addLabelComponentAndButton("Asignar/desasignar:", new JComboBox<Tag>(tags), "Asignar", 4);
+			add(new JSeparator(), separatorConstrainsBuilder.y(5).build());
+			addLabelComponentAndButton("Renombrar etiqueta:", new JComboBox<Tag>(tags), null, 6);
+			addLabelComponentAndButton("Nuevo nombre:", new JTextField(), "Renombrar", 7);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 	

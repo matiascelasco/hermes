@@ -40,8 +40,7 @@ public class DBConnection {
 			n.setContext(Context.values()[random.nextInt(Context.values().length)]);
 			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
 			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
-			n.setTag(Tag.values()[random.nextInt(Tag.values().length)]);
-			NotificationDAO.persist(n);
+			new NotificationDAO().persist(n);
 		}
 		
 	}
@@ -66,7 +65,10 @@ public class DBConnection {
 						" received       VARCHAR(20)     	, " +
 						" content_id     INT     			NOT NULL, " +
 						" category_id    INT, " +
-						" context_id     INT) ";					   						   	
+						" context_id     INT);"
+				+ "CREATE TABLE Tags" +
+						"(ID 			 INTEGER 	PRIMARY KEY NOT NULL," +
+						" name         VARCHAR(20)     	NOT NULL);";
 				statement.executeUpdate(sql);
 				loadData();				
 			}

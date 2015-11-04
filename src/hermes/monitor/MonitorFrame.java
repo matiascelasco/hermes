@@ -26,7 +26,7 @@ public class MonitorFrame extends JFrame {
 		
 		Container content = this.getContentPane();
 
-		List<Notification> data = NotificationDAO.findAll();
+		List<Notification> data = new NotificationDAO().findAll();
 		
 		NotificationsPanel notificationsPanel = new NotificationsPanel(data);
 		
