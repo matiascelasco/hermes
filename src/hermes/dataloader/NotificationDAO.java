@@ -49,12 +49,19 @@ public class NotificationDAO {
 		st.executeUpdate(sql);
 	}
 
-	public static Notification retrieve(int id){
-		return null;
+	public static Notification retrieve(int id) throws SQLException{
+		//retrieve a notification with identifier ID = id		
+		Connection conn =  DBConnection.getDBConnection();
+		Statement st = conn.createStatement();
+		ResultSet result = st.executeQuery("SELECT * FROM Notifications WHERE (ID = "+String.valueOf(id)+");");		
+		Notification n = buildNotificationFromSqlResult(result);		
+		st.close();
+		return n;
 	}
 
 	public static void delete(Notification n){
 		//delete from database
+		
 	}
 
 	public static List<Notification> findAll() throws SQLException{
