@@ -58,6 +58,30 @@ public class TagsPanel extends JPanel {
 		}
 	}
 
+	final private JTextField newTagNameField = new JTextField();;
+	final private JTextField renameTagNameField = new JTextField();;
+	final private JComboBox<Tag> tagForRemoveComboBox = new JComboBox<Tag>();
+	final private JComboBox<Tag> tagForAssingComboBox = new JComboBox<Tag>();
+	final private JComboBox<Tag> tagForRenameComboBox = new JComboBox<Tag>();
+	
+	private void updateTagComboBoxes() throws SQLException{
+		TagDAOforJDBC tagDao = new TagDAOforJDBC();
+		List<Tag> listOfTags = tagDao.findAll();
+		Tag[] tags = new Tag[listOfTags.size()];
+		listOfTags.toArray(tags);
+		tagForAssingComboBox.removeAllItems();
+		tagForRemoveComboBox.removeAllItems();
+		tagForRenameComboBox.removeAllItems();
+		for (Tag tag : tags) {
+			tagForAssingComboBox.addItem(tag);
+			tagForRemoveComboBox.addItem(tag);
+			tagForRenameComboBox.addItem(tag);	
+		}
+		tagForAssingComboBox.repaint();
+		tagForRemoveComboBox.repaint();
+		tagForRenameComboBox.repaint();
+	}
+	
 	public TagsPanel(final NotificationsTable notificationsTable) {
 		GridBagConstraintsBuilder separatorConstrainsBuilder =
 			new GridBagConstraintsBuilder()
@@ -77,12 +101,11 @@ public class TagsPanel extends JPanel {
 			listOfTags = tagDao.findAll();
 			Tag[] tags = new Tag[listOfTags.size()];
 			listOfTags.toArray(tags);
-
-			final JTextField newTagNameField = new JTextField();
-			final JTextField renameTagNameField = new JTextField();
-			final JComboBox<Tag> tagForRemoveComboBox = new JComboBox<Tag>(tags);
-			final JComboBox<Tag> tagForAssingComboBox = new JComboBox<Tag>(tags);
-			final JComboBox<Tag> tagForRenameComboBox = new JComboBox<Tag>(tags);
+			for (Tag tag : tags) {
+				tagForAssingComboBox.addItem(tag);
+				tagForRemoveComboBox.addItem(tag);
+				tagForRenameComboBox.addItem(tag);				
+			}
 
 			JButton createButton = new JButton("Crear");
 			JButton removeButton = new JButton("Eliminar");
@@ -95,6 +118,7 @@ public class TagsPanel extends JPanel {
 					tag.setName(newTagNameField.getText());
 					try {
 						FactoryDAO.getTagDAO().persist(tag);
+						updateTagComboBoxes();
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
