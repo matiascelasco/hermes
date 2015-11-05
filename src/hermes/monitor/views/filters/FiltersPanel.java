@@ -1,21 +1,22 @@
-package hermes.monitor.filters;
+package hermes.monitor.views.filters;
 
 import hermes.data.Tag;
 import hermes.data.enums.Category;
 import hermes.data.enums.Content;
 import hermes.data.enums.Context;
 import hermes.data.enums.Kid;
-import hermes.helpers.GridBagConstraintsBuilder;
-import hermes.monitor.TagsComboBox;
-import hermes.monitor.notifications.NotificationsTable;
+import hermes.monitor.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.helpers.TagsComboBox;
+import hermes.monitor.views.notifications.NotificationsTable;
+import hermes.monitor.views.notifications.NotificationsTableModel;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.RowFilter;
 import javax.swing.SpinnerDateModel;
 
 
@@ -57,60 +59,22 @@ public class FiltersPanel extends JPanel {
 	private JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
 	private JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
 	private JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
-	private TagsComboBox tagsComboBox = new TagsComboBox();
+	private TagsComboBox tagsComboBox;
 	private Date minDate;
 	private Date maxDate;
+
 	
-	private void clear(){
-		fromDateTimeSpinner.setValue(minDate);
-		toDateTimeSpinner.setValue(maxDate);
-		contextComboBox.setSelectedIndex(-1);
-		contentComboBox.setSelectedIndex(-1);
-		categoryComboBox.setSelectedIndex(-1);
-		kidComboBox.setSelectedIndex(-1);
-		tagsComboBox.setSelectedIndex(-1);
-	}
+	private JButton filterButton = new JButton("Filtrar");
+	private JButton clearButton = new JButton("Limpiar");
 	
-	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate) {
+	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate, List<Tag> tags) {
 		this.minDate = minDate;
 		this.maxDate = maxDate;
 		setBorder(BorderFactory.createTitledBorder("Filtros"));
 		setLayout(new GridBagLayout());
 
-		clear();
-		
-		JButton filterButton = new JButton("Filtrar");
-		filterButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Date fromDate = (Date) fromDateTimeSpinner.getValue();
-				Date toDate = (Date) toDateTimeSpinner.getValue();
-				Context context = (Context) contextComboBox.getSelectedItem();
-				Content content = (Content) contentComboBox.getSelectedItem();
-				Category category = (Category) categoryComboBox.getSelectedItem();
-				Kid kid = (Kid) kidComboBox.getSelectedItem();
-				Tag tag = (Tag) tagsComboBox.getSelectedItem();
-				
-				NotificationRowFilterBuilder filterBuilder = 
-						new NotificationRowFilterBuilder()
-							.fromDate(fromDate)
-							.toDate(toDate)
-							.context(context)
-							.content(content)
-							.category(category)
-							.kid(kid)
-							.tag(tag);
-				
-				notificationsTable.setFilter(filterBuilder.build());
-			}
-		});
-		
-		JButton clearButton = new JButton("Limpiar");
-		clearButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clear();
-			}
-		});
-		
+		tagsComboBox = new TagsComboBox(tags);
+		clearFiltersForm();
 		
 		addBoxWithLabel("Contenido: ", contentComboBox, 0, 0);
 		addBoxWithLabel("Context: ", contextComboBox, 2, 0);
@@ -135,6 +99,51 @@ public class FiltersPanel extends JPanel {
 				.fill(GridBagConstraints.HORIZONTAL)
 				.insets(new Insets(5, 0, 5, 70))
 				.build());
+	}
+
+	public void clearFiltersForm(){
+		fromDateTimeSpinner.setValue(minDate);
+		toDateTimeSpinner.setValue(maxDate);
+		contextComboBox.setSelectedIndex(-1);
+		contentComboBox.setSelectedIndex(-1);
+		categoryComboBox.setSelectedIndex(-1);
+		kidComboBox.setSelectedIndex(-1);
+		tagsComboBox.setSelectedIndex(-1);
+	}
+	
+	public void updateTagComboBox(List<Tag> tags) {
+		tagsComboBox.updateContent(tags);
+	}
+
+	public  RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
+		
+		Date fromDate = (Date) fromDateTimeSpinner.getValue();
+		Date toDate = (Date) toDateTimeSpinner.getValue();
+		Context context = (Context) contextComboBox.getSelectedItem();
+		Content content = (Content) contentComboBox.getSelectedItem();
+		Category category = (Category) categoryComboBox.getSelectedItem();
+		Kid kid = (Kid) kidComboBox.getSelectedItem();
+		Tag tag = (Tag) tagsComboBox.getSelectedItem();
+		
+		NotificationRowFilterBuilder filterBuilder = 
+				new NotificationRowFilterBuilder()
+					.fromDate(fromDate)
+					.toDate(toDate)
+					.context(context)
+					.content(content)
+					.category(category)
+					.kid(kid)
+					.tag(tag);
+		
+		return filterBuilder.build();
+	}
+
+	public void addFilterButtonPressedListener(ActionListener listener) {
+		filterButton.addActionListener(listener);
+	}
+	
+	public void addClearButtonPressedListener(ActionListener listener) {
+		clearButton.addActionListener(listener);
 	}
 	
 }

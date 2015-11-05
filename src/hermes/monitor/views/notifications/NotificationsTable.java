@@ -1,4 +1,4 @@
-package hermes.monitor.notifications;
+package hermes.monitor.views.notifications;
 
 import hermes.data.Notification;
 

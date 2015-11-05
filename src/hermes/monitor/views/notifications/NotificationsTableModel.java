@@ -1,5 +1,4 @@
-package hermes.monitor.notifications;
-import java.sql.SQLException;
+package hermes.monitor.views.notifications;
 import java.util.List;
 
 import hermes.data.Notification;
@@ -22,6 +21,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 	
 	public NotificationsTableModel(List<Notification> data) {
 		this.data = data;
+		this.data.sort(Notification.byIdComparator);
 	}
 	
 	public String getColumnName(int col) {
@@ -59,14 +59,33 @@ public class NotificationsTableModel extends AbstractTableModel {
 		}
 	}
 	
-	public void updateData(){
-		try {
-			for (Notification n : data) {
-				n.refresh();
+	public void updateData(List<Notification> updatedOnes){
+		
+		if (updatedOnes.size() != data.size()){
+			throw new RuntimeException(
+				"Something is wrong: when trying to update the JTable with the views, " +
+				"the sizes of both updated and old list of notifications differs. " +
+				"That don't makes sense since we are not performing any notifications CRUD " +
+				"(except for updates)."
+			);
+		}
+		
+		for (int i = 0; i < updatedOnes.size(); i++){
+			Notification oldOne = data.get(i);
+			Notification updatedOne = updatedOnes.get(i);
+			
+			if (oldOne.getId() != updatedOne.getId()){
+				throw new RuntimeException("List of updated notifications given is supposed to be sorted by id");
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			oldOne.setTag(updatedOne.getTag());
+			oldOne.setContext(updatedOne.getContext());
+			oldOne.setContent(updatedOne.getContent());
+			oldOne.setCategory(updatedOne.getCategory());
+			oldOne.setKid(updatedOne.getKid());
+			oldOne.setDateTimeReceived(updatedOne.getDateTimeReceived());
+			oldOne.setDateTimeSended(updatedOne.getDateTimeSended());
+			
 		}
 	}
 

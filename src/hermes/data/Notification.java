@@ -1,15 +1,23 @@
 package hermes.data;
 
-import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Date;
 
-import hermes.data.dao.FactoryDAO;
 import hermes.data.enums.Category;
 import hermes.data.enums.Content;
 import hermes.data.enums.Context;
 import hermes.data.enums.Kid;
 
 public class Notification {
+	
+	public static Comparator<Notification> byIdComparator = new Comparator<Notification>() {
+		@Override
+	    public int compare(Notification n1, Notification n2){
+			Integer id1 = n1.getId();
+			Integer id2 = n2.getId();
+			return id1.compareTo(id2);
+		}
+	};
 	
 	private int id;
 	private Kid kid;
@@ -75,15 +83,11 @@ public class Notification {
 		this.tag = tag;
 	}
 
-	public void refresh() throws SQLException {
-		Notification newVersion = FactoryDAO.getNotificationDAO().retrieve(id);
-		tag = newVersion.getTag();
-		context = newVersion.getContext();
-		content = newVersion.getContent();
-		category = newVersion.getCategory();
-		kid = newVersion.getKid();
-		dateTimeReceived = newVersion.getDateTimeReceived();
-		dateTimeSended = newVersion.getDateTimeSended();
-	} 
+	public boolean hasTag(Tag tag) {
+		if (this.tag == null){
+			return tag == null;
+		}
+		return this.tag.getId() == tag.getId();
+	}
 
 }

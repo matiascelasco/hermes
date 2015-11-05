@@ -1,11 +1,11 @@
-package hermes.monitor.filters;
+package hermes.monitor.views.filters;
 
 import hermes.data.Tag;
 import hermes.data.enums.Category;
 import hermes.data.enums.Content;
 import hermes.data.enums.Context;
 import hermes.data.enums.Kid;
-import hermes.monitor.notifications.NotificationsTableModel;
+import hermes.monitor.views.notifications.NotificationsTableModel;
 
 import java.util.ArrayList;
 import java.util.Date;

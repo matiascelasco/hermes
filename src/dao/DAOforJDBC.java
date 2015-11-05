@@ -11,60 +11,79 @@ import java.util.List;
 
 public abstract class DAOforJDBC<T> implements DAO<T> {
 
-	public T retrieve(long i) throws SQLException {
-		Connection conn =  DBConnection.getDBConnection();
-		Statement st = conn.createStatement();
-		String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i);
-		ResultSet result = st.executeQuery(sql);
-		if (!result.next()){
-		    return null;
+	public T retrieve(long i){
+		try {
+			Connection conn;
+			conn = DBConnection.getDBConnection();
+			Statement st = conn.createStatement();
+			String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i);
+			ResultSet result = st.executeQuery(sql);
+			if (!result.next()){
+			    return null;
+			}
+			T n = buildFromSqlResult(result);
+			st.close();
+			return n;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-		T n = buildFromSqlResult(result);
-		st.close();
-		return n;
 	}
 
-	public List<T> findAll() throws SQLException {
-		Connection conn =  DBConnection.getDBConnection();
-		Statement st = conn.createStatement();
-		ResultSet result = st.executeQuery(String.format("SELECT * FROM %s;", getTableName()));
-		List<T> objects = new ArrayList<T>();
-		while (result.next()){
-			objects.add(buildFromSqlResult(result));
+	public List<T> findAll(){
+		try {
+			Connection conn =  DBConnection.getDBConnection();
+			Statement st = conn.createStatement();
+			ResultSet result = st.executeQuery(String.format("SELECT * FROM %s;", getTableName()));
+			List<T> objects = new ArrayList<T>();
+			while (result.next()){
+				objects.add(buildFromSqlResult(result));
+			}
+			st.close();
+			return objects;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-		st.close();
-		return objects;
 	}
 
-	public void persist(T obj) throws SQLException {
-		Connection conn =  DBConnection.getDBConnection();
-		String sql;
-		if (exists(obj)){
-			sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
-		} else {
-			String fields = String.join(",", getFieldNames());
-			sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
+	public void persist(T obj){
+		try{
+			Connection conn =  DBConnection.getDBConnection();
+			String sql;
+			if (exists(obj)){
+				sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
+			} else {
+				String fields = String.join(",", getFieldNames());
+				sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
+			}
+			Statement st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-		Statement st = conn.createStatement();
-		st.executeUpdate(sql);
-
-
 	}
 
-	public boolean exists(T obj) throws SQLException{
-		Connection conn =  DBConnection.getDBConnection();
-		String sql;
-		sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
-		Statement st = conn.createStatement();
-		return st.executeQuery(sql).next();
+	public boolean exists(T obj){
+		try{
+			Connection conn =  DBConnection.getDBConnection();
+			String sql;
+			sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
+			Statement st = conn.createStatement();
+			return st.executeQuery(sql).next();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	public void delete(T obj) throws SQLException{
-		Connection conn =  DBConnection.getDBConnection();
-		String sql;
-		sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
-		Statement st = conn.createStatement();
-		st.executeUpdate(sql);
+	public void delete(T obj){
+		try{
+			Connection conn =  DBConnection.getDBConnection();
+			String sql;
+			sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
+			Statement st = conn.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	protected abstract String prepareWhere(T obj);
