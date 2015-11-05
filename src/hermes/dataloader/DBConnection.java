@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,8 +33,8 @@ public class DBConnection {
 	
 	private static void loadData(String path) throws SQLException, NumberFormatException, IOException{
 		
-		//load from CSV file								
-		CSVReader reader = new CSVReader(new FileReader(path + "/" + "hermes.csv"));
+		//load from CSV file		
+		CSVReader reader = new CSVReader(new FileReader(path+"/"+"hermes.csv"));
 		String [] nextLine;
 		while ((nextLine = reader.readNext()) != null) {
 		    //creates notification with readed data	   
