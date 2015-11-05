@@ -10,7 +10,7 @@ import hermes.monitor.view.View;
 //TODO: la relación entre tags y notifications debería ser many to many
 //TODO: ver si se puede usar las fechas que hay en java.time en vez de las de utils en el combo box
 //TODO: centralizar toda la mierda de la conversión de fechas a string en un solo punto
-//TODO: no andan los filtrados por contenido ni contexto
+//TODO: no anda el asignar tag
 
 public class Main {
 

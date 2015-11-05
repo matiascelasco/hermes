@@ -3,7 +3,12 @@ import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
 import hermes.model.dao.FactoryDAO;
+import hermes.model.enums.Category;
+import hermes.model.enums.Content;
+import hermes.model.enums.Context;
+import hermes.model.enums.Kid;
 import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.view.helpers.NotificationRowFilterBuilder;
 import hermes.monitor.view.helpers.NotificationsTableModel;
 
 import java.awt.Container;
@@ -88,7 +93,25 @@ public class View extends JFrame {
 	
 	/* Methods that retrieve data from the view */
 	public RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
-		return filtersPanel.getFilterToBeApplied();
+		Date fromDate = (Date) filtersPanel.fromDateTimeSpinner.getValue();
+		Date toDate = (Date) filtersPanel.toDateTimeSpinner.getValue();
+		Context context = (Context) filtersPanel.contextComboBox.getSelectedItem();
+		Content content = (Content) filtersPanel.contentComboBox.getSelectedItem();
+		Category category = (Category) filtersPanel.categoryComboBox.getSelectedItem();
+		Kid kid = (Kid) filtersPanel.kidComboBox.getSelectedItem();
+		Tag tag = (Tag) filtersPanel.tagsComboBox.getSelectedItem();
+		
+		NotificationRowFilterBuilder filterBuilder = 
+				new NotificationRowFilterBuilder()
+					.fromDate(fromDate)
+					.toDate(toDate)
+					.context(context)
+					.content(content)
+					.category(category)
+					.kid(kid)
+					.tag(tag);
+		
+		return filterBuilder.build();
 	}
 	
 	public String getNameForNewTag() {

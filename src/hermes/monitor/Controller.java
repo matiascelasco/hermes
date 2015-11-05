@@ -14,12 +14,12 @@ public class Controller {
 
 	private View view;
 	private Model model;
-	
+
 	public Controller(Model model, View view){
 		this.view = view;
 		this.model = model;
 	}
-	
+
 	public void prepare(){
 		view.addTagCreatedListener(new TagCreatedListener());
 		view.addTagDeletedListener(new TagDeletedListener());
@@ -28,7 +28,7 @@ public class Controller {
 		view.addFilterButtonPressedListener(new FilterButtonPressedListener());
 		view.addClearButtonPressedListener(new ClearButtonPressedListener());
 	}
-	
+
 	private class TagCreatedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -38,9 +38,9 @@ public class Controller {
 				view.updateTagComboBoxes(model.getAllTags());
 			}
 		}
-		
+
 	}
-	
+
 	private class TagDeletedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -49,9 +49,9 @@ public class Controller {
 			view.updateTagComboBoxes(model.getAllTags());
 			view.updateTable(model.getAllNotifications());
 		}
-		
+
 	}
-	
+
 	private class TagToggledOnNotificationListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -60,9 +60,9 @@ public class Controller {
 			model.toggleTag(tag, notifications);
 			view.updateTable(model.getAllNotifications());
 		}
-		
+
 	}
-	
+
 	private class TagRenamedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -74,23 +74,22 @@ public class Controller {
 				view.updateTable(model.getAllNotifications());
 			}
 		}
-		
+
 	}
-	
+
 	private class FilterButtonPressedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("actionPerformed");
 			view.filterTable(view.getFilterToBeApplied());
 		}
-		
+
 	}
-	
+
 	private class ClearButtonPressedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			view.clearFiltersForm();
 		}
-		
+
 	}
 }

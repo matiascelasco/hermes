@@ -53,13 +53,13 @@ public class FiltersPanel extends JPanel {
 				.build());
 	}
 	
-	private JSpinner fromDateTimeSpinner = new JSpinner(new SpinnerDateModel());
-	private JSpinner toDateTimeSpinner = new JSpinner(new SpinnerDateModel());
-	private JComboBox<Context> contextComboBox = new JComboBox<Context>(Context.values());
-	private JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
-	private JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
-	private JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
-	private TagsComboBox tagsComboBox;
+	JSpinner fromDateTimeSpinner = new JSpinner(new SpinnerDateModel());
+	JSpinner toDateTimeSpinner = new JSpinner(new SpinnerDateModel());
+	JComboBox<Context> contextComboBox = new JComboBox<Context>(Context.values());
+	JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
+	JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
+	JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
+	TagsComboBox tagsComboBox;
 	private Date minDate;
 	private Date maxDate;
 
@@ -115,27 +115,4 @@ public class FiltersPanel extends JPanel {
 		tagsComboBox.updateContent(tags);
 	}
 
-	public  RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
-		
-		Date fromDate = (Date) fromDateTimeSpinner.getValue();
-		Date toDate = (Date) toDateTimeSpinner.getValue();
-		Context context = (Context) contextComboBox.getSelectedItem();
-		Content content = (Content) contentComboBox.getSelectedItem();
-		Category category = (Category) categoryComboBox.getSelectedItem();
-		Kid kid = (Kid) kidComboBox.getSelectedItem();
-		Tag tag = (Tag) tagsComboBox.getSelectedItem();
-		
-		NotificationRowFilterBuilder filterBuilder = 
-				new NotificationRowFilterBuilder()
-					.fromDate(fromDate)
-					.toDate(toDate)
-					.context(context)
-					.content(content)
-					.category(category)
-					.kid(kid)
-					.tag(tag);
-		
-		return filterBuilder.build();
-	}
-	
 }

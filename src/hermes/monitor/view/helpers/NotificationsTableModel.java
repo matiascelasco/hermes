@@ -45,9 +45,9 @@ public class NotificationsTableModel extends AbstractTableModel {
 			case 0:
 				return (Object) data.get(rowIndex).getDateTimeSended();
 			case 1:
-				return (Object) data.get(rowIndex).getContext();
-			case 2:
 				return (Object) data.get(rowIndex).getContent();
+			case 2:
+				return (Object) data.get(rowIndex).getContext();
 			case 3:
 				return (Object) data.get(rowIndex).getCategory();
 			case 4:

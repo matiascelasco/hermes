@@ -23,7 +23,7 @@ public class NotificationRowFilterBuilder {
 	private Category category;
 	private Kid kid;
 	private Tag tag;
-	
+
 	private static RowFilter<NotificationsTableModel, Object> orDateTimeFilter(Date dateTime, ComparisonType... types){
 		List<RowFilter<NotificationsTableModel, Object>> filters = new ArrayList<RowFilter<NotificationsTableModel, Object>>();
 		for (ComparisonType t : types){
@@ -32,9 +32,9 @@ public class NotificationRowFilterBuilder {
 		}
 		return RowFilter.orFilter(filters);
 	}
-	
+
 	public RowFilter<NotificationsTableModel, Object> build(){
-		
+
 		if (fromDate == null || toDate == null){
 			throw new IllegalStateException("fromDate and toDate are required");
 		}
@@ -42,7 +42,7 @@ public class NotificationRowFilterBuilder {
 		RowFilter<NotificationsTableModel, Object> dateToLE = orDateTimeFilter(toDate, ComparisonType.BEFORE, ComparisonType.EQUAL);
 		filters.add(dateFromGE);
 		filters.add(dateToLE);
-		
+
 		Object [] objects = {content, context, category, kid, tag};
 		int columnIndex = 1;
 		for (Object object: objects){
@@ -52,10 +52,10 @@ public class NotificationRowFilterBuilder {
 			}
 			columnIndex++;
 		}
-		
+
 		return RowFilter.andFilter(filters);
 	}
-	
+
 	public NotificationRowFilterBuilder fromDate(Date fromDate){
 	    this.fromDate = fromDate;
 	    return this;
@@ -90,5 +90,5 @@ public class NotificationRowFilterBuilder {
 	    this.tag = tag;
 	    return this;
 	}
-	
+
 }
