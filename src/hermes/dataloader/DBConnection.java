@@ -4,14 +4,14 @@ import hermes.enums.Category;
 import hermes.enums.Content;
 import hermes.enums.Context;
 import hermes.enums.Kid;
-import hermes.enums.Tag;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -32,9 +32,11 @@ public class DBConnection {
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	
 	private static void loadData(String path) throws SQLException, NumberFormatException, IOException{
+		//load file within jar
+		InputStream in = DBConnection.class.getResourceAsStream("/hermes.csv");
+		BufferedReader breader = new BufferedReader(new InputStreamReader(in));		 
+		CSVReader reader = new CSVReader(breader);
 		
-		//load from CSV file		
-		CSVReader reader = new CSVReader(new FileReader(path+"/"+"hermes.csv"));
 		String [] nextLine;
 		while ((nextLine = reader.readNext()) != null) {
 		    //creates notification with readed data	   
@@ -110,10 +112,10 @@ public class DBConnection {
 		if (!dir.exists() && !dir.mkdirs()) {			
 		    System.out.println("Unable to create " + dir.getAbsolutePath());
 		}
-		else{
-			File file = new File (dir+"/"+dbName);	
+		//else{
+			//File file = new File (dir+"/"+dbName);	
 			//alreadyExists = file.exists();
-		}			
+		//}			
 				
 		if(connection == null){
 //			Class.forName("org.sqlite.JDBC");
@@ -145,7 +147,7 @@ public class DBConnection {
 					");";
 				statement.executeUpdate(sql);
 				try {
-					generateRandomCSV(dir.getAbsolutePath());
+					//generateRandomCSV(dir.getAbsolutePath());
 					loadData(dir.getAbsolutePath());
 				} catch (IOException e) {
 					e.printStackTrace();
