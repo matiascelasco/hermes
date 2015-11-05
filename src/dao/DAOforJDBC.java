@@ -1,6 +1,7 @@
 package dao;
 
-import hermes.model.loader.ConnectionWrapper;
+
+import hermes.model.dao.ConnectionWrapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
