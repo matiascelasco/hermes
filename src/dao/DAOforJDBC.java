@@ -11,7 +11,11 @@ import java.util.List;
 
 public abstract class DAOforJDBC<T> implements DAO<T> {
 
-	private ConnectionWrapper connection = new ConnectionWrapper();
+	private ConnectionWrapper connection;
+	
+	public void setConnectionWrapper(ConnectionWrapper connection){
+		this.connection = connection;
+	}
 	
 	public T retrieve(long id){
 		try {

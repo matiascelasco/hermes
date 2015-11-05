@@ -13,7 +13,7 @@ public class ConnectionWrapper {
 	private Connection connection;
 	private static String dbName = "hermes.db";
 
-	public ConnectionWrapper(){
+	public void prepare(){
 		//user directory
 		File homeDir = new File(System.getProperty("user.home"));
 		//HermesDB directory create
