@@ -1,4 +1,7 @@
-package hermes.model.loader;
+package hermes.model.dao;
+
+import hermes.model.loader.CSVLoader;
+import hermes.model.loader.Loader;
 
 import java.io.File;
 import java.sql.Connection;

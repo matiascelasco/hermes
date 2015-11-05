@@ -6,9 +6,7 @@ import hermes.model.enums.Content;
 import hermes.model.enums.Context;
 import hermes.model.enums.Kid;
 import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
-import hermes.monitor.view.helpers.NotificationRowFilterBuilder;
 import hermes.monitor.view.helpers.NotificationsTable;
-import hermes.monitor.view.helpers.NotificationsTableModel;
 import hermes.monitor.view.helpers.TagsComboBox;
 
 import java.awt.Component;
@@ -24,7 +22,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.RowFilter;
 import javax.swing.SpinnerDateModel;
 
 
