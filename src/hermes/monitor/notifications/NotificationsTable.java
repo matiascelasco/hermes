@@ -1,6 +1,6 @@
 package hermes.monitor.notifications;
 
-import hermes.dataloader.Notification;
+import hermes.data.Notification;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

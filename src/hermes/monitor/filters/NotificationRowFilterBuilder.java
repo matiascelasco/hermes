@@ -1,10 +1,10 @@
 package hermes.monitor.filters;
 
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
+import hermes.data.Tag;
+import hermes.data.enums.Category;
+import hermes.data.enums.Content;
+import hermes.data.enums.Context;
+import hermes.data.enums.Kid;
 import hermes.monitor.notifications.NotificationsTableModel;
 
 import java.util.ArrayList;

@@ -1,7 +1,8 @@
-package hermes.dataloader;
+package hermes.data.dao;
 
+import hermes.data.Notification;
+import hermes.data.Tag;
 import dao.DAO;
-import hermes.enums.Tag;
 
 public class FactoryDAO {
 

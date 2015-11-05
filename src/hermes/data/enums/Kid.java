@@ -1,4 +1,4 @@
-package hermes.enums;
+package hermes.data.enums;
 
 public enum Kid {
 	JIMMY(1, "Jimmy Olsen"), 

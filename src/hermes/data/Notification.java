@@ -1,13 +1,13 @@
-package hermes.dataloader;
+package hermes.data;
 
 import java.sql.SQLException;
 import java.util.Date;
 
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
+import hermes.data.dao.FactoryDAO;
+import hermes.data.enums.Category;
+import hermes.data.enums.Content;
+import hermes.data.enums.Context;
+import hermes.data.enums.Kid;
 
 public class Notification {
 	

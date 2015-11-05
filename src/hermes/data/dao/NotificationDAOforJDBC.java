@@ -1,9 +1,10 @@
-package hermes.dataloader;
+package hermes.data.dao;
 
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
+import hermes.data.Notification;
+import hermes.data.enums.Category;
+import hermes.data.enums.Content;
+import hermes.data.enums.Context;
+import hermes.data.enums.Kid;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ import java.util.List;
 
 import dao.DAOforJDBC;
 
-public class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
+class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 

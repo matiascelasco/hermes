@@ -1,12 +1,12 @@
 package hermes.monitor.filters;
 
-import hermes.dataloader.TagDAOforJDBC;
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
+import hermes.data.Tag;
+import hermes.data.enums.Category;
+import hermes.data.enums.Content;
+import hermes.data.enums.Context;
+import hermes.data.enums.Kid;
 import hermes.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.TagsComboBox;
 import hermes.monitor.notifications.NotificationsTable;
 
 import java.awt.Component;
@@ -15,9 +15,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.Date;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -59,19 +57,7 @@ public class FiltersPanel extends JPanel {
 	private JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
 	private JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
 	private JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
-	private JComboBox<Tag> tagComboBox;
-	{
-		List<Tag> listOfTags;
-		try {
-			listOfTags = new TagDAOforJDBC().findAll();
-			Tag[] tags = new Tag[listOfTags.size()];
-			listOfTags.toArray(tags);
-			tagComboBox = new JComboBox<Tag>(tags);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	private TagsComboBox tagsComboBox = new TagsComboBox();
 	private Date minDate;
 	private Date maxDate;
 	
@@ -82,7 +68,7 @@ public class FiltersPanel extends JPanel {
 		contentComboBox.setSelectedIndex(-1);
 		categoryComboBox.setSelectedIndex(-1);
 		kidComboBox.setSelectedIndex(-1);
-		tagComboBox.setSelectedIndex(-1);
+		tagsComboBox.setSelectedIndex(-1);
 	}
 	
 	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate) {
@@ -102,7 +88,7 @@ public class FiltersPanel extends JPanel {
 				Content content = (Content) contentComboBox.getSelectedItem();
 				Category category = (Category) categoryComboBox.getSelectedItem();
 				Kid kid = (Kid) kidComboBox.getSelectedItem();
-				Tag tag = (Tag) tagComboBox.getSelectedItem();
+				Tag tag = (Tag) tagsComboBox.getSelectedItem();
 				
 				NotificationRowFilterBuilder filterBuilder = 
 						new NotificationRowFilterBuilder()
@@ -132,7 +118,7 @@ public class FiltersPanel extends JPanel {
 		addBoxWithLabel("Niño: ", kidComboBox, 2, 1);
 		addBoxWithLabel("Desde: ", fromDateTimeSpinner, 0, 2);
 		addBoxWithLabel("Hasta: ", toDateTimeSpinner, 2, 2);
-		addBoxWithLabel("Etiqueta: ", tagComboBox, 0, 3);
+		addBoxWithLabel("Etiqueta: ", tagsComboBox, 0, 3);
 		add(filterButton,
 			new GridBagConstraintsBuilder()
 				.at(1,  4)

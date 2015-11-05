@@ -1,6 +1,7 @@
-package hermes.dataloader;
+package hermes.data.dao;
 
-import hermes.enums.Tag;
+
+import hermes.data.Tag;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.util.List;
 
 import dao.DAOforJDBC;
 
-public class TagDAOforJDBC extends DAOforJDBC<Tag>{
+class TagDAOforJDBC extends DAOforJDBC<Tag>{
 
 	@Override
 	protected String prepareValues(Tag obj) {

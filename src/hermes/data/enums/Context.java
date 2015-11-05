@@ -1,4 +1,4 @@
-package hermes.enums;
+package hermes.data.enums;
 
 public enum Context {
 	PISTA(1, "Pista"), 

@@ -2,7 +2,7 @@ package hermes.monitor.notifications;
 import java.sql.SQLException;
 import java.util.List;
 
-import hermes.dataloader.Notification;
+import hermes.data.Notification;
 
 import javax.swing.table.AbstractTableModel;
 

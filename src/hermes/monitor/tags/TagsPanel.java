@@ -1,9 +1,10 @@
 package hermes.monitor.tags;
 
-import hermes.dataloader.FactoryDAO;
-import hermes.dataloader.Notification;
-import hermes.enums.Tag;
+import hermes.data.Notification;
+import hermes.data.Tag;
+import hermes.data.dao.FactoryDAO;
 import hermes.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.TagsComboBox;
 import hermes.monitor.notifications.NotificationsTable;
 import hermes.monitor.notifications.NotificationsTableModel;
 
@@ -15,13 +16,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.List;
-
-import javafx.scene.control.ComboBox;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -64,24 +61,16 @@ public class TagsPanel extends JPanel {
 
 	final private JTextField newTagNameField = new JTextField();;
 	final private JTextField renameTagNameField = new JTextField();;
-	final private JComboBox<Tag> tagForRemoveComboBox = new JComboBox<Tag>();
-	final private JComboBox<Tag> tagForAssingComboBox = new JComboBox<Tag>();
-	final private JComboBox<Tag> tagForRenameComboBox = new JComboBox<Tag>();
+	final private TagsComboBox tagForRemoveComboBox = new TagsComboBox();
+	final private TagsComboBox tagForAssingComboBox = new TagsComboBox();
+	final private TagsComboBox tagForRenameComboBox = new TagsComboBox();
 	
 	final private NotificationsTable notificationsTable;
 	
-	private void populateComboBoxWithTags(JComboBox<Tag> comboBox) throws SQLException{
-		List<Tag> tags = FactoryDAO.getTagDAO().findAll();
-		comboBox.removeAllItems();
-		for (Tag tag : tags) {
-			comboBox.addItem(tag);	
-		}
-	}
-	
 	private void update() throws SQLException{
-		populateComboBoxWithTags(tagForAssingComboBox);
-		populateComboBoxWithTags(tagForRemoveComboBox);
-		populateComboBoxWithTags(tagForRenameComboBox);
+		tagForAssingComboBox.updateContent();
+		tagForRemoveComboBox.updateContent();
+		tagForRenameComboBox.updateContent();
 		((NotificationsTableModel) notificationsTable.getModel()).updateData();
 		notificationsTable.repaint();
 	}

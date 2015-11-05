@@ -1,7 +1,7 @@
 package hermes.monitor.notifications;
 
 
-import hermes.dataloader.Notification;
+import hermes.data.Notification;
 
 import java.awt.BorderLayout;
 import java.util.List;

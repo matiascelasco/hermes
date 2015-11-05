@@ -1,4 +1,4 @@
-package hermes.enums;
+package hermes.data;
 
 public class Tag {
 	private String name;

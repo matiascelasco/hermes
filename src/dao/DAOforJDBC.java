@@ -1,6 +1,6 @@
 package dao;
 
-import hermes.dataloader.DBConnection;
+import hermes.data.loader.DBConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

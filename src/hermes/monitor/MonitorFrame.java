@@ -1,7 +1,7 @@
 package hermes.monitor;
 import hermes.monitor.filters.FiltersPanel;
-import hermes.dataloader.FactoryDAO;
-import hermes.dataloader.Notification;
+import hermes.data.Notification;
+import hermes.data.dao.FactoryDAO;
 import hermes.helpers.GridBagConstraintsBuilder;
 import hermes.monitor.notifications.NotificationsPanel;
 import hermes.monitor.tags.TagsPanel;

@@ -1,22 +1,21 @@
-package hermes.enums;
+package hermes.data.enums;
 
-public enum Content {
-	ENTUSIASMADO(1, "Entusiasmado"), 
-	ALEGRE(2, "Alegre"), 
-	MOLESTO(3, "Molesto");
+public enum Category {
+	EMOCIONES(1, "Emociones"), 
+	PREDETERMINADA(2, "Predeterminada");
 	
 	private int id;
 	private String description;
 	
-	Content(int id, String description){
+	Category(int id, String description){
 		this.id = id;
 		this.description = description;
 	}
 
 	@Override
 	public String toString() {
-       return this.description;
-   }
+	       return this.description;
+	   }
 	
 	public String getDescription(){
 		return description;

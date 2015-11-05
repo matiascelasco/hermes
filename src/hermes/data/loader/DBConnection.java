@@ -1,13 +1,13 @@
-package hermes.dataloader;
+package hermes.data.loader;
 
-import hermes.enums.Category;
-import hermes.enums.Content;
-import hermes.enums.Context;
-import hermes.enums.Kid;
-import hermes.enums.Tag;
+import hermes.data.Notification;
+import hermes.data.dao.FactoryDAO;
+import hermes.data.enums.Category;
+import hermes.data.enums.Content;
+import hermes.data.enums.Context;
+import hermes.data.enums.Kid;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -110,7 +110,7 @@ public class DBConnection {
 		    System.out.println("Unable to create " + dir.getAbsolutePath());
 		}
 		else{
-			File file = new File (dir+"/"+dbName);	
+			new File (dir+"/"+dbName);	
 			//alreadyExists = file.exists();
 		}			
 				
