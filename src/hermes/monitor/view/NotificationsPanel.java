@@ -1,7 +1,9 @@
-package hermes.monitor.views.notifications;
+package hermes.monitor.view;
 
 
-import hermes.data.Notification;
+import hermes.model.Notification;
+import hermes.monitor.view.helpers.NotificationsTable;
+import hermes.monitor.view.helpers.NotificationsTableModel;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;

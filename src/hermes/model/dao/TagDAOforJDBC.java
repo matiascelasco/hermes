@@ -1,7 +1,7 @@
-package hermes.data.dao;
+package hermes.model.dao;
 
 
-import hermes.data.Tag;
+import hermes.model.Tag;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,6 +47,13 @@ class TagDAOforJDBC extends DAOforJDBC<Tag>{
 	protected String prepareForUpdate(Tag obj) {
 		return String.format("name = '%s'", obj.getName());
 	}
-
+	
+	@Override
+	public boolean exists(Tag tag){
+		if (tag.getId() == 0){
+			return false;
+		}
+		return super.exists(tag);
+	}
 	
 }

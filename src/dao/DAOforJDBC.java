@@ -1,8 +1,7 @@
 package dao;
 
-import hermes.data.loader.DBConnection;
+import hermes.model.loader.ConnectionWrapper;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,34 +10,34 @@ import java.util.List;
 
 public abstract class DAOforJDBC<T> implements DAO<T> {
 
-	public T retrieve(long i){
+	private ConnectionWrapper connection = new ConnectionWrapper();
+	
+	public T retrieve(long id){
 		try {
-			Connection conn;
-			conn = DBConnection.getDBConnection();
-			Statement st = conn.createStatement();
-			String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), i);
-			ResultSet result = st.executeQuery(sql);
+			String sql = String.format("SELECT * FROM %s WHERE ID = %d;", getTableName(), id);
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 			if (!result.next()){
 			    return null;
 			}
 			T n = buildFromSqlResult(result);
-			st.close();
+			statement.close();
 			return n;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 
 	public List<T> findAll(){
 		try {
-			Connection conn =  DBConnection.getDBConnection();
-			Statement st = conn.createStatement();
-			ResultSet result = st.executeQuery(String.format("SELECT * FROM %s;", getTableName()));
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(String.format("SELECT * FROM %s;", getTableName()));
 			List<T> objects = new ArrayList<T>();
 			while (result.next()){
 				objects.add(buildFromSqlResult(result));
 			}
-			st.close();
+			statement.close();
 			return objects;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -46,44 +45,33 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 	}
 
 	public void persist(T obj){
-		try{
-			Connection conn =  DBConnection.getDBConnection();
-			String sql;
-			if (exists(obj)){
-				sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
-			} else {
-				String fields = String.join(",", getFieldNames());
-				sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
-			}
-			Statement st = conn.createStatement();
-			st.executeUpdate(sql);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+		String sql;
+		if (exists(obj)){
+			sql = String.format("UPDATE %s SET %s WHERE %s", getTableName(), prepareForUpdate(obj), prepareWhere(obj));
+		} else {
+			String fields = String.join(",", getFieldNames());
+			sql = String.format("INSERT INTO %s(%s) VALUES(%s)", getTableName(), fields, prepareValues(obj));
 		}
+		connection.executeUpdate(sql);
 	}
 
 	public boolean exists(T obj){
 		try{
-			Connection conn =  DBConnection.getDBConnection();
-			String sql;
-			sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
-			Statement st = conn.createStatement();
-			return st.executeQuery(sql).next();
+			String sql = String.format("SELECT * FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
+			Statement statement = connection.createStatement();
+			boolean answer = statement.executeQuery(sql).next();
+			statement.close();
+			return answer;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
 
 	public void delete(T obj){
-		try{
-			Connection conn =  DBConnection.getDBConnection();
-			String sql;
-			sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
-			Statement st = conn.createStatement();
-			st.executeUpdate(sql);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		String sql;
+		sql = String.format("DELETE FROM %s WHERE %s;", getTableName(), prepareWhere(obj));
+		connection.executeUpdate(sql);
 	}
 
 	protected abstract String prepareWhere(T obj);

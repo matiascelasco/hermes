@@ -1,4 +1,4 @@
-package hermes.data;
+package hermes.model;
 
 public class Tag {
 	private String name;
@@ -38,6 +38,5 @@ public class Tag {
 			return false;
 		return true;
 	}
-	
 	
 }

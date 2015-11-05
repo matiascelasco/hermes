@@ -1,8 +1,9 @@
 package hermes.monitor;
 
-import hermes.data.Notification;
-import hermes.data.Tag;
-import hermes.monitor.views.View;
+import hermes.model.Model;
+import hermes.model.Notification;
+import hermes.model.Tag;
+import hermes.monitor.view.View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,9 @@ public class Controller {
 	public Controller(Model model, View view){
 		this.view = view;
 		this.model = model;
+	}
+	
+	public void prepare(){
 		view.addTagCreatedListener(new TagCreatedListener());
 		view.addTagDeletedListener(new TagDeletedListener());
 		view.addTagAssignedListener(new TagToggledOnNotificationListener());
@@ -76,6 +80,7 @@ public class Controller {
 	private class FilterButtonPressedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("actionPerformed");
 			view.filterTable(view.getFilterToBeApplied());
 		}
 		

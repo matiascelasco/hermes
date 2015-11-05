@@ -1,12 +1,12 @@
-package hermes.data;
+package hermes.model;
 
 import java.util.Comparator;
 import java.util.Date;
 
-import hermes.data.enums.Category;
-import hermes.data.enums.Content;
-import hermes.data.enums.Context;
-import hermes.data.enums.Kid;
+import hermes.model.enums.Category;
+import hermes.model.enums.Content;
+import hermes.model.enums.Context;
+import hermes.model.enums.Kid;
 
 public class Notification {
 	

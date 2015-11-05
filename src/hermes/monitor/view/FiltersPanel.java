@@ -1,20 +1,20 @@
-package hermes.monitor.views.filters;
+package hermes.monitor.view;
 
-import hermes.data.Tag;
-import hermes.data.enums.Category;
-import hermes.data.enums.Content;
-import hermes.data.enums.Context;
-import hermes.data.enums.Kid;
-import hermes.monitor.helpers.GridBagConstraintsBuilder;
-import hermes.monitor.helpers.TagsComboBox;
-import hermes.monitor.views.notifications.NotificationsTable;
-import hermes.monitor.views.notifications.NotificationsTableModel;
+import hermes.model.Tag;
+import hermes.model.enums.Category;
+import hermes.model.enums.Content;
+import hermes.model.enums.Context;
+import hermes.model.enums.Kid;
+import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.view.helpers.NotificationRowFilterBuilder;
+import hermes.monitor.view.helpers.NotificationsTable;
+import hermes.monitor.view.helpers.NotificationsTableModel;
+import hermes.monitor.view.helpers.TagsComboBox;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
 
@@ -64,8 +64,8 @@ public class FiltersPanel extends JPanel {
 	private Date maxDate;
 
 	
-	private JButton filterButton = new JButton("Filtrar");
-	private JButton clearButton = new JButton("Limpiar");
+	JButton filterButton = new JButton("Filtrar");
+	JButton clearButton = new JButton("Limpiar");
 	
 	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate, List<Tag> tags) {
 		this.minDate = minDate;
@@ -136,14 +136,6 @@ public class FiltersPanel extends JPanel {
 					.tag(tag);
 		
 		return filterBuilder.build();
-	}
-
-	public void addFilterButtonPressedListener(ActionListener listener) {
-		filterButton.addActionListener(listener);
-	}
-	
-	public void addClearButtonPressedListener(ActionListener listener) {
-		clearButton.addActionListener(listener);
 	}
 	
 }

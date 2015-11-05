@@ -1,9 +1,9 @@
-package hermes.monitor.views.notifications;
+package hermes.monitor.view.helpers;
 
-import hermes.data.Notification;
+import hermes.model.Model;
+import hermes.model.Notification;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -20,51 +20,50 @@ public class NotificationsTable extends JTable {
 	static private class DateTimeCellRenderer extends DefaultTableCellRenderer {
 		private static final long serialVersionUID = 1L;
 
-		private static final DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		
 		@Override
 		public void setValue(Object value) {
 			Date date = (Date) value;
-			setText(dateFormatter.format(date.getTime()));
+			String dateAsString = Model.dateTimeFormatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+			setText(dateAsString);
 		}
 	}
-	
+
 	private static TableCellRenderer dateTimeRenderer = new DateTimeCellRenderer();
-	
+
 	private TableRowSorter<NotificationsTableModel> sorter;
-	
+
 	public NotificationsTable(List<Notification> data) {
 		super(new NotificationsTableModel(data));
-		sorter = new TableRowSorter<NotificationsTableModel>((NotificationsTableModel) getModel());
+		sorter = new TableRowSorter<NotificationsTableModel>(
+				(NotificationsTableModel) getModel());
 		setRowSorter(sorter);
 		setFillsViewportHeight(true);
 	}
-	
+
 	public void setFilter(RowFilter<NotificationsTableModel, Object> filter) {
 		sorter.setRowFilter(filter);
 	}
-	
+
 	public Object getValueAt(int row, int column) {
 		Object value = super.getValueAt(row, column);
-		if (column == 0){
+		if (column == 0) {
 			return (Date) value;
 		}
 		return value;
-    }
+	}
 
-	
-    public TableCellRenderer getCellRenderer(int row, int column) {
-    	if ((column == 0)) {
-            return dateTimeRenderer;
-        }
-        return super.getCellRenderer(row, column);
-    }
-    
-    public Class<?> getColumnClass(int column) {
-    	if (column == 0){
-    		return Date.class;
-    	}
-    	return super.getColumnClass(column);
-    }
+	public TableCellRenderer getCellRenderer(int row, int column) {
+		if ((column == 0)) {
+			return dateTimeRenderer;
+		}
+		return super.getCellRenderer(row, column);
+	}
+
+	public Class<?> getColumnClass(int column) {
+		if (column == 0) {
+			return Date.class;
+		}
+		return super.getColumnClass(column);
+	}
 
 }

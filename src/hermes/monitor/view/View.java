@@ -1,13 +1,10 @@
-package hermes.monitor.views;
-import hermes.monitor.Model;
-import hermes.monitor.helpers.GridBagConstraintsBuilder;
-import hermes.data.Notification;
-import hermes.data.Tag;
-import hermes.data.dao.FactoryDAO;
-import hermes.monitor.views.filters.FiltersPanel;
-import hermes.monitor.views.notifications.NotificationsPanel;
-import hermes.monitor.views.notifications.NotificationsTableModel;
-import hermes.monitor.views.tags.TagsPanel;
+package hermes.monitor.view;
+import hermes.model.Model;
+import hermes.model.Notification;
+import hermes.model.Tag;
+import hermes.model.dao.FactoryDAO;
+import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
+import hermes.monitor.view.helpers.NotificationsTableModel;
 
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -88,74 +85,79 @@ public class View extends JFrame {
         				.fill(GridBagConstraints.BOTH)
         				.build());
 	}
-
-	public void clearFiltersForm() {
-		filtersPanel.clearFiltersForm();
+	
+	/* Methods that retrieve data from the view */
+	public RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
+		return filtersPanel.getFilterToBeApplied();
 	}
-
-	public Tag getTagToBeRenamed() {
-		return tagsPanel.getTagToBeRenamed();
+	
+	public String getNameForNewTag() {
+		return tagsPanel.newTagNameField.getText();
 	}
-
-	public String getNewNameToRenameTag() {
-		return tagsPanel.getNewNameToRenameTag();
+	
+	public Tag getTagToBeDeleted() {
+		return (Tag) tagsPanel.tagForRemoveComboBox.getSelectedItem();
 	}
-
-	public void updateTagComboBoxes(List<Tag> tags) {
-		tagsPanel.updateTagComboBoxes(tags);
-		filtersPanel.updateTagComboBox(tags);
-	}
-
+	
 	public Tag getTagToBeToggled() {
-		return tagsPanel.getTagToBeAssigned();
+		return (Tag) tagsPanel.tagForAssingComboBox.getSelectedItem();
+	}
+	
+	public String getNewNameToRenameTag() {
+		return tagsPanel.renameTagNameField.getText();
+	}
+	
+	public Tag getTagToBeRenamed() {
+		return (Tag) tagsPanel.tagForRenameComboBox.getSelectedItem();
 	}
 
 	public List<Notification> getSelectedNotifications() {
 		return notificationsPanel.getSelectedNotifications();
 	}
 
-	public Tag getTagToBeDeleted() {
-		return tagsPanel.getTagToBeDeleted();
+	/* Methods that update the view */
+	public void updateTagComboBoxes(List<Tag> tags) {
+		tagsPanel.tagForAssingComboBox.updateContent(tags);
+		tagsPanel.tagForRemoveComboBox.updateContent(tags);
+		tagsPanel.tagForRenameComboBox.updateContent(tags);
+		filtersPanel.updateTagComboBox(tags);
 	}
-
-	public String getNameForNewTag() {
-		return tagsPanel.getNameForNewTag();
-	}
-
-	public RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
-		return filtersPanel.getFilterToBeApplied();
-	}
-
+	
 	public void filterTable(RowFilter<NotificationsTableModel, Object> filterToBeApplied) {
 		notificationsPanel.filterTable(filterToBeApplied);
 	}
-
-	public void addTagCreatedListener(ActionListener listener) {
-		tagsPanel.addTagCreatedListener(listener);
-	}
-
-	public void addTagDeletedListener(ActionListener listener) {
-		tagsPanel.addTagDeletedListener(listener);
-	}
-
-	public void addTagAssignedListener(ActionListener listener) {
-		tagsPanel.addTagAssignedListener(listener);
-	}
-
-	public void addTagRenamedListener(ActionListener listener) {
-		tagsPanel.addTagRenamedListener(listener);
-	}
-
-	public void addFilterButtonPressedListener(ActionListener listener) {
-		filtersPanel.addFilterButtonPressedListener(listener);
-	}
-
-	public void addClearButtonPressedListener(ActionListener listener) {
-		filtersPanel.addClearButtonPressedListener(listener);
+	
+	public void clearFiltersForm() {
+		filtersPanel.clearFiltersForm();
 	}
 
 	public void updateTable(List<Notification> allNotifications) {
 		notificationsPanel.updateTable(allNotifications);
+	}
+	
+	/* Methods that register listeners */
+	public void addFilterButtonPressedListener(ActionListener listener) {
+		filtersPanel.filterButton.addActionListener(listener);
+	}
+	
+	public void addClearButtonPressedListener(ActionListener listener) {
+		filtersPanel.clearButton.addActionListener(listener);
+	}
+	
+	public void addTagCreatedListener(ActionListener listener) {
+		tagsPanel.createButton.addActionListener(listener);
+	}
+
+	public void addTagDeletedListener(ActionListener listener) {
+		tagsPanel.deleteButton.addActionListener(listener);
+	}
+
+	public void addTagAssignedListener(ActionListener listener) {
+		tagsPanel.assignButton.addActionListener(listener);
+	}
+
+	public void addTagRenamedListener(ActionListener listener) {
+		tagsPanel.renameButton.addActionListener(listener);
 	}
 
 }

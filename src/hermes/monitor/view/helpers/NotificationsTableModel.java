@@ -1,7 +1,7 @@
-package hermes.monitor.views.notifications;
+package hermes.monitor.view.helpers;
 import java.util.List;
 
-import hermes.data.Notification;
+import hermes.model.Notification;
 
 import javax.swing.table.AbstractTableModel;
 

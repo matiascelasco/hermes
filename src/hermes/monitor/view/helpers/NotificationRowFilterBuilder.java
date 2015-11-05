@@ -1,11 +1,10 @@
-package hermes.monitor.views.filters;
+package hermes.monitor.view.helpers;
 
-import hermes.data.Tag;
-import hermes.data.enums.Category;
-import hermes.data.enums.Content;
-import hermes.data.enums.Context;
-import hermes.data.enums.Kid;
-import hermes.monitor.views.notifications.NotificationsTableModel;
+import hermes.model.Tag;
+import hermes.model.enums.Category;
+import hermes.model.enums.Content;
+import hermes.model.enums.Context;
+import hermes.model.enums.Kid;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +43,7 @@ public class NotificationRowFilterBuilder {
 		filters.add(dateFromGE);
 		filters.add(dateToLE);
 		
-		Object [] objects = {content, context, category, kid, tag}; 
+		Object [] objects = {content, context, category, kid, tag};
 		int columnIndex = 1;
 		for (Object object: objects){
 			if (object != null){

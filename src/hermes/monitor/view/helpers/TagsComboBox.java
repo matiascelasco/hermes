@@ -1,7 +1,9 @@
-package hermes.monitor.helpers;
+package hermes.monitor.view.helpers;
 
 import java.util.List;
-import hermes.data.Tag;
+
+import hermes.model.Tag;
+
 import javax.swing.JComboBox;
 
 public class TagsComboBox extends JComboBox<Tag> {
