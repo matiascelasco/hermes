@@ -24,7 +24,7 @@ public class ConnectionWrapper {
 		    throw new RuntimeException("Unable to create " + dir.getAbsolutePath());
 		}
 		else{
-			new File (dir+"/"+dbName);
+			//File file = new File (dir+"/"+dbName);
 			//alreadyExists = file.exists();
 		}
 

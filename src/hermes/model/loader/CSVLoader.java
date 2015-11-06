@@ -8,9 +8,12 @@ import hermes.model.enums.Content;
 import hermes.model.enums.Context;
 import hermes.model.enums.Kid;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -32,10 +35,12 @@ public class CSVLoader implements Loader {
 
 		try {
 			// TODO: remove this generateRandomCSV method and load from a static csv file
-			generateRandomCSV(path);
+//			generateRandomCSV(path);
 			
 			//load from CSV file
-			CSVReader reader = new CSVReader(new FileReader(path + "/" + "hermes.csv"));
+			InputStream in = CSVLoader.class.getResourceAsStream("/hermes.csv");
+			BufferedReader breader = new BufferedReader(new InputStreamReader(in));		 
+			CSVReader reader = new CSVReader(breader);
 			String [] nextLine;
 			while ((nextLine = reader.readNext()) != null) {
 			    //creates notification with readed data
