@@ -53,7 +53,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 			case 4:
 				return (Object) data.get(rowIndex).getKid();
 			case 5:
-				return (Object) data.get(rowIndex).getTag();
+				return (Object) data.get(rowIndex).tags;
 			default:
 				throw new IllegalArgumentException("columnIndex must be between 0 and 5");
 		}
@@ -78,7 +78,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 				throw new RuntimeException("List of updated notifications given is supposed to be sorted by id");
 			}
 			
-			oldOne.setTag(updatedOne.getTag());
+			oldOne.tags = updatedOne.tags;
 			oldOne.setContext(updatedOne.getContext());
 			oldOne.setContent(updatedOne.getContent());
 			oldOne.setCategory(updatedOne.getCategory());

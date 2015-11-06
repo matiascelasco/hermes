@@ -6,6 +6,7 @@ import dao.DAO;
 
 public class FactoryDAO {
 
+	
 	private static ConnectionWrapper connectionWrapper = new ConnectionWrapper();
 	private static NotificationDAOforJDBC notificationDAO = new NotificationDAOforJDBC();
 	private static TagDAOforJDBC tagDAO = new TagDAOforJDBC();

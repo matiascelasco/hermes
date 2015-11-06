@@ -9,7 +9,6 @@ import hermes.monitor.view.View;
 //TODO: que los fields de fecha se actualizen automáticamente de manera tal que Desde nunca sea mayor que Hasta
 //TODO: ver si se puede usar las fechas que hay en java.time en vez de las de utils en el combo box
 //TODO: centralizar toda la complejidad de la conversión de fechas a string en un solo punto
-//TODO: se estan creando dos connections distintas, una para cada DAO. (bad smell) creo que es por eso que a veces no andan los filtros
 //TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.6 en vez de 1.4)
 
 public class Main {

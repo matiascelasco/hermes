@@ -2,6 +2,8 @@ package hermes.model;
 
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import hermes.model.enums.Category;
 import hermes.model.enums.Content;
@@ -26,7 +28,9 @@ public class Notification {
     private Content content;
     private Category category;
     private Context context;
-    private Tag tag;
+    
+    // a Set is mutable so it don't make sense to make it private but then provide a getter for it
+    public Set<Tag> tags = new HashSet<Tag>();
     
 	public void setId(int id){
 		this.id = id;
@@ -76,18 +80,27 @@ public class Notification {
 	public String toString(){
 		return this.content.toString(); 
 	}
-	public Tag getTag() {
-		return tag;
-	}
-	public void setTag(Tag tag) {
-		this.tag = tag;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
 
-	public boolean hasTag(Tag tag) {
-		if (this.tag == null){
-			return tag == null;
-		}
-		return this.tag.getId() == tag.getId();
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Notification other = (Notification) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

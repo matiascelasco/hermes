@@ -2,6 +2,7 @@ package hermes.model.dao;
 
 import hermes.model.Model;
 import hermes.model.Notification;
+import hermes.model.Tag;
 import hermes.model.enums.Category;
 import hermes.model.enums.Content;
 import hermes.model.enums.Context;
@@ -9,6 +10,7 @@ import hermes.model.enums.Kid;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -62,9 +64,18 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setContext(Context.values()[result.getInt("context_id")]);
 		n.setContent(Content.values()[result.getInt("content_id")]);
 		n.setKid(Kid.values()[result.getInt("kid_id")]);
-		int tag_id = result.getInt("tag_id");
-		n.setTag(FactoryDAO.getTagDAO().retrieve(tag_id));
 		return n;
+	}
+	
+	protected void loadManyToManyRelatedModels(Notification notification) throws SQLException {
+		notification.tags.clear();
+		Statement statement = connection.createStatement();
+		String sql = String.format("SELECT notification_id, tag_id FROM Notifications_Tags WHERE notification_id = %d;", notification.getId());
+		ResultSet result = statement.executeQuery(sql);
+		while (result.next()){
+			notification.tags.add(FactoryDAO.getTagDAO().retrieve(result.getInt("tag_id")));
+		}
+		statement.close();
 	}
 
 	@Override
@@ -73,15 +84,28 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	}
 
 	@Override
+	public void persist(Notification notification){
+		super.persist(notification);
+		if (notification.tags.isEmpty()){
+			return;
+		}
+		String sql = "";
+		System.out.println(notification.tags.size());
+		for (Tag tag : notification.tags) {
+			sql += String.format("INSERT INTO Notifications_Tags(notification_id, tag_id) VALUES(%d, %d);", notification.getId(), tag.getId());
+		}
+		connection.executeUpdate(sql);
+	}
+	
+	@Override
 	protected String prepareForUpdate(Notification obj) {
-		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d, tag_id = %s",
+		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
 			Model.dateTimeFormatter.format(obj.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
 			Model.dateTimeFormatter.format(obj.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
 			obj.getContent().ordinal(),
 			obj.getContext().ordinal(),
 			obj.getCategory().ordinal(),
-			obj.getKid().ordinal(),
-			obj.getTag() == null ? "null": String.valueOf(obj.getTag().getId())
+			obj.getKid().ordinal()
 		);
 	}
 	

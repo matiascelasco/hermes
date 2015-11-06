@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class DAOforJDBC<T> implements DAO<T> {
 
-	private ConnectionWrapper connection;
+	protected ConnectionWrapper connection;
 	
 	public void setConnectionWrapper(ConnectionWrapper connection){
 		this.connection = connection;
@@ -25,11 +25,11 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 			if (!result.next()){
 			    return null;
 			}
-			T n = buildFromSqlResult(result);
+			T object = buildFromSqlResult(result);
 			statement.close();
-			return n;
+			loadManyToManyRelatedModels(object);
+			return object;
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
@@ -43,10 +43,17 @@ public abstract class DAOforJDBC<T> implements DAO<T> {
 				objects.add(buildFromSqlResult(result));
 			}
 			statement.close();
+			for (T object: objects){
+				loadManyToManyRelatedModels(object);
+			}
 			return objects;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	protected void loadManyToManyRelatedModels(T object) throws SQLException {
+		
 	}
 
 	public void persist(T obj){

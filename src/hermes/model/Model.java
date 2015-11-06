@@ -29,10 +29,10 @@ public class Model {
 	public void toggleTag(Tag tag, List<Notification> notifications) {
 		DAO<Notification> dao = FactoryDAO.getNotificationDAO();
 		for (Notification notification: notifications){
-			if (notification.hasTag(tag)){
-				notification.setTag(null);
+			if (notification.tags.contains(tag)){
+				notification.tags.remove(tag);
 			} else {
-				notification.setTag(tag);
+				notification.tags.add(tag);
 			}
 			dao.persist(notification);
 		}
