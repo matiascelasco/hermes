@@ -34,10 +34,10 @@ public class NotificationsTable extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		@SuppressWarnings("unchecked")
 		public void setValue(Object value) {
 			Set<T> set = (Set<T>) value;
 			String setAsStr = set.toString();
-			System.out.println(setAsStr);
 			setText(setAsStr.substring(1, setAsStr.length() - 1));
 		}
 	}
