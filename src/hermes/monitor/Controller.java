@@ -89,6 +89,7 @@ public class Controller {
 
 		public void actionPerformed(ActionEvent e) {
 			view.clearFiltersForm();
+			view.filterTable(view.getFilterToBeApplied());
 		}
 
 	}
