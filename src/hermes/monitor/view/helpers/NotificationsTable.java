@@ -2,10 +2,12 @@ package hermes.monitor.view.helpers;
 
 import hermes.model.Model;
 import hermes.model.Notification;
+import hermes.model.Tag;
 
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -27,8 +29,21 @@ public class NotificationsTable extends JTable {
 			setText(dateAsString);
 		}
 	}
+	
+	static private class SetCellRenderer<T> extends DefaultTableCellRenderer {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void setValue(Object value) {
+			Set<T> set = (Set<T>) value;
+			String setAsStr = set.toString();
+			System.out.println(setAsStr);
+			setText(setAsStr.substring(1, setAsStr.length() - 1));
+		}
+	}
 
 	private static TableCellRenderer dateTimeRenderer = new DateTimeCellRenderer();
+	private static SetCellRenderer<Tag> tagsSetRenderer = new SetCellRenderer<Tag>();
 
 	private TableRowSorter<NotificationsTableModel> sorter;
 
@@ -55,6 +70,9 @@ public class NotificationsTable extends JTable {
 	public TableCellRenderer getCellRenderer(int row, int column) {
 		if ((column == 0)) {
 			return dateTimeRenderer;
+		}
+		if ((column == 5)) {
+			return tagsSetRenderer;
 		}
 		return super.getCellRenderer(row, column);
 	}
