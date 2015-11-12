@@ -24,29 +24,29 @@ public class CSVLoader implements Loader {
 		try {
 			// TODO: remove this generateRandomCSV method and load from a static csv file
 //			generateRandomCSV(path);
-			
+
 			//load from CSV file
 			InputStream in = CSVLoader.class.getResourceAsStream("/hermes.csv");
-			BufferedReader breader = new BufferedReader(new InputStreamReader(in));		 
+			BufferedReader breader = new BufferedReader(new InputStreamReader(in));
 			CSVReader reader = new CSVReader(breader);
 			String [] nextLine;
 			while ((nextLine = reader.readNext()) != null) {
 			    //creates notification with readed data
-				Date sended;
+				Date sent;
 				Date received;
 				int content_id, context_id, category_id, kid_id;
-				//id sended received content_id context_id, category_id, kid_id
+				//id sent received content_id context_id, category_id, kid_id
 
 				content_id = Integer.valueOf(nextLine[3]);
 				context_id = Integer.valueOf(nextLine[4]);
 				category_id = Integer.valueOf(nextLine[5]);
 				kid_id = Integer.valueOf(nextLine[6]);
-				sended = Converter.stringToDate(nextLine[1]);
+				sent = Converter.stringToDate(nextLine[1]);
 				received = Converter.stringToDate(nextLine[2]);
 
 
 				Notification n = new Notification();
-				n.setDateTimeSended(sended);
+				n.setDateTimeSent(sent);
 				n.setDateTimeReceived(received);
 				n.setKid(Kid.values()[kid_id - 1]);
 				n.setContent(Content.values()[content_id - 1]);
@@ -68,7 +68,7 @@ public class CSVLoader implements Loader {
 //		Random random = new Random();
 //		for (int i = 0; i < 50; i++){
 //			Notification n = new Notification();
-//			n.setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
+//			n.setDateTimeSent(new GregorianCalendar(2013 + random.nextInt(3),
 //											   random.nextInt(12),
 //											   random.nextInt(28),
 //											   random.nextInt(24),
@@ -85,12 +85,12 @@ public class CSVLoader implements Loader {
 //			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
 //			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
 //			//save the notification in data file
-//			String[] entries = (String.valueOf(n.getId()) + "#" + 
-//				Model.dateTimeFormatter.format(n.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
+//			String[] entries = (String.valueOf(n.getId()) + "#" +
+//				Model.dateTimeFormatter.format(n.getDateTimeSent().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
 //				Model.dateTimeFormatter.format(n.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
 //				String.valueOf(n.getContent().getId()) + "#" +
 //				String.valueOf(n.getContext().getId()) + "#" +
-//				String.valueOf(n.getCategory().getId()) + "#" + 
+//				String.valueOf(n.getCategory().getId()) + "#" +
 //				String.valueOf(n.getKid().getId()) + "#"
 //		        ).split("#");
 //		    writer.writeNext(entries);

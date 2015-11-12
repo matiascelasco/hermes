@@ -23,7 +23,7 @@ public class Notification {
 	
 	private int id;
 	private Kid kid;
-    private Date dateTimeSended;
+    private Date dateTimeSent;
     private Date dateTimeReceived;
     private Content content;
     private Category category;
@@ -46,11 +46,11 @@ public class Notification {
 	public void setKid(Kid kid) {
 		this.kid = kid;
 	}
-	public Date getDateTimeSended() {
-		return dateTimeSended;
+	public Date getDateTimeSent() {
+		return dateTimeSent;
 	}
-	public void setDateTimeSended(Date fechaHoraEnvio) {
-		this.dateTimeSended = fechaHoraEnvio;
+	public void setDateTimeSent(Date fechaHoraEnvio) {
+		this.dateTimeSent = fechaHoraEnvio;
 	}
 	public Date getDateTimeReceived() {
 		return dateTimeReceived;

@@ -43,7 +43,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 			case 0:
-				return (Object) data.get(rowIndex).getDateTimeSended();
+				return (Object) data.get(rowIndex).getDateTimeSent();
 			case 1:
 				return (Object) data.get(rowIndex).getContent();
 			case 2:
@@ -84,7 +84,7 @@ public class NotificationsTableModel extends AbstractTableModel {
 			oldOne.setCategory(updatedOne.getCategory());
 			oldOne.setKid(updatedOne.getKid());
 			oldOne.setDateTimeReceived(updatedOne.getDateTimeReceived());
-			oldOne.setDateTimeSended(updatedOne.getDateTimeSended());
+			oldOne.setDateTimeSent(updatedOne.getDateTimeSent());
 			
 		}
 	}

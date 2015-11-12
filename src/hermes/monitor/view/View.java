@@ -51,15 +51,15 @@ public class View extends JFrame {
         	maxDate = new GregorianCalendar().getTime();
         }
         else {
-        	minDate = data.get(0).getDateTimeSended();
-        	maxDate = data.get(0).getDateTimeSended();
+        	minDate = data.get(0).getDateTimeSent();
+        	maxDate = data.get(0).getDateTimeSent();
 
         	for (Notification notification: data){
-        		if (notification.getDateTimeSended().before(minDate)){
-        			minDate = notification.getDateTimeSended();
+        		if (notification.getDateTimeSent().before(minDate)){
+        			minDate = notification.getDateTimeSent();
         		}
-        		if (notification.getDateTimeSended().after(maxDate)){
-        			maxDate = notification.getDateTimeSended();
+        		if (notification.getDateTimeSent().after(maxDate)){
+        			maxDate = notification.getDateTimeSent();
         		}
         	}
         }

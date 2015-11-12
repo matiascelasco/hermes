@@ -30,7 +30,7 @@ public class JSONLoader implements Loader {
 			JSONObject notificationJSON = notificationsJSON.getJSONObject(i);
 			Notification notification = new Notification();
 			
-			notification.setDateTimeSended(Converter.stringToDate(notificationJSON.getString("sended")));
+			notification.setDateTimeSent(Converter.stringToDate(notificationJSON.getString("sent")));
 			notification.setDateTimeReceived(Converter.stringToDate(notificationJSON.getString("received")));
 			notification.setCategory(Category.values()[notificationJSON.getInt("category_id") - 1]);
 			notification.setContent(Content.values()[notificationJSON.getInt("content_id") - 1]);

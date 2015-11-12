@@ -24,7 +24,7 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected String prepareValues(Notification obj) {
 		return String.format("'%s', '%s', %d, %d, %d, %d",
-			Converter.dateToString(obj.getDateTimeSended()),
+			Converter.dateToString(obj.getDateTimeSent()),
 			Converter.dateToString(obj.getDateTimeReceived()),
 			obj.getContent().ordinal(),
 			obj.getContext().ordinal(),
@@ -36,7 +36,7 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected List<String> getFieldNames() {
 		List<String> names = new ArrayList<String>();
-		names.add("sended");
+		names.add("sent");
         names.add("received");
         names.add("content_id");
         names.add("context_id");
@@ -53,10 +53,10 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected Notification buildFromSqlResult(ResultSet result) throws SQLException {
 		Notification n = new Notification();
-		Date sended = Converter.stringToDate(result.getString("sended"));
+		Date sent = Converter.stringToDate(result.getString("sent"));
 		Date received = Converter.stringToDate(result.getString("received"));
 		n.setId(result.getInt("ID"));
-		n.setDateTimeSended(sended);
+		n.setDateTimeSent(sent);
 		n.setDateTimeReceived(received);
 		n.setCategory(Category.values()[result.getInt("category_id")]);
 		n.setContext(Context.values()[result.getInt("context_id")]);
@@ -95,8 +95,8 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 
 	@Override
 	protected String prepareForUpdate(Notification obj) {
-		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
-			Converter.dateToString(obj.getDateTimeSended()),
+		return String.format("sent = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
+			Converter.dateToString(obj.getDateTimeSent()),
 			Converter.dateToString(obj.getDateTimeReceived()),
 			obj.getContent().ordinal(),
 			obj.getContext().ordinal(),
