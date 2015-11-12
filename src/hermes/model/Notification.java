@@ -78,7 +78,7 @@ public class Notification {
 	}
 	
 	public String toString(){
-		return this.content.toString(); 
+		return String.format("<Notification id=%d>", id);
 	}
 
 	@Override
