@@ -1,6 +1,6 @@
 package hermes.model.dao;
 
-import hermes.model.loader.CSVLoader;
+import hermes.model.loader.JSONLoader;
 import hermes.model.loader.Loader;
 
 import java.io.File;
@@ -38,7 +38,7 @@ public class ConnectionWrapper {
 			statement.close();
 			if (!alreadyExists){
 				createSchema();
-				Loader loader = new CSVLoader();
+				Loader loader = new JSONLoader();
 				loader.load();
 			}
 		} catch (SQLException e) {
