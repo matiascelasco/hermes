@@ -38,7 +38,7 @@ public class ConnectionWrapper {
 			statement.close();
 			if (!alreadyExists){
 				createSchema();
-				Loader loader = new CSVLoader(dir.getAbsolutePath());
+				Loader loader = new CSVLoader();
 				loader.load();
 			}
 		} catch (SQLException e) {

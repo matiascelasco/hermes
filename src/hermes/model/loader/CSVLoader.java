@@ -9,28 +9,17 @@ import hermes.model.enums.Context;
 import hermes.model.enums.Kid;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Random;
 
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 public class CSVLoader implements Loader {
 
-	private String path;
-	
-	public CSVLoader(String path) {
-		this.path = path;
-	}
-	
 	public void load(){
 
 		try {
@@ -75,38 +64,38 @@ public class CSVLoader implements Loader {
 		}
 	}
 
-	private static void generateRandomCSV(String path) throws IOException{
-		CSVWriter writer = new CSVWriter(new FileWriter(path+"/"+"hermes.csv"));
-		Random random = new Random();
-		for (int i = 0; i < 50; i++){
-			Notification n = new Notification();
-			n.setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
-											   random.nextInt(12),
-											   random.nextInt(28),
-											   random.nextInt(24),
-											   random.nextInt(60),
-											   random.nextInt(60)).getTime());
-			n.setDateTimeReceived(new GregorianCalendar(2013 + random.nextInt(3),
-											   random.nextInt(12),
-											   random.nextInt(28),
-											   random.nextInt(24),
-											   random.nextInt(60),
-											   random.nextInt(60)).getTime());
-			n.setContent(Content.values()[random.nextInt(Content.values().length)]);
-			n.setContext(Context.values()[random.nextInt(Context.values().length)]);
-			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
-			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
-			//save the notification in data file
-			String[] entries = (String.valueOf(n.getId()) + "#" + 
-				Model.dateTimeFormatter.format(n.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
-				Model.dateTimeFormatter.format(n.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
-				String.valueOf(n.getContent().getId()) + "#" +
-				String.valueOf(n.getContext().getId()) + "#" +
-				String.valueOf(n.getCategory().getId()) + "#" + 
-				String.valueOf(n.getKid().getId()) + "#"
-		        ).split("#");
-		    writer.writeNext(entries);
-		}
-		writer.close();
-	}
+//	private static void generateRandomCSV(String path) throws IOException{
+//		CSVWriter writer = new CSVWriter(new FileWriter(path+"/"+"hermes.csv"));
+//		Random random = new Random();
+//		for (int i = 0; i < 50; i++){
+//			Notification n = new Notification();
+//			n.setDateTimeSended(new GregorianCalendar(2013 + random.nextInt(3),
+//											   random.nextInt(12),
+//											   random.nextInt(28),
+//											   random.nextInt(24),
+//											   random.nextInt(60),
+//											   random.nextInt(60)).getTime());
+//			n.setDateTimeReceived(new GregorianCalendar(2013 + random.nextInt(3),
+//											   random.nextInt(12),
+//											   random.nextInt(28),
+//											   random.nextInt(24),
+//											   random.nextInt(60),
+//											   random.nextInt(60)).getTime());
+//			n.setContent(Content.values()[random.nextInt(Content.values().length)]);
+//			n.setContext(Context.values()[random.nextInt(Context.values().length)]);
+//			n.setCategory(Category.values()[random.nextInt(Category.values().length)]);
+//			n.setKid(Kid.values()[random.nextInt(Kid.values().length)]);
+//			//save the notification in data file
+//			String[] entries = (String.valueOf(n.getId()) + "#" + 
+//				Model.dateTimeFormatter.format(n.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
+//				Model.dateTimeFormatter.format(n.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())+"#"+
+//				String.valueOf(n.getContent().getId()) + "#" +
+//				String.valueOf(n.getContext().getId()) + "#" +
+//				String.valueOf(n.getCategory().getId()) + "#" + 
+//				String.valueOf(n.getKid().getId()) + "#"
+//		        ).split("#");
+//		    writer.writeNext(entries);
+//		}
+//		writer.close();
+//	}
 }
