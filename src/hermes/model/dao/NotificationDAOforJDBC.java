@@ -86,12 +86,11 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	public void persist(Notification notification){
 		super.persist(notification);
-		if (notification.tags.isEmpty()){
-			return;
-		}
-		String sql = "";
-		for (Tag tag : notification.tags) {
-			sql += String.format("INSERT INTO Notifications_Tags(notification_id, tag_id) VALUES(%d, %d);", notification.getId(), tag.getId());
+		String sql = String.format("DELETE FROM Notifications_Tags WHERE notification_id = %d;", notification.getId());
+		if (!notification.tags.isEmpty()){
+			for (Tag tag : notification.tags) {
+				sql += String.format("INSERT INTO Notifications_Tags(notification_id, tag_id) VALUES(%d, %d);", notification.getId(), tag.getId());
+			}
 		}
 		connection.executeUpdate(sql);
 	}
