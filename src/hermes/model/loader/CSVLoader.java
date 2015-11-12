@@ -1,6 +1,5 @@
 package hermes.model.loader;
 
-import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.dao.FactoryDAO;
 import hermes.model.enums.Category;
@@ -12,9 +11,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
+
+import utils.Converter;
 
 import com.opencsv.CSVReader;
 
@@ -42,8 +41,8 @@ public class CSVLoader implements Loader {
 				context_id = Integer.valueOf(nextLine[4]);
 				category_id = Integer.valueOf(nextLine[5]);
 				kid_id = Integer.valueOf(nextLine[6]);
-				sended = Date.from(LocalDate.parse(nextLine[1], Model.dateTimeFormatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-				received = Date.from(LocalDate.parse(nextLine[2], Model.dateTimeFormatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
+				sended = Converter.stringToDate(nextLine[1]);
+				received = Converter.stringToDate(nextLine[2]);
 
 
 				Notification n = new Notification();

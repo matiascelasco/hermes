@@ -1,6 +1,5 @@
 package hermes.model.dao;
 
-import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
 import hermes.model.enums.Category;
@@ -11,11 +10,11 @@ import hermes.model.enums.Kid;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import utils.Converter;
 
 import dao.DAOforJDBC;
 
@@ -25,8 +24,8 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected String prepareValues(Notification obj) {
 		return String.format("'%s', '%s', %d, %d, %d, %d",
-			Model.dateTimeFormatter.format(obj.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
-			Model.dateTimeFormatter.format(obj.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
+			Converter.dateToString(obj.getDateTimeSended()),
+			Converter.dateToString(obj.getDateTimeReceived()),
 			obj.getContent().ordinal(),
 			obj.getContext().ordinal(),
 			obj.getCategory().ordinal(),
@@ -54,9 +53,8 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected Notification buildFromSqlResult(ResultSet result) throws SQLException {
 		Notification n = new Notification();
-
-		Date sended = Date.from(LocalDate.parse(result.getString("sended"), Model.dateTimeFormatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Date received = Date.from(LocalDate.parse(result.getString("received"), Model.dateTimeFormatter).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		Date sended = Converter.stringToDate(result.getString("sended"));
+		Date received = Converter.stringToDate(result.getString("received"));
 		n.setId(result.getInt("ID"));
 		n.setDateTimeSended(sended);
 		n.setDateTimeReceived(received);
@@ -98,8 +96,8 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 	@Override
 	protected String prepareForUpdate(Notification obj) {
 		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
-			Model.dateTimeFormatter.format(obj.getDateTimeSended().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
-			Model.dateTimeFormatter.format(obj.getDateTimeReceived().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()),
+			Converter.dateToString(obj.getDateTimeSended()),
+			Converter.dateToString(obj.getDateTimeReceived()),
 			obj.getContent().ordinal(),
 			obj.getContext().ordinal(),
 			obj.getCategory().ordinal(),

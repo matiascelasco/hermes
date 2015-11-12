@@ -1,6 +1,5 @@
 package hermes.model;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import dao.DAO;
@@ -9,8 +8,6 @@ import hermes.model.dao.FactoryDAO;
 
 public class Model {
 
-	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-	
 	public void renameTag(Tag tag, String tagNewName) {
 		tag.setName(tagNewName);
 		FactoryDAO.getTagDAO().persist(tag);

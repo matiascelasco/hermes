@@ -1,10 +1,8 @@
 package hermes.monitor.view.helpers;
 
-import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
 
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -14,6 +12,8 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
+
+import utils.Converter;
 
 public class NotificationsTable extends JTable {
 
@@ -25,7 +25,7 @@ public class NotificationsTable extends JTable {
 		@Override
 		public void setValue(Object value) {
 			Date date = (Date) value;
-			String dateAsString = Model.dateTimeFormatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+			String dateAsString = Converter.dateToString(date);
 			setText(dateAsString);
 		}
 	}

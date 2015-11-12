@@ -8,7 +8,6 @@ import hermes.monitor.view.View;
 //TODO: el ordenamiento de la columna de fecha no anda
 //TODO: que los fields de fecha se actualizen automáticamente de manera tal que Desde nunca sea mayor que Hasta
 //TODO: ver si se puede usar las fechas que hay en java.time en vez de las de utils en el combo box
-//TODO: centralizar toda la complejidad de la conversión de fechas a string en un solo punto
 //TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.6 en vez de 1.4)
 
 public class Main {
