@@ -1,4 +1,4 @@
-package hermes.monitor.view.helpers;
+package hermes.monitor.view.utils;
 
 import hermes.model.Tag;
 import hermes.model.enums.Category;

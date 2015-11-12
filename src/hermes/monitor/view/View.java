@@ -7,9 +7,9 @@ import hermes.model.enums.Category;
 import hermes.model.enums.Content;
 import hermes.model.enums.Context;
 import hermes.model.enums.Kid;
-import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
-import hermes.monitor.view.helpers.NotificationRowFilterBuilder;
-import hermes.monitor.view.helpers.NotificationsTableModel;
+import hermes.monitor.view.utils.GridBagConstraintsBuilder;
+import hermes.monitor.view.utils.NotificationRowFilterBuilder;
+import hermes.monitor.view.utils.NotificationsTableModel;
 
 import java.awt.Container;
 import java.awt.GridBagConstraints;

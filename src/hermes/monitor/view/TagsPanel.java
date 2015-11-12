@@ -1,8 +1,8 @@
 package hermes.monitor.view;
 
 import hermes.model.Tag;
-import hermes.monitor.view.helpers.GridBagConstraintsBuilder;
-import hermes.monitor.view.helpers.TagsComboBox;
+import hermes.monitor.view.utils.GridBagConstraintsBuilder;
+import hermes.monitor.view.utils.TagsComboBox;
 
 import java.awt.Component;
 import java.awt.Dimension;

@@ -1,4 +1,4 @@
-package hermes.monitor.view.helpers;
+package hermes.monitor.view.utils;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
