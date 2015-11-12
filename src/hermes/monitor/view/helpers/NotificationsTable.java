@@ -68,13 +68,14 @@ public class NotificationsTable extends JTable {
 	}
 
 	public TableCellRenderer getCellRenderer(int row, int column) {
-		if ((column == 0)) {
+		switch (column) {
+		case 0:
 			return dateTimeRenderer;
-		}
-		if ((column == 5)) {
+		case 5:
 			return tagsSetRenderer;
+		default:
+			return super.getCellRenderer(row, column);
 		}
-		return super.getCellRenderer(row, column);
 	}
 
 	public Class<?> getColumnClass(int column) {
