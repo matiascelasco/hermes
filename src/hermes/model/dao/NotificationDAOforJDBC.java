@@ -21,7 +21,7 @@ import dao.DAOforJDBC;
 
 class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 
-	
+
 	@Override
 	protected String prepareValues(Notification obj) {
 		return String.format("'%s', '%s', %d, %d, %d, %d",
@@ -66,7 +66,7 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setKid(Kid.values()[result.getInt("kid_id")]);
 		return n;
 	}
-	
+
 	protected void loadManyToManyRelatedModels(Notification notification) throws SQLException {
 		notification.tags.clear();
 		Statement statement = connection.createStatement();
@@ -90,13 +90,12 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 			return;
 		}
 		String sql = "";
-		System.out.println(notification.tags.size());
 		for (Tag tag : notification.tags) {
 			sql += String.format("INSERT INTO Notifications_Tags(notification_id, tag_id) VALUES(%d, %d);", notification.getId(), tag.getId());
 		}
 		connection.executeUpdate(sql);
 	}
-	
+
 	@Override
 	protected String prepareForUpdate(Notification obj) {
 		return String.format("sended = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
@@ -108,7 +107,7 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 			obj.getKid().ordinal()
 		);
 	}
-	
+
 	@Override
 	public boolean exists(Notification notification){
 		if (notification.getId() == 0){
