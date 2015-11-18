@@ -7,24 +7,14 @@ import hermes.model.enums.Content;
 import hermes.model.enums.Context;
 import hermes.model.enums.Kid;
 
-import java.io.InputStream;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import utils.Converter;
 
-public class JSONLoader implements Loader {
+public abstract class JsonLoader implements Loader {
 
-	@Override
-	public void load() {
-		InputStream in = JSONLoader.class.getResourceAsStream("/hermes.json");
-		JSONTokener tokener = new JSONTokener(in);
-		saveToDatabase(new JSONArray(tokener));
-	}
-
-	protected void saveToDatabase(JSONArray notificationsJSON){
+	public static void saveToDatabase(JSONArray notificationsJSON){
 		for (int i = 0; i < notificationsJSON.length(); i++){
 			
 			JSONObject notificationJSON = notificationsJSON.getJSONObject(i);

@@ -59,20 +59,20 @@ public class NotificationsTableModel extends AbstractTableModel {
 		}
 	}
 	
-	public void updateData(List<Notification> updatedOnes){
+	public void updateData(List<Notification> newList){
 		
-		if (updatedOnes.size() != data.size()){
+		if (newList.size() < data.size()){
 			throw new RuntimeException(
 				"Something is wrong: when trying to update the JTable with the views, " +
-				"the sizes of both updated and old list of notifications differs. " +
-				"That don't makes sense since we are not performing any notifications CRUD " +
-				"(except for updates)."
+				"the sizes of the new list of notifications is shorter than the old one. " +
+				"That don't makes sense since we are not deleting notifications."
 			);
 		}
 		
-		for (int i = 0; i < updatedOnes.size(); i++){
+		// update older ones
+		for (int i = 0; i < data.size(); i++){
 			Notification oldOne = data.get(i);
-			Notification updatedOne = updatedOnes.get(i);
+			Notification updatedOne = newList.get(i);
 			
 			if (oldOne.getId() != updatedOne.getId()){
 				throw new RuntimeException("List of updated notifications given is supposed to be sorted by id");
@@ -86,6 +86,11 @@ public class NotificationsTableModel extends AbstractTableModel {
 			oldOne.setDateTimeReceived(updatedOne.getDateTimeReceived());
 			oldOne.setDateTimeSent(updatedOne.getDateTimeSent());
 			
+		}
+		
+		// append new ones
+		for (int i = data.size(); i < newList.size(); i++){
+			data.add(newList.get(i));
 		}
 	}
 

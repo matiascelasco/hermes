@@ -11,12 +11,12 @@ import hermes.monitor.view.View;
 //TODO: mencionar como comentario en la entrega la version de java (8) y el compilation level (1.6 en vez de 1.4)
 
 public class Main {
-
+	
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
 				try {
 					Model model = new Model();
 					View view = new View(model);
@@ -24,10 +24,11 @@ public class Main {
 					controller.prepare();
 					view.pack();
 					view.setVisible(true);
-				} catch (RuntimeException e) {
+				}
+				catch (RuntimeException e) {
 					e.printStackTrace();
 				}
-            }
-        });
+//            }
+//        });
     }
 }

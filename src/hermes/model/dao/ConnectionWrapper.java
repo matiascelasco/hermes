@@ -1,7 +1,8 @@
 package hermes.model.dao;
 
-import hermes.model.loader.JSONLoader;
-import hermes.model.loader.Loader;
+//import hermes.model.loader.JsonLoader;
+//import hermes.model.loader.JsonFileLoader;
+//import hermes.model.loader.Loader;
 
 import java.io.File;
 import java.sql.Connection;
@@ -38,8 +39,8 @@ public class ConnectionWrapper {
 			statement.close();
 			if (!alreadyExists){
 				createSchema();
-				Loader loader = new JSONLoader();
-				loader.load();
+//				Loader loader = new JsonFileLoader();
+//				loader.load();
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

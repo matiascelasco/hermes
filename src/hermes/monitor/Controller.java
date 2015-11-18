@@ -3,11 +3,23 @@ package hermes.monitor;
 import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
+import hermes.model.loader.JsonLoader;
 import hermes.monitor.view.View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONTokener;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 
 public class Controller {
@@ -21,6 +33,17 @@ public class Controller {
 	}
 
 	public void prepare(){
+
+		HttpServer server;
+		try {
+			server = HttpServer.create(new InetSocketAddress(8000), 0);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+        server.createContext("/load-notifications", new DataReceivedListener());
+        server.setExecutor(null); // creates a default executor
+        server.start();
+
 		view.addTagCreatedListener(new TagCreatedListener());
 		view.addTagDeletedListener(new TagDeletedListener());
 		view.addTagAssignedListener(new TagToggledOnNotificationListener());
@@ -90,6 +113,30 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			view.clearFiltersForm();
 			view.filterTable(view.getFilterToBeApplied());
+		}
+
+	}
+
+	private class DataReceivedListener implements HttpHandler {
+
+		@Override
+		public void handle(HttpExchange t) throws IOException {
+			// TODO: bardear si t.getRequestMethod() no es POST
+			InputStream is = t.getRequestBody();
+            JSONTokener tokener = new JSONTokener(is);
+            JSONArray array = new JSONArray(tokener);
+            JsonLoader.saveToDatabase(array);
+            try {
+            	view.updateTable(model.getAllNotifications());
+            }
+            catch (RuntimeException e){
+            	e.printStackTrace();
+            }
+            String response = String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length());
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
 		}
 
 	}

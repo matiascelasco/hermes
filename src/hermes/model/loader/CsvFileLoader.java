@@ -17,7 +17,7 @@ import utils.Converter;
 
 import com.opencsv.CSVReader;
 
-public class CSVLoader implements Loader {
+public class CsvFileLoader implements Loader {
 
 	public void load(){
 
@@ -26,7 +26,7 @@ public class CSVLoader implements Loader {
 //			generateRandomCSV(path);
 
 			//load from CSV file
-			InputStream in = CSVLoader.class.getResourceAsStream("/hermes.csv");
+			InputStream in = CsvFileLoader.class.getResourceAsStream("/hermes.csv");
 			BufferedReader breader = new BufferedReader(new InputStreamReader(in));
 			CSVReader reader = new CSVReader(breader);
 			String [] nextLine;
