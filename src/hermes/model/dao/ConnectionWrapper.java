@@ -5,10 +5,15 @@ package hermes.model.dao;
 //import hermes.model.loader.Loader;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import org.apache.commons.io.IOUtils;
 
 public class ConnectionWrapper {
 	private Connection connection;
@@ -48,33 +53,13 @@ public class ConnectionWrapper {
 	}
 
 	private void createSchema(){
-		String sql =
-
-			"CREATE TABLE Tags (" +
-				"ID              INTEGER 	     PRIMARY KEY NOT NULL," +
-				"name            VARCHAR(20)    NOT NULL" +
-			");" +
-
-			"CREATE TABLE Notifications (" +
-				"ID              INTEGER      PRIMARY KEY NOT NULL," +
-				"kid_id          INT          NOT NULL," +
-				"sent          VARCHAR(20)  NOT NULL," +
-				"received        VARCHAR(20), " +
-				"content_id      INT          NOT NULL," +
-				"category_id     INT," +
-				"tag_id          INT," +
-				"context_id      INT" +
-			");" +
-
-			"CREATE TABLE Notifications_Tags (" +
-				"tag_id			 INTEGER		NOT NULL," +
-				"notification_id INTEGER		NOT NULL," +
-				"FOREIGN KEY(tag_id) REFERENCES Tags(ID) ON DELETE CASCADE," +
-				"FOREIGN KEY(notification_id) REFERENCES Notifications(ID) ON DELETE CASCADE" +
-			");"
-
-		;
-		executeUpdate(sql);
+		try {
+			InputStream in = ConnectionWrapper.class.getResourceAsStream("/schema.sql");
+			String sql = IOUtils.toString(in, StandardCharsets.UTF_8.name());
+			executeUpdate(sql);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void executeUpdate(String sql){
