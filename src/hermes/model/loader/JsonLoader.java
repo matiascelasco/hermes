@@ -2,10 +2,6 @@ package hermes.model.loader;
 
 import hermes.model.Notification;
 import hermes.model.dao.FactoryDAO;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,10 +18,10 @@ public abstract class JsonLoader implements Loader {
 			
 			notification.setDateTimeSent(Converter.stringToDate(notificationJSON.getString("sent")));
 			notification.setDateTimeReceived(Converter.stringToDate(notificationJSON.getString("received")));
-			notification.setCategory(Category.values()[notificationJSON.getInt("category_id") - 1]);
-			notification.setContent(Content.values()[notificationJSON.getInt("content_id") - 1]);
-			notification.setContext(Context.values()[notificationJSON.getInt("context_id") - 1]);
-			notification.setKid(Kid.values()[notificationJSON.getInt("kid_id") - 1]);
+			notification.setCategory(FactoryDAO.getCategoryDAO().retrieve(notificationJSON.getInt("category_id")));
+			notification.setContent(FactoryDAO.getContentDAO().retrieve(notificationJSON.getInt("content_id")));
+			notification.setContext(FactoryDAO.getContextDAO().retrieve(notificationJSON.getInt("context_id")));
+			notification.setKid(FactoryDAO.getKidDAO().retrieve(notificationJSON.getInt("kid_id")));
 			
 			FactoryDAO.getNotificationDAO().persist(notification);
 		}

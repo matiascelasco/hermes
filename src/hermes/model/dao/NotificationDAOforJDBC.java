@@ -2,10 +2,6 @@ package hermes.model.dao;
 
 import hermes.model.Notification;
 import hermes.model.Tag;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,10 +22,10 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		return String.format("'%s', '%s', %d, %d, %d, %d",
 			Converter.dateToString(obj.getDateTimeSent()),
 			Converter.dateToString(obj.getDateTimeReceived()),
-			obj.getContent().ordinal(),
-			obj.getContext().ordinal(),
-			obj.getCategory().ordinal(),
-			obj.getKid().ordinal()
+			obj.getContent().getId(),
+			obj.getContext().getId(),
+			obj.getCategory().getId(),
+			obj.getKid().getId()
 		);
 	}
 
@@ -58,10 +54,10 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setId(result.getInt("ID"));
 		n.setDateTimeSent(sent);
 		n.setDateTimeReceived(received);
-		n.setCategory(Category.values()[result.getInt("category_id")]);
-		n.setContext(Context.values()[result.getInt("context_id")]);
-		n.setContent(Content.values()[result.getInt("content_id")]);
-		n.setKid(Kid.values()[result.getInt("kid_id")]);
+		n.setCategory(FactoryDAO.getCategoryDAO().retrieve(result.getInt("category_id")));
+		n.setContext(FactoryDAO.getContextDAO().retrieve(result.getInt("context_id")));
+		n.setContent(FactoryDAO.getContentDAO().retrieve(result.getInt("content_id")));
+		n.setKid(FactoryDAO.getKidDAO().retrieve(result.getInt("kid_id")));
 		return n;
 	}
 
@@ -98,10 +94,10 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		return String.format("sent = '%s', received = '%s', content_id = %d, context_id = %d, category_id = %d, kid_id = %d",
 			Converter.dateToString(obj.getDateTimeSent()),
 			Converter.dateToString(obj.getDateTimeReceived()),
-			obj.getContent().ordinal(),
-			obj.getContext().ordinal(),
-			obj.getCategory().ordinal(),
-			obj.getKid().ordinal()
+			obj.getContent().getId(),
+			obj.getContext().getId(),
+			obj.getCategory().getId(),
+			obj.getKid().getId()
 		);
 	}
 

@@ -16,7 +16,7 @@ public class EnumDAO<T extends Enum<T>> implements DAO<T> {
 	@Override
 	public T retrieve(long id) {
 		for(T value: values){
-			if (value.ordinal() == id){
+			if (value.ordinal() + 1 == id){
 				return value;
 			}
 		}

@@ -2,10 +2,6 @@ package hermes.model.loader;
 
 import hermes.model.Notification;
 import hermes.model.dao.FactoryDAO;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,10 +44,10 @@ public class CsvFileLoader implements Loader {
 				Notification n = new Notification();
 				n.setDateTimeSent(sent);
 				n.setDateTimeReceived(received);
-				n.setKid(Kid.values()[kid_id - 1]);
-				n.setContent(Content.values()[content_id - 1]);
-				n.setCategory(Category.values()[category_id - 1]);
-				n.setContext(Context.values()[context_id - 1]);
+				n.setKid(FactoryDAO.getKidDAO().retrieve(kid_id));
+				n.setContent(FactoryDAO.getContentDAO().retrieve(content_id));
+				n.setCategory(FactoryDAO.getCategoryDAO().retrieve(category_id));
+				n.setContext(FactoryDAO.getContextDAO().retrieve(context_id));
 
 				FactoryDAO.getNotificationDAO().persist(n);
 			}
