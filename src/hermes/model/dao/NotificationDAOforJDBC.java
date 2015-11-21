@@ -54,10 +54,10 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		n.setId(result.getInt("ID"));
 		n.setDateTimeSent(sent);
 		n.setDateTimeReceived(received);
-		n.setCategory(FactoryDAO.getCategoryDAO().retrieve(result.getInt("category_id")));
-		n.setContext(FactoryDAO.getContextDAO().retrieve(result.getInt("context_id")));
-		n.setContent(FactoryDAO.getContentDAO().retrieve(result.getInt("content_id")));
-		n.setKid(FactoryDAO.getKidDAO().retrieve(result.getInt("kid_id")));
+		n.setCategory(HermesDAOs.CATEGORY.retrieve(result.getInt("category_id")));
+		n.setContext(HermesDAOs.CONTEXT.retrieve(result.getInt("context_id")));
+		n.setContent(HermesDAOs.CONTENT.retrieve(result.getInt("content_id")));
+		n.setKid(HermesDAOs.KID.retrieve(result.getInt("kid_id")));
 		return n;
 	}
 
@@ -67,7 +67,7 @@ class NotificationDAOforJDBC extends DAOforJDBC<Notification>{
 		String sql = String.format("SELECT notification_id, tag_id FROM Notifications_Tags WHERE notification_id = %d;", notification.getId());
 		ResultSet result = statement.executeQuery(sql);
 		while (result.next()){
-			notification.tags.add(FactoryDAO.getTagDAO().retrieve(result.getInt("tag_id")));
+			notification.tags.add(HermesDAOs.TAG.retrieve(result.getInt("tag_id")));
 		}
 		statement.close();
 	}

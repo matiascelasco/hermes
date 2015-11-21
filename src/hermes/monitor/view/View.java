@@ -2,7 +2,7 @@ package hermes.monitor.view;
 import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
-import hermes.model.dao.FactoryDAO;
+import hermes.model.dao.HermesDAOs;
 import hermes.model.enums.Category;
 import hermes.model.enums.Content;
 import hermes.model.enums.Context;
@@ -36,7 +36,7 @@ public class View extends JFrame {
 
 		Container content = this.getContentPane();
 
-		List<Notification> data = FactoryDAO.getNotificationDAO().findAll();
+		List<Notification> data = HermesDAOs.NOTIFICATION.findAll();
 
 		notificationsPanel = new NotificationsPanel(data);
 
@@ -90,7 +90,7 @@ public class View extends JFrame {
         				.fill(GridBagConstraints.BOTH)
         				.build());
 	}
-	
+
 	/* Methods that retrieve data from the view */
 	public RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
 		Date fromDate = (Date) filtersPanel.fromDateTimeSpinner.getValue();
@@ -100,8 +100,8 @@ public class View extends JFrame {
 		Category category = (Category) filtersPanel.categoryComboBox.getSelectedItem();
 		Kid kid = (Kid) filtersPanel.kidComboBox.getSelectedItem();
 		Tag tag = (Tag) filtersPanel.tagsComboBox.getSelectedItem();
-		
-		NotificationRowFilterBuilder filterBuilder = 
+
+		NotificationRowFilterBuilder filterBuilder =
 				new NotificationRowFilterBuilder()
 					.fromDate(fromDate)
 					.toDate(toDate)
@@ -110,26 +110,26 @@ public class View extends JFrame {
 					.category(category)
 					.kid(kid)
 					.tag(tag);
-		
+
 		return filterBuilder.build();
 	}
-	
+
 	public String getNameForNewTag() {
 		return tagsPanel.newTagNameField.getText();
 	}
-	
+
 	public Tag getTagToBeDeleted() {
 		return (Tag) tagsPanel.tagForRemoveComboBox.getSelectedItem();
 	}
-	
+
 	public Tag getTagToBeToggled() {
 		return (Tag) tagsPanel.tagForAssingComboBox.getSelectedItem();
 	}
-	
+
 	public String getNewNameToRenameTag() {
 		return tagsPanel.renameTagNameField.getText();
 	}
-	
+
 	public Tag getTagToBeRenamed() {
 		return (Tag) tagsPanel.tagForRenameComboBox.getSelectedItem();
 	}
@@ -145,11 +145,11 @@ public class View extends JFrame {
 		tagsPanel.tagForRenameComboBox.updateContent(tags);
 		filtersPanel.updateTagComboBox(tags);
 	}
-	
+
 	public void filterTable(RowFilter<NotificationsTableModel, Object> filterToBeApplied) {
 		notificationsPanel.filterTable(filterToBeApplied);
 	}
-	
+
 	public void clearFiltersForm() {
 		filtersPanel.clearFiltersForm();
 	}
@@ -157,16 +157,16 @@ public class View extends JFrame {
 	public void updateTable(List<Notification> allNotifications) {
 		notificationsPanel.updateTable(allNotifications);
 	}
-	
+
 	/* Methods that register listeners */
 	public void addFilterButtonPressedListener(ActionListener listener) {
 		filtersPanel.filterButton.addActionListener(listener);
 	}
-	
+
 	public void addClearButtonPressedListener(ActionListener listener) {
 		filtersPanel.clearButton.addActionListener(listener);
 	}
-	
+
 	public void addTagCreatedListener(ActionListener listener) {
 		tagsPanel.createButton.addActionListener(listener);
 	}

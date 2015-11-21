@@ -1,7 +1,7 @@
 package hermes.model.loader;
 
 import hermes.model.Notification;
-import hermes.model.dao.FactoryDAO;
+import hermes.model.dao.HermesDAOs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,12 +44,12 @@ public class CsvFileLoader implements Loader {
 				Notification n = new Notification();
 				n.setDateTimeSent(sent);
 				n.setDateTimeReceived(received);
-				n.setKid(FactoryDAO.getKidDAO().retrieve(kid_id));
-				n.setContent(FactoryDAO.getContentDAO().retrieve(content_id));
-				n.setCategory(FactoryDAO.getCategoryDAO().retrieve(category_id));
-				n.setContext(FactoryDAO.getContextDAO().retrieve(context_id));
+				n.setKid(HermesDAOs.KID.retrieve(kid_id));
+				n.setContent(HermesDAOs.CONTENT.retrieve(content_id));
+				n.setCategory(HermesDAOs.CATEGORY.retrieve(category_id));
+				n.setContext(HermesDAOs.CONTEXT.retrieve(context_id));
 
-				FactoryDAO.getNotificationDAO().persist(n);
+				HermesDAOs.NOTIFICATION.persist(n);
 			}
 			reader.close();
 		} catch (NumberFormatException e) {
