@@ -1,52 +1,402 @@
 [
-{sent: "20/10/2015 00:00:00", received: "07/10/2013 00:00:00", content: "Alegre", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "27/02/2015 00:00:00", received: "22/09/2015 00:00:00", content: "Molesto", context: "Pista", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "15/12/2015 00:00:00", received: "08/04/2015 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "31/07/2015 00:00:00", received: "10/06/2014 00:00:00", content: "Entusiasmado", context: "Pista", category: "Predeterminada", kid: "Jimmy Olsen"},
-{sent: "04/06/2015 00:00:00", received: "20/12/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "27/08/2013 00:00:00", received: "16/05/2013 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "03/07/2013 00:00:00", received: "13/01/2015 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "08/11/2013 00:00:00", received: "19/08/2014 00:00:00", content: "Alegre", context: "Establo-Terapia", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "13/08/2015 00:00:00", received: "08/08/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "17/04/2013 00:00:00", received: "31/01/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "17/03/2014 00:00:00", received: "27/09/2013 00:00:00", content: "Entusiasmado", context: "Pista", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "11/05/2014 00:00:00", received: "07/06/2013 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "30/04/2014 00:00:00", received: "16/07/2013 00:00:00", content: "Molesto", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "11/04/2014 00:00:00", received: "13/02/2015 00:00:00", content: "Alegre", context: "Hogar", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "18/04/2013 00:00:00", received: "21/11/2015 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "06/11/2015 00:00:00", received: "12/06/2013 00:00:00", content: "Entusiasmado", context: "Pista", category: "Emociones", kid: "Dick Grayson"},
-{sent: "04/04/2013 00:00:00", received: "26/01/2013 00:00:00", content: "Entusiasmado", context: "Establo-Terapia", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "11/09/2013 00:00:00", received: "11/12/2014 00:00:00", content: "Entusiasmado", context: "Establo-Terapia", category: "Predeterminada", kid: "Jimmy Olsen"},
-{sent: "20/10/2013 00:00:00", received: "02/02/2015 00:00:00", content: "Alegre", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "14/11/2014 00:00:00", received: "25/08/2015 00:00:00", content: "Alegre", context: "Pista", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "19/11/2013 00:00:00", received: "03/02/2014 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "17/06/2015 00:00:00", received: "17/02/2013 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "31/07/2015 00:00:00", received: "15/04/2013 00:00:00", content: "Alegre", context: "Establo-Terapia", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "21/11/2014 00:00:00", received: "05/02/2015 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "18/05/2013 00:00:00", received: "26/02/2014 00:00:00", content: "Alegre", context: "Establo-Terapia", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "15/09/2015 00:00:00", received: "11/10/2015 00:00:00", content: "Molesto", context: "Hogar", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "24/11/2013 00:00:00", received: "08/07/2015 00:00:00", content: "Alegre", context: "Hogar", category: "Emociones", kid: "Jimmy Olsen"},
-{sent: "06/05/2015 00:00:00", received: "15/05/2014 00:00:00", content: "Alegre", context: "Establo-Terapia", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "01/08/2014 00:00:00", received: "22/08/2014 00:00:00", content: "Alegre", context: "Pista", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "04/11/2014 00:00:00", received: "14/05/2013 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "09/11/2015 00:00:00", received: "24/07/2014 00:00:00", content: "Entusiasmado", context: "Pista", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "16/06/2014 00:00:00", received: "18/02/2015 00:00:00", content: "Alegre", context: "Pista", category: "Emociones", kid: "Dick Grayson"},
-{sent: "06/05/2014 00:00:00", received: "18/04/2013 00:00:00", content: "Molesto", context: "Hogar", category: "Emociones", kid: "Bruce Wayne"},
-{sent: "06/08/2013 00:00:00", received: "13/01/2013 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Emociones", kid: "Dick Grayson"},
-{sent: "27/01/2015 00:00:00", received: "19/04/2013 00:00:00", content: "Alegre", context: "Pista", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "12/09/2014 00:00:00", received: "03/07/2014 00:00:00", content: "Alegre", context: "Pista", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "03/03/2013 00:00:00", received: "05/01/2014 00:00:00", content: "Molesto", context: "Pista", category: "Emociones", kid: "Dick Grayson"},
-{sent: "13/04/2013 00:00:00", received: "05/07/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Predeterminada", kid: "Jimmy Olsen"},
-{sent: "07/10/2013 00:00:00", received: "18/11/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Emociones", kid: "Dick Grayson"},
-{sent: "01/05/2015 00:00:00", received: "09/09/2013 00:00:00", content: "Entusiasmado", context: "Establo-Terapia", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "22/05/2014 00:00:00", received: "05/03/2014 00:00:00", content: "Molesto", context: "Establo-Terapia", category: "Predeterminada", kid: "Bruce Wayne"},
-{sent: "20/05/2015 00:00:00", received: "12/03/2014 00:00:00", content: "Entusiasmado", context: "Pista", category: "Emociones", kid: "Dick Grayson"},
-{sent: "25/07/2015 00:00:00", received: "10/10/2014 00:00:00", content: "Entusiasmado", context: "Establo-Terapia", category: "Emociones", kid: "Dick Grayson"},
-{sent: "10/03/2015 00:00:00", received: "05/07/2015 00:00:00", content: "Molesto", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "13/03/2015 00:00:00", received: "16/07/2014 00:00:00", content: "Entusiasmado", context: "Establo-Terapia", category: "Emociones", kid: "Dick Grayson"},
-{sent: "19/11/2015 00:00:00", received: "31/07/2014 00:00:00", content: "Molesto", context: "Pista", category: "Emociones", kid: "Dick Grayson"},
-{sent: "10/06/2015 00:00:00", received: "21/01/2014 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Emociones", kid: "Dick Grayson"},
-{sent: "08/10/2015 00:00:00", received: "16/11/2013 00:00:00", content: "Entusiasmado", context: "Pista", category: "Predeterminada", kid: "Jimmy Olsen"},
-{sent: "04/01/2013 00:00:00", received: "05/07/2014 00:00:00", content: "Entusiasmado", context: "Pista", category: "Predeterminada", kid: "Jimmy Olsen"},
-{sent: "25/02/2015 00:00:00", received: "11/04/2013 00:00:00", content: "Molesto", context: "Pista", category: "Predeterminada", kid: "Dick Grayson"}
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "07/10/2013 00:00:00",
+        "sent": "20/10/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "22/09/2015 00:00:00",
+        "sent": "27/02/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "08/04/2015 00:00:00",
+        "sent": "15/12/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "10/06/2014 00:00:00",
+        "sent": "31/07/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "20/12/2014 00:00:00",
+        "sent": "04/06/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "16/05/2013 00:00:00",
+        "sent": "27/08/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "13/01/2015 00:00:00",
+        "sent": "03/07/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Alegre",
+        "context": "Establo-Terapia",
+        "kid": "Jimmy Olsen",
+        "received": "19/08/2014 00:00:00",
+        "sent": "08/11/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "08/08/2014 00:00:00",
+        "sent": "13/08/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "31/01/2014 00:00:00",
+        "sent": "17/04/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "27/09/2013 00:00:00",
+        "sent": "17/03/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "07/06/2013 00:00:00",
+        "sent": "11/05/2014 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "16/07/2013 00:00:00",
+        "sent": "30/04/2014 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "13/02/2015 00:00:00",
+        "sent": "11/04/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Jimmy Olsen",
+        "received": "21/11/2015 00:00:00",
+        "sent": "18/04/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "12/06/2013 00:00:00",
+        "sent": "06/11/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "26/01/2013 00:00:00",
+        "sent": "04/04/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Establo-Terapia",
+        "kid": "Jimmy Olsen",
+        "received": "11/12/2014 00:00:00",
+        "sent": "11/09/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "02/02/2015 00:00:00",
+        "sent": "20/10/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "25/08/2015 00:00:00",
+        "sent": "14/11/2014 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "03/02/2014 00:00:00",
+        "sent": "19/11/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "17/02/2013 00:00:00",
+        "sent": "17/06/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Alegre",
+        "context": "Establo-Terapia",
+        "kid": "Jimmy Olsen",
+        "received": "15/04/2013 00:00:00",
+        "sent": "31/07/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "05/02/2015 00:00:00",
+        "sent": "21/11/2014 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "26/02/2014 00:00:00",
+        "sent": "18/05/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "11/10/2015 00:00:00",
+        "sent": "15/09/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Alegre",
+        "context": "Hogar",
+        "kid": "Jimmy Olsen",
+        "received": "08/07/2015 00:00:00",
+        "sent": "24/11/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "15/05/2014 00:00:00",
+        "sent": "06/05/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "22/08/2014 00:00:00",
+        "sent": "01/08/2014 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "14/05/2013 00:00:00",
+        "sent": "04/11/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Bruce Wayne",
+        "received": "24/07/2014 00:00:00",
+        "sent": "09/11/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Alegre",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "18/02/2015 00:00:00",
+        "sent": "16/06/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Hogar",
+        "kid": "Bruce Wayne",
+        "received": "18/04/2013 00:00:00",
+        "sent": "06/05/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "13/01/2013 00:00:00",
+        "sent": "06/08/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Pista",
+        "kid": "Bruce Wayne",
+        "received": "19/04/2013 00:00:00",
+        "sent": "27/01/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Pista",
+        "kid": "Bruce Wayne",
+        "received": "03/07/2014 00:00:00",
+        "sent": "12/09/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "05/01/2014 00:00:00",
+        "sent": "03/03/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Jimmy Olsen",
+        "received": "05/07/2014 00:00:00",
+        "sent": "13/04/2013 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "18/11/2014 00:00:00",
+        "sent": "07/10/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "09/09/2013 00:00:00",
+        "sent": "01/05/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Establo-Terapia",
+        "kid": "Bruce Wayne",
+        "received": "05/03/2014 00:00:00",
+        "sent": "22/05/2014 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "12/03/2014 00:00:00",
+        "sent": "20/05/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "10/10/2014 00:00:00",
+        "sent": "25/07/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "05/07/2015 00:00:00",
+        "sent": "10/03/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Establo-Terapia",
+        "kid": "Dick Grayson",
+        "received": "16/07/2014 00:00:00",
+        "sent": "13/03/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "31/07/2014 00:00:00",
+        "sent": "19/11/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "21/01/2014 00:00:00",
+        "sent": "10/06/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "16/11/2013 00:00:00",
+        "sent": "08/10/2015 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "05/07/2014 00:00:00",
+        "sent": "04/01/2013 00:00:00"
+    },
+    {
+        "category": "Predeterminada",
+        "content": "Molesto",
+        "context": "Pista",
+        "kid": "Dick Grayson",
+        "received": "11/04/2013 00:00:00",
+        "sent": "25/02/2015 00:00:00"
+    }
 ]

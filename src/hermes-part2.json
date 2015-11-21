@@ -1,3 +1,10 @@
 [
-{sent: "15/12/2015 00:00:00", received: "08/04/2015 00:00:00", content: "Entusiasmado", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"}
+    {
+        "category": "Predeterminada",
+        "content": "Entusiasmado",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "08/04/2015 00:00:00",
+        "sent": "15/12/2015 00:00:00"
+    }
 ]

@@ -1,4 +1,18 @@
 [
-{sent: "20/10/2015 00:00:00", received: "07/10/2013 00:00:00", content: "Alegre", context: "Hogar", category: "Predeterminada", kid: "Dick Grayson"},
-{sent: "27/02/2015 00:00:00", received: "22/09/2015 00:00:00", content: "Molesto", context: "Pista", category: "Emociones", kid: "Jimmy Olsen"}
+    {
+        "category": "Predeterminada",
+        "content": "Alegre",
+        "context": "Hogar",
+        "kid": "Dick Grayson",
+        "received": "07/10/2013 00:00:00",
+        "sent": "20/10/2015 00:00:00"
+    },
+    {
+        "category": "Emociones",
+        "content": "Molesto",
+        "context": "Pista",
+        "kid": "Jimmy Olsen",
+        "received": "22/09/2015 00:00:00",
+        "sent": "27/02/2015 00:00:00"
+    }
 ]
