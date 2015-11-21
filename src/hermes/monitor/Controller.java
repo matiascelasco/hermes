@@ -36,7 +36,7 @@ public class Controller {
 
 		HttpServer server;
 		try {
-			server = HttpServer.create(new InetSocketAddress(8000), 0);
+			server = HttpServer.create(new InetSocketAddress(new Integer(Main.properties.getProperty("port"))), 0);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
