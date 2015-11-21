@@ -119,24 +119,30 @@ public class Controller {
 
 	private class DataReceivedListener implements HttpHandler {
 
+		private void response(HttpExchange t, int code, String msg) throws IOException{
+			t.sendResponseHeaders(code, msg.length());
+			OutputStream os = t.getResponseBody();
+			os.write(msg.getBytes());
+			os.close();	
+		}
+		
 		@Override
 		public void handle(HttpExchange t) throws IOException {
-			// TODO: bardear si t.getRequestMethod() no es POST
+			if (!t.getRequestMethod().equalsIgnoreCase("POST")){
+				response(t, 400, "Bad request\n");
+				return;
+			}
 			InputStream is = t.getRequestBody();
-            JSONTokener tokener = new JSONTokener(is);
-            JSONArray array = new JSONArray(tokener);
-            JsonLoader.saveToDatabase(array);
-            try {
-            	view.updateTable(model.getAllNotifications());
-            }
-            catch (RuntimeException e){
-            	e.printStackTrace();
-            }
-            String response = String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length());
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
+			JSONTokener tokener = new JSONTokener(is);
+			JSONArray array = new JSONArray(tokener);
+			JsonLoader.saveToDatabase(array);
+			try {
+				view.updateTable(model.getAllNotifications());
+			}
+			catch (RuntimeException e){
+				e.printStackTrace();
+			}
+			response(t, 200, String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length()));
 		}
 
 	}
