@@ -18,10 +18,10 @@ public abstract class JsonLoader implements Loader {
 
 			notification.setDateTimeSent(Converter.stringToDate(notificationJSON.getString("sent")));
 			notification.setDateTimeReceived(Converter.stringToDate(notificationJSON.getString("received")));
-			notification.setCategory(HermesDAOs.CATEGORY.retrieve(notificationJSON.getInt("category_id")));
-			notification.setContent(HermesDAOs.CONTENT.retrieve(notificationJSON.getInt("content_id")));
-			notification.setContext(HermesDAOs.CONTEXT.retrieve(notificationJSON.getInt("context_id")));
-			notification.setKid(HermesDAOs.KID.retrieve(notificationJSON.getInt("kid_id")));
+			notification.setCategory(HermesDAOs.CATEGORY.retrieveByStringOrCreate("name", notificationJSON.getString("category")));
+			notification.setContent(HermesDAOs.CONTENT.retrieveByStringOrCreate("name", notificationJSON.getString("content")));
+			notification.setContext(HermesDAOs.CONTEXT.retrieveByStringOrCreate("name", notificationJSON.getString("context")));
+			notification.setKid(HermesDAOs.KID.retrieveByStringOrCreate("name", notificationJSON.getString("kid")));
 
 			HermesDAOs.NOTIFICATION.persist(notification);
 		}

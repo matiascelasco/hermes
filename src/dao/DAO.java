@@ -12,6 +12,12 @@ public interface DAO<T> {
 	 
 	 void delete(T obj);
 
+	 public T retrieveByStringOrCreate(String fieldName, String value);
+
+	 public T retrieveByString(String fieldName, String value);
+
+	 public T retrieveByInt(String fieldName, long value);
+
 //	 void deleteAll();
 	 
 //	 long count();

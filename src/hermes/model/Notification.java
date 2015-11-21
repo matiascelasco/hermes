@@ -5,10 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 
 public class Notification {
 	

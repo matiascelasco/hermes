@@ -1,14 +1,13 @@
 package hermes.model.dao;
 
+import hermes.model.Category;
+import hermes.model.Content;
+import hermes.model.Context;
+import hermes.model.Kid;
 import hermes.model.Notification;
 import hermes.model.Tag;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 import dao.DAO;
 import dao.DAOforJDBC;
-import dao.EnumDAO;
 
 public class HermesDAOs {
 	
@@ -31,25 +30,21 @@ public class HermesDAOs {
 		tagsDao.setConnectionWrapper(connectionWrapper);
 		TAG = tagsDao;
 		
-		KID = new EnumDAO<Kid>(Kid.class);
-//		DAOforJDBC<Kid> kidsDao = new KidDAOforJDBC();
-//		KID.setConnectionWrapper(connectionWrapper);
-//		KID = kidsDao;
+		DAOforJDBC<Kid> kidsDao = new KidDAOforJDBC();
+		kidsDao.setConnectionWrapper(connectionWrapper);
+		KID = kidsDao;
 		
-		CONTENT = new EnumDAO<Content>(Content.class);
-//		DAOforJDBC<Content> contentsDao = new ContentDAOforJDBC();
-//		contentsDao.setConnectionWrapper(connectionWrapper);
-//		CONTENT = contentsDao;
+		DAOforJDBC<Content> contentsDao = new ContentDAOforJDBC();
+		contentsDao.setConnectionWrapper(connectionWrapper);
+		CONTENT = contentsDao;
 		
-		CONTEXT = new EnumDAO<Context>(Context.class);
-//		DAOforJDBC<Context> contextsDao = new ContextDAOforJDBC();
-//		contextsDao.setConnectionWrapper(connectionWrapper);
-//		CONTEXT = contextsDao;
+		DAOforJDBC<Context> contextsDao = new ContextDAOforJDBC();
+		contextsDao.setConnectionWrapper(connectionWrapper);
+		CONTEXT = contextsDao;
 				
-		CATEGORY = new EnumDAO<Category>(Category.class);
-//		DAOforJDBC<Category> categoriesDao = new CategoryDAOforJDBC();
-//		categoriesDao.setConnectionWrapper(connectionWrapper);
-//		CATEGORY = categoriesDao;
+		DAOforJDBC<Category> categoriesDao = new CategoryDAOforJDBC();
+		categoriesDao.setConnectionWrapper(connectionWrapper);
+		CATEGORY = categoriesDao;
 		
 		connectionWrapper.prepare();
 	}

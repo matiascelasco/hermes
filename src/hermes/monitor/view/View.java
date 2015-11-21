@@ -1,12 +1,12 @@
 package hermes.monitor.view;
+import hermes.model.Category;
+import hermes.model.Content;
+import hermes.model.Context;
+import hermes.model.Kid;
 import hermes.model.Model;
 import hermes.model.Notification;
 import hermes.model.Tag;
 import hermes.model.dao.HermesDAOs;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 import hermes.monitor.view.utils.GridBagConstraintsBuilder;
 import hermes.monitor.view.utils.NotificationRowFilterBuilder;
 import hermes.monitor.view.utils.NotificationsTableModel;

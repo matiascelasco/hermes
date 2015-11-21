@@ -1,10 +1,10 @@
 package hermes.monitor.view;
 
+import hermes.model.Category;
+import hermes.model.Content;
+import hermes.model.Context;
+import hermes.model.Kid;
 import hermes.model.Tag;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 import hermes.monitor.view.utils.GridBagConstraintsBuilder;
 import hermes.monitor.view.utils.NotificationsTable;
 import hermes.monitor.view.utils.TagsComboBox;
@@ -52,10 +52,10 @@ public class FiltersPanel extends JPanel {
 	
 	JSpinner fromDateTimeSpinner = new JSpinner(new SpinnerDateModel());
 	JSpinner toDateTimeSpinner = new JSpinner(new SpinnerDateModel());
-	JComboBox<Context> contextComboBox = new JComboBox<Context>(Context.values());
-	JComboBox<Content> contentComboBox = new JComboBox<Content>(Content.values());
-	JComboBox<Category> categoryComboBox = new JComboBox<Category>(Category.values());
-	JComboBox<Kid> kidComboBox = new JComboBox<Kid>(Kid.values());
+	JComboBox<Context> contextComboBox = new JComboBox<Context>();
+	JComboBox<Content> contentComboBox = new JComboBox<Content>();
+	JComboBox<Category> categoryComboBox = new JComboBox<Category>();
+	JComboBox<Kid> kidComboBox = new JComboBox<Kid>();
 	TagsComboBox tagsComboBox;
 	private Date minDate;
 	private Date maxDate;

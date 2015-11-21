@@ -1,10 +1,10 @@
 package hermes.monitor.view.utils;
 
+import hermes.model.Category;
+import hermes.model.Content;
+import hermes.model.Context;
+import hermes.model.Kid;
 import hermes.model.Tag;
-import hermes.model.enums.Category;
-import hermes.model.enums.Content;
-import hermes.model.enums.Context;
-import hermes.model.enums.Kid;
 
 import java.util.ArrayList;
 import java.util.Date;

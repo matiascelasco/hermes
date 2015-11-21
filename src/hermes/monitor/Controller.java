@@ -123,9 +123,9 @@ public class Controller {
 			t.sendResponseHeaders(code, msg.length());
 			OutputStream os = t.getResponseBody();
 			os.write(msg.getBytes());
-			os.close();	
+			os.close();
 		}
-		
+
 		@Override
 		public void handle(HttpExchange t) throws IOException {
 			if (!t.getRequestMethod().equalsIgnoreCase("POST")){
@@ -135,14 +135,15 @@ public class Controller {
 			InputStream is = t.getRequestBody();
 			JSONTokener tokener = new JSONTokener(is);
 			JSONArray array = new JSONArray(tokener);
-			JsonLoader.saveToDatabase(array);
 			try {
+				JsonLoader.saveToDatabase(array);
 				view.updateTable(model.getAllNotifications());
+				response(t, 200, String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length()));
 			}
 			catch (RuntimeException e){
 				e.printStackTrace();
+				response(t, 500, "Se pudrió todo\n");
 			}
-			response(t, 200, String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length()));
 		}
 
 	}

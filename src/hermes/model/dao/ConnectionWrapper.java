@@ -20,6 +20,8 @@ public class ConnectionWrapper {
 	private static String dbName = "hermes.db";
 
 	public void prepare(){
+
+
 		//user directory
 		File homeDir = new File(System.getProperty("user.home"));
 		//HermesDB directory create
@@ -44,6 +46,7 @@ public class ConnectionWrapper {
 			statement.close();
 			if (!alreadyExists){
 				createSchema();
+
 //				Loader loader = new JsonFileLoader();
 //				loader.load();
 			}
