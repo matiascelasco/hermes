@@ -7,11 +7,6 @@ import java.util.Properties;
 import hermes.model.Model;
 import hermes.monitor.view.View;
 
-//TODO: problemas con la tabla de notificacaiones al achicar el frame
-//TODO: el ordenamiento de la columna de fecha no anda
-//TODO: que los fields de fecha se actualizen automáticamente de manera tal que Desde nunca sea mayor que Hasta
-//TODO: ver si se puede usar las fechas que hay en java.time en vez de las de utils en el combo box
-
 public class Main {
 	
 	
