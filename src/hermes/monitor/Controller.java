@@ -142,7 +142,7 @@ public class Controller {
 			}
 			catch (RuntimeException e){
 				e.printStackTrace();
-				response(t, 500, "Se pudrió todo\n");
+				response(t, 500, "Error\n");
 			}
 		}
 
