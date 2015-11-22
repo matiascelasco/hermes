@@ -1,5 +1,7 @@
 package hermes.model.loader;
 
+import java.util.GregorianCalendar;
+
 import hermes.model.Notification;
 import hermes.model.dao.HermesDAOs;
 
@@ -17,7 +19,7 @@ public abstract class JsonLoader implements Loader {
 			Notification notification = new Notification();
 
 			notification.setDateTimeSent(Converter.stringToDate(notificationJSON.getString("sent")));
-			notification.setDateTimeReceived(Converter.stringToDate(notificationJSON.getString("received")));
+			notification.setDateTimeReceived(new GregorianCalendar().getTime());
 			notification.setCategory(HermesDAOs.CATEGORY.retrieveByStringOrCreate("name", notificationJSON.getString("category")));
 			notification.setContent(HermesDAOs.CONTENT.retrieveByStringOrCreate("name", notificationJSON.getString("content")));
 			notification.setContext(HermesDAOs.CONTEXT.retrieveByStringOrCreate("name", notificationJSON.getString("context")));
