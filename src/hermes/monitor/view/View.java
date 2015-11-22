@@ -33,7 +33,7 @@ public class View extends JFrame {
 
 	public View(Model model){
 		super("Hermes Monitor");
-
+		
 		Container content = this.getContentPane();
 
 		List<Notification> data = HermesDAOs.NOTIFICATION.findAll();
@@ -93,8 +93,8 @@ public class View extends JFrame {
 
 	/* Methods that retrieve data from the view */
 	public RowFilter<NotificationsTableModel, Object> getFilterToBeApplied() {
-		Date fromDate = (Date) filtersPanel.fromDateTimeSpinner.getValue();
-		Date toDate = (Date) filtersPanel.toDateTimeSpinner.getValue();
+		Date fromDate = (Date) filtersPanel.fromDateTimeSpinner.getDate();
+		Date toDate = (Date) filtersPanel.toDateTimeSpinner.getDate();
 		Context context = (Context) filtersPanel.contextComboBox.getSelectedItem();
 		Content content = (Content) filtersPanel.contentComboBox.getSelectedItem();
 		Category category = (Category) filtersPanel.categoryComboBox.getSelectedItem();

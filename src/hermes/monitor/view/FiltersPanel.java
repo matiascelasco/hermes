@@ -5,6 +5,7 @@ import hermes.model.Content;
 import hermes.model.Context;
 import hermes.model.Kid;
 import hermes.model.Tag;
+import hermes.monitor.view.utils.DateTimePicker;
 import hermes.monitor.view.utils.GridBagConstraintsBuilder;
 import hermes.monitor.view.utils.NotificationsTable;
 import hermes.monitor.view.utils.TagsComboBox;
@@ -21,8 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
 
 
 public class FiltersPanel extends JPanel {
@@ -50,8 +49,8 @@ public class FiltersPanel extends JPanel {
 				.build());
 	}
 	
-	JSpinner fromDateTimeSpinner = new JSpinner(new SpinnerDateModel());
-	JSpinner toDateTimeSpinner = new JSpinner(new SpinnerDateModel());
+	DateTimePicker fromDateTimeSpinner = new DateTimePicker();
+	DateTimePicker toDateTimeSpinner = new DateTimePicker();
 	JComboBox<Context> contextComboBox = new JComboBox<Context>();
 	JComboBox<Content> contentComboBox = new JComboBox<Content>();
 	JComboBox<Category> categoryComboBox = new JComboBox<Category>();
@@ -67,6 +66,7 @@ public class FiltersPanel extends JPanel {
 	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate, List<Tag> tags) {
 		this.minDate = minDate;
 		this.maxDate = maxDate;
+		
 		setBorder(BorderFactory.createTitledBorder("Filtros"));
 		setLayout(new GridBagLayout());
 
@@ -99,8 +99,8 @@ public class FiltersPanel extends JPanel {
 	}
 
 	public void clearFiltersForm(){
-		fromDateTimeSpinner.setValue(minDate);
-		toDateTimeSpinner.setValue(maxDate);
+		fromDateTimeSpinner.setDate(minDate);
+		toDateTimeSpinner.setDate(maxDate);
 		contextComboBox.setSelectedIndex(-1);
 		contentComboBox.setSelectedIndex(-1);
 		categoryComboBox.setSelectedIndex(-1);
