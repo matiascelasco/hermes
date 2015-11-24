@@ -8,18 +8,15 @@ import hermes.model.Tag;
 import hermes.monitor.view.utils.DateTimePicker;
 import hermes.monitor.view.utils.GridBagConstraintsBuilder;
 import hermes.monitor.view.utils.NotificationsTable;
-import hermes.monitor.view.utils.TagsComboBox;
+import hermes.monitor.view.utils.ListComboBox;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.Date;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -51,21 +48,20 @@ public class FiltersPanel extends JPanel {
 	
 	DateTimePicker fromDateTimePicker = new DateTimePicker();
 	DateTimePicker toDateTimePicker = new DateTimePicker();
-	JComboBox<Context> contextComboBox = new JComboBox<Context>();
-	JComboBox<Content> contentComboBox = new JComboBox<Content>();
-	JComboBox<Category> categoryComboBox = new JComboBox<Category>();
-	JComboBox<Kid> kidComboBox = new JComboBox<Kid>();
-	TagsComboBox tagsComboBox;
+	ListComboBox<Context> contextComboBox = new ListComboBox<Context>();
+	ListComboBox<Content> contentComboBox = new ListComboBox<Content>();
+	ListComboBox<Category> categoryComboBox = new ListComboBox<Category>();
+	ListComboBox<Kid> kidComboBox = new ListComboBox<Kid>();
+	ListComboBox<Tag> tagsComboBox = new ListComboBox<Tag>();
 	
 	JButton filterButton = new JButton("Filtrar");
 	JButton clearButton = new JButton("Mostrar todo");
 	
-	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate, List<Tag> tags) {
+	public FiltersPanel(final NotificationsTable notificationsTable) {
 		
 		setBorder(BorderFactory.createTitledBorder("Filtros"));
 		setLayout(new GridBagLayout());
-
-		tagsComboBox = new TagsComboBox(tags);
+		
 		clearFiltersForm();
 		
 		addBoxWithLabel("Contenido: ", contentComboBox, 0, 0);
@@ -103,8 +99,4 @@ public class FiltersPanel extends JPanel {
 		tagsComboBox.setSelectedIndex(-1);
 	}
 	
-	public void updateTagComboBox(List<Tag> tags) {
-		tagsComboBox.updateContent(tags);
-	}
-
 }

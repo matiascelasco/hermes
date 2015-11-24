@@ -2,14 +2,13 @@ package hermes.monitor.view;
 
 import hermes.model.Tag;
 import hermes.monitor.view.utils.GridBagConstraintsBuilder;
-import hermes.monitor.view.utils.TagsComboBox;
+import hermes.monitor.view.utils.ListComboBox;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -56,19 +55,16 @@ public class TagsPanel extends JPanel {
 	JTextField newTagNameField = new JTextField();;
 	JTextField renameTagNameField = new JTextField();
 
-	TagsComboBox tagForRemoveComboBox;
-	TagsComboBox tagForAssingComboBox;
-	TagsComboBox tagForRenameComboBox;
+	ListComboBox<Tag> tagForRemoveComboBox = new ListComboBox<Tag>();
+	ListComboBox<Tag> tagForAssingComboBox = new ListComboBox<Tag>();
+	ListComboBox<Tag> tagForRenameComboBox = new ListComboBox<Tag>();
 
 	JButton createButton = new JButton("Crear");
 	JButton deleteButton = new JButton("Eliminar");
 	JButton assignButton = new JButton("Asignar/Desasignar");
 	JButton renameButton = new JButton("Renombrar");
 
-	public TagsPanel(List<Tag> tags) {
-		tagForRemoveComboBox = new TagsComboBox(tags);
-		tagForAssingComboBox = new TagsComboBox(tags);
-		tagForRenameComboBox = new TagsComboBox(tags);
+	public TagsPanel() {
 		GridBagConstraintsBuilder separatorConstrainsBuilder =
 			new GridBagConstraintsBuilder()
 				.x(0)

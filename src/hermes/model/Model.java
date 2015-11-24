@@ -63,4 +63,20 @@ public class Model {
 		return false;
 	}
 
+	public List<Category> getAllCategories() {
+		return HermesDAOs.CATEGORY.findAll();
+	}
+
+	public List<Context> getAllContexts() {
+		return HermesDAOs.CONTEXT.findAll();
+	}
+
+	public List<Content> getAllContents() {
+		return HermesDAOs.CONTENT.findAll();
+	}
+	
+	public List<Kid> getAllKids() {
+		return HermesDAOs.KID.findAll();
+	}
+
 }

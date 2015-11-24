@@ -16,7 +16,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -31,9 +30,13 @@ public class View extends JFrame {
 	private TagsPanel tagsPanel;
 	private NotificationsPanel notificationsPanel;
 
+	Model model;
+	
 	public View(Model model){
 		super("Hermes Monitor");
 
+		this.model = model;
+		
 		Container content = this.getContentPane();
 
 		List<Notification> data = HermesDAOs.NOTIFICATION.findAll();
@@ -43,30 +46,10 @@ public class View extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         content.setLayout(new GridBagLayout());
 
-        Date minDate;
-        Date maxDate;
-
-        if (data.isEmpty()){
-        	minDate = new GregorianCalendar().getTime();
-        	maxDate = new GregorianCalendar().getTime();
-        }
-        else {
-        	minDate = data.get(0).getDateTimeSent();
-        	maxDate = data.get(0).getDateTimeSent();
-
-        	for (Notification notification: data){
-        		if (notification.getDateTimeSent().before(minDate)){
-        			minDate = notification.getDateTimeSent();
-        		}
-        		if (notification.getDateTimeSent().after(maxDate)){
-        			maxDate = notification.getDateTimeSent();
-        		}
-        	}
-        }
-
-        List<Tag> tags = model.getAllTags();
-        filtersPanel = new FiltersPanel(notificationsPanel.getTable(), minDate, maxDate, tags);
-        tagsPanel = new TagsPanel(tags);
+		
+        filtersPanel = new FiltersPanel(notificationsPanel.getTable());
+        tagsPanel = new TagsPanel();
+        
 
         content.add(filtersPanel,
         			new GridBagConstraintsBuilder()
@@ -89,6 +72,8 @@ public class View extends JFrame {
         				.weightX(1).weightY(1)
         				.fill(GridBagConstraints.BOTH)
         				.build());
+        
+        updateComboBoxes();
 	}
 
 	/* Methods that retrieve data from the view */
@@ -139,13 +124,18 @@ public class View extends JFrame {
 	}
 
 	/* Methods that update the view */
-	public void updateTagComboBoxes(List<Tag> tags) {
-		tagsPanel.tagForAssingComboBox.updateContent(tags);
-		tagsPanel.tagForRemoveComboBox.updateContent(tags);
-		tagsPanel.tagForRenameComboBox.updateContent(tags);
-		filtersPanel.updateTagComboBox(tags);
-	}
+	public void updateComboBoxes() {
+		filtersPanel.tagsComboBox.updateContent(model.getAllTags());
+		filtersPanel.contextComboBox.updateContent(model.getAllContexts());
+		filtersPanel.contentComboBox.updateContent(model.getAllContents());
+		filtersPanel.categoryComboBox.updateContent(model.getAllCategories());
+		filtersPanel.kidComboBox.updateContent(model.getAllKids());
 
+		tagsPanel.tagForRemoveComboBox.updateContent(model.getAllTags());
+		tagsPanel.tagForAssingComboBox.updateContent(model.getAllTags());
+		tagsPanel.tagForRenameComboBox.updateContent(model.getAllTags());
+	}
+	
 	public void filterTable(RowFilter<NotificationsTableModel, Object> filterToBeApplied) {
 		notificationsPanel.filterTable(filterToBeApplied);
 	}

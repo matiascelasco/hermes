@@ -58,7 +58,7 @@ public class Controller {
 			String newTagName = view.getNameForNewTag();
 			if (model.validateTagName(newTagName) && !model.tagNameAlreadyExists(newTagName)){
 				model.createNewTag(newTagName);
-				view.updateTagComboBoxes(model.getAllTags());
+				view.updateComboBoxes();
 			}
 		}
 
@@ -69,7 +69,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			Tag tag = view.getTagToBeDeleted();
 			model.deleteTag(tag);
-			view.updateTagComboBoxes(model.getAllTags());
+			view.updateComboBoxes();
 			view.updateTable(model.getAllNotifications());
 		}
 
@@ -93,7 +93,7 @@ public class Controller {
 			String tagNewName = view.getNewNameToRenameTag();
 			if (model.validateTagName(tagNewName) && !model.tagNameAlreadyExists(tagNewName)){
 				model.renameTag(tag, tagNewName);
-				view.updateTagComboBoxes(model.getAllTags());
+				view.updateComboBoxes();
 				view.updateTable(model.getAllNotifications());
 			}
 		}
@@ -138,6 +138,7 @@ public class Controller {
 			try {
 				JsonLoader.saveToDatabase(array);
 				view.updateTable(model.getAllNotifications());
+				view.updateComboBoxes();
 				response(t, 200, String.format("OK. %d notifications were loaded\n", array.length()));
 			}
 			catch (RuntimeException e){
