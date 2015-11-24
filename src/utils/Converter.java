@@ -1,7 +1,5 @@
 package utils;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -18,9 +16,8 @@ public class Converter {
 	}
 	
 	public static Date stringToDate(String string) {
-		LocalDate localDate = LocalDate.parse(string, dateTimeFormatter);
-		Instant instant = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant();
-		return Date.from(instant);
+		LocalDateTime localDateTime = LocalDateTime.parse(string, dateTimeFormatter);
+		return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 }
