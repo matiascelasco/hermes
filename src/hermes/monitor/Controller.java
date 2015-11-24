@@ -138,7 +138,7 @@ public class Controller {
 			try {
 				JsonLoader.saveToDatabase(array);
 				view.updateTable(model.getAllNotifications());
-				response(t, 200, String.format("OK. Se cargaron %d notificaciones nuevas\n", array.length()));
+				response(t, 200, String.format("OK. %d notifications were loaded\n", array.length()));
 			}
 			catch (RuntimeException e){
 				e.printStackTrace();
