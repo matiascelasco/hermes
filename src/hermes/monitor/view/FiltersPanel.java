@@ -49,23 +49,18 @@ public class FiltersPanel extends JPanel {
 				.build());
 	}
 	
-	DateTimePicker fromDateTimeSpinner = new DateTimePicker();
-	DateTimePicker toDateTimeSpinner = new DateTimePicker();
+	DateTimePicker fromDateTimePicker = new DateTimePicker();
+	DateTimePicker toDateTimePicker = new DateTimePicker();
 	JComboBox<Context> contextComboBox = new JComboBox<Context>();
 	JComboBox<Content> contentComboBox = new JComboBox<Content>();
 	JComboBox<Category> categoryComboBox = new JComboBox<Category>();
 	JComboBox<Kid> kidComboBox = new JComboBox<Kid>();
 	TagsComboBox tagsComboBox;
-	private Date minDate;
-	private Date maxDate;
-
 	
 	JButton filterButton = new JButton("Filtrar");
-	JButton clearButton = new JButton("Limpiar");
+	JButton clearButton = new JButton("Mostrar todo");
 	
 	public FiltersPanel(final NotificationsTable notificationsTable, Date minDate, Date maxDate, List<Tag> tags) {
-		this.minDate = minDate;
-		this.maxDate = maxDate;
 		
 		setBorder(BorderFactory.createTitledBorder("Filtros"));
 		setLayout(new GridBagLayout());
@@ -77,8 +72,8 @@ public class FiltersPanel extends JPanel {
 		addBoxWithLabel("Context: ", contextComboBox, 2, 0);
 		addBoxWithLabel("Categoría: ", categoryComboBox, 0, 1);
 		addBoxWithLabel("Niño: ", kidComboBox, 2, 1);
-		addBoxWithLabel("Desde: ", fromDateTimeSpinner, 0, 2);
-		addBoxWithLabel("Hasta: ", toDateTimeSpinner, 2, 2);
+		addBoxWithLabel("Desde: ", fromDateTimePicker, 0, 2);
+		addBoxWithLabel("Hasta: ", toDateTimePicker, 2, 2);
 		addBoxWithLabel("Etiqueta: ", tagsComboBox, 0, 3);
 		add(filterButton,
 			new GridBagConstraintsBuilder()
@@ -99,8 +94,8 @@ public class FiltersPanel extends JPanel {
 	}
 
 	public void clearFiltersForm(){
-		fromDateTimeSpinner.setDate(minDate);
-		toDateTimeSpinner.setDate(maxDate);
+		fromDateTimePicker.setDate(null);
+		toDateTimePicker.setDate(null);
 		contextComboBox.setSelectedIndex(-1);
 		contentComboBox.setSelectedIndex(-1);
 		categoryComboBox.setSelectedIndex(-1);

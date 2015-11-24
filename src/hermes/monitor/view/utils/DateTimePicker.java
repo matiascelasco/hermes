@@ -7,12 +7,11 @@ import javax.swing.*;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.DateFormatter;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.*;
 import java.awt.*;
 
 // lo copié de acá: http://stackoverflow.com/questions/654342/is-there-any-good-and-free-date-and-time-picker-available-for-java-swing
-
+// pero estaba todo bugueado y tuve que cambiar algunas cosas
 /**
  * This is licensed under LGPL.  License can be found here:  http://www.gnu.org/licenses/lgpl-3.0.txt
  *
@@ -20,7 +19,7 @@ import java.awt.*;
  */
 public class DateTimePicker extends JXDatePicker {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JSpinner timeSpinner;
@@ -37,14 +36,30 @@ public class DateTimePicker extends JXDatePicker {
         setDate(d);
     }
 
-    public void commitEdit() throws ParseException {
-        commitTime();
-        super.commitEdit();
-    }
-
     public void cancelEdit() {
         super.cancelEdit();
         setTimeSpinners();
+    }
+
+    @Override
+    public Date getDate(){
+    	Date date = super.getDate();
+    	if (date == null){
+    		return date;
+    	}
+        Date time = (Date) timeSpinner.getValue();
+        GregorianCalendar timeCalendar = new GregorianCalendar();
+        timeCalendar.setTime(time);
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date newDate = calendar.getTime();
+        return newDate;
     }
 
     @Override
@@ -81,26 +96,6 @@ public class DateTimePicker extends JXDatePicker {
         formatter.setFormat( timeFormat );
     }
 
-    private void commitTime() {
-        Date date = getDate();
-        if (date != null) {
-            Date time = (Date) timeSpinner.getValue();
-            GregorianCalendar timeCalendar = new GregorianCalendar();
-            timeCalendar.setTime( time );
-
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
-            calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get( Calendar.HOUR_OF_DAY ) );
-            calendar.set(Calendar.MINUTE, timeCalendar.get( Calendar.MINUTE ) );
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-
-            Date newDate = calendar.getTime();
-            setDate(newDate);
-        }
-
-    }
-
     private void setTimeSpinners() {
         Date date = getDate();
         if (date != null) {
@@ -117,19 +112,19 @@ public class DateTimePicker extends JXDatePicker {
         updateTextFieldFormat();
     }
 
-    public static void main(String[] args) {
-        Date date = new Date();
-        JFrame frame = new JFrame();
-        frame.setTitle("Date Time Picker");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        DateTimePicker dateTimePicker = new DateTimePicker();
-        dateTimePicker.setFormats( DateFormat.getDateTimeInstance( DateFormat.SHORT, DateFormat.MEDIUM ) );
-        dateTimePicker.setTimeFormat( DateFormat.getTimeInstance( DateFormat.MEDIUM ) );
-
-        dateTimePicker.setDate(date);
-
-        frame.getContentPane().add(dateTimePicker);
-        frame.pack();
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        Date date = new Date();
+//        JFrame frame = new JFrame();
+//        frame.setTitle("Date Time Picker");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        DateTimePicker dateTimePicker = new DateTimePicker();
+//        dateTimePicker.setFormats( DateFormat.getDateTimeInstance( DateFormat.SHORT, DateFormat.MEDIUM ) );
+//        dateTimePicker.setTimeFormat( DateFormat.getTimeInstance( DateFormat.MEDIUM ) );
+//
+//        dateTimePicker.setDate(date);
+//
+//        frame.getContentPane().add(dateTimePicker);
+//        frame.pack();
+//        frame.setVisible(true);
+//    }
 }

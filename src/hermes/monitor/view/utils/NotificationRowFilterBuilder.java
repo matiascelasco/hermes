@@ -35,13 +35,14 @@ public class NotificationRowFilterBuilder {
 
 	public RowFilter<NotificationsTableModel, Object> build(){
 
-		if (fromDate == null || toDate == null){
-			throw new IllegalStateException("fromDate and toDate are required");
+		if (fromDate != null){
+			RowFilter<NotificationsTableModel, Object> dateFromGE = orDateTimeFilter(fromDate, ComparisonType.AFTER, ComparisonType.EQUAL);
+			filters.add(dateFromGE);
 		}
-		RowFilter<NotificationsTableModel, Object> dateFromGE = orDateTimeFilter(fromDate, ComparisonType.AFTER, ComparisonType.EQUAL);
-		RowFilter<NotificationsTableModel, Object> dateToLE = orDateTimeFilter(toDate, ComparisonType.BEFORE, ComparisonType.EQUAL);
-		filters.add(dateFromGE);
-		filters.add(dateToLE);
+		if (toDate != null){
+			RowFilter<NotificationsTableModel, Object> dateToLE = orDateTimeFilter(toDate, ComparisonType.BEFORE, ComparisonType.EQUAL);
+			filters.add(dateToLE);
+		}
 
 		Object [] objects = {content, context, category, kid, tag};
 		int columnIndex = 1;
