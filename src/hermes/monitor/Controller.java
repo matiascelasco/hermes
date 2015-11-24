@@ -26,6 +26,7 @@ public class Controller {
 
 	private View view;
 	private Model model;
+	boolean isFiltered = false;
 
 	public Controller(Model model, View view){
 		this.view = view;
@@ -104,6 +105,7 @@ public class Controller {
 
 		public void actionPerformed(ActionEvent e) {
 			view.filterTable(view.getFilterToBeApplied());
+			isFiltered = true;
 		}
 
 	}
@@ -113,6 +115,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			view.clearFiltersForm();
 			view.filterTable(view.getFilterToBeApplied());
+			isFiltered = false;
 		}
 
 	}
@@ -137,9 +140,16 @@ public class Controller {
 			JSONArray array = new JSONArray(tokener);
 			try {
 				JsonLoader.saveToDatabase(array);
-				view.updateTable(model.getAllNotifications());
-				view.updateComboBoxes();
 				response(t, 200, String.format("OK. %d notifications were loaded\n", array.length()));
+				if (isFiltered){
+					view.showPopupMessage(
+						String.format("Se recibieron %d nuevas notificaciones. " +
+							"Presione el botón \"Mostrar todo\" para verlas.", 
+							array.length()));
+				} else {
+					view.updateTable(model.getAllNotifications());
+					view.updateComboBoxes();					
+				}
 			}
 			catch (RuntimeException e){
 				e.printStackTrace();

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 
 
@@ -171,6 +172,10 @@ public class View extends JFrame {
 
 	public void addTagRenamedListener(ActionListener listener) {
 		tagsPanel.renameButton.addActionListener(listener);
+	}
+
+	public void showPopupMessage(String msg) {
+		JOptionPane.showMessageDialog(this, msg);
 	}
 
 }
