@@ -19,7 +19,7 @@ public abstract class JsonLoader implements Loader {
 			Notification notification = new Notification();
 
 			notification.setDateTimeSent(Converter.stringToDate(notificationJSON.getString("sent")));
-			notification.setDateTimeReceived(new GregorianCalendar().getTime());
+			notification.setDateTimeReceived(new GregorianCalendar().getTime());  //current time
 			notification.setCategory(HermesDAOs.CATEGORY.retrieveByStringOrCreate("name", notificationJSON.getString("category")));
 			notification.setContent(HermesDAOs.CONTENT.retrieveByStringOrCreate("name", notificationJSON.getString("content")));
 			notification.setContext(HermesDAOs.CONTEXT.retrieveByStringOrCreate("name", notificationJSON.getString("context")));
