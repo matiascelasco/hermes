@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONTokener;
@@ -33,14 +34,14 @@ public class Controller {
 		this.model = model;
 	}
 
-	public void prepare(){
+	public void start() throws IOException{
 
+		Properties properties = new Properties();
+		InputStream inputStream = Main.class.getResourceAsStream("/config.properties");
+		properties.load(inputStream);
+		
 		HttpServer server;
-		try {
-			server = HttpServer.create(new InetSocketAddress(new Integer(Main.properties.getProperty("port"))), 0);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		server = HttpServer.create(new InetSocketAddress(new Integer(properties.getProperty("port"))), 0);
         server.createContext("/load-notifications", new DataReceivedListener());
         server.setExecutor(null); // creates a default executor
         server.start();
@@ -51,6 +52,9 @@ public class Controller {
 		view.addTagRenamedListener(new TagRenamedListener());
 		view.addFilterButtonPressedListener(new FilterButtonPressedListener());
 		view.addClearButtonPressedListener(new ClearButtonPressedListener());
+		
+		view.pack();
+		view.setVisible(true);
 	}
 
 	private class TagCreatedListener implements ActionListener {
