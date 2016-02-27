@@ -54,7 +54,9 @@ public class Controller {
 		view.addClearButtonPressedListener(new ClearButtonPressedListener());
 		
 		view.pack();
+		view.showAll();
 		view.setVisible(true);
+		
 	}
 
 	private class TagCreatedListener implements ActionListener {
@@ -117,8 +119,7 @@ public class Controller {
 	private class ClearButtonPressedListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			view.clearFiltersForm();
-			view.filterTable(view.getFilterToBeApplied());
+			view.showAll();
 			isFiltered = false;
 		}
 
@@ -152,7 +153,8 @@ public class Controller {
 							array.length()));
 				} else {
 					view.updateTable(model.getAllNotifications());
-					view.updateComboBoxes();					
+					view.updateComboBoxes();
+					view.showAll();
 				}
 			}
 			catch (RuntimeException e){

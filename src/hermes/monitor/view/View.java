@@ -141,8 +141,9 @@ public class View extends JFrame {
 		notificationsPanel.filterTable(filterToBeApplied);
 	}
 
-	public void clearFiltersForm() {
+	public void showAll() {
 		filtersPanel.clearFiltersForm();
+		filterTable(getFilterToBeApplied());
 	}
 
 	public void updateTable(List<Notification> allNotifications) {
