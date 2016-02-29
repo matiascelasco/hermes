@@ -12,10 +12,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -128,24 +130,43 @@ public class Controller {
 	private class DataReceivedListener implements HttpHandler {
 
 		private void response(HttpExchange t, int code, String msg) throws IOException{
-			t.sendResponseHeaders(code, msg.length());
+
+			List<String> ss = new ArrayList<>(1);
+			ss.add("application/json");
+			ss.add("charset=utf-8");
+			t.getResponseHeaders().put("Content-type", ss);
+			String json = String.format("{\"msg\": \"%s\"}", msg);
+			System.out.println(json);
+			t.sendResponseHeaders(code, json.length());
 			OutputStream os = t.getResponseBody();
-			os.write(msg.getBytes());
+			os.write(json.getBytes());
 			os.close();
+			
+//			t.sendResponseHeaders(code, msg.length());
+//			OutputStream os = t.getResponseBody();
+//			
+//			os.write(msg.getBytes());
+//			os.close();
 		}
 
 		@Override
 		public void handle(HttpExchange t) throws IOException {
+			System.out.println(123123123);
 			if (!t.getRequestMethod().equalsIgnoreCase("POST")){
-				response(t, 400, "Bad request\n");
+				System.out.println(555555);
+				response(t, 400, "Bad request");
 				return;
 			}
 			InputStream is = t.getRequestBody();
 			JSONTokener tokener = new JSONTokener(is);
-			JSONArray array = new JSONArray(tokener);
+			System.out.println(44);
+			JSONObject object = new JSONObject(tokener);
+			System.out.println(object);
+			JSONArray array = object.getJSONArray("notifications");
+			System.out.println(array.length());
 			try {
 				JsonLoader.saveToDatabase(array);
-				response(t, 200, String.format("OK. %d notifications were loaded\n", array.length()));
+				response(t, 200, String.format("OK. %d notifications were loaded", array.length()));
 				if (isFiltered){
 					view.showPopupMessage(
 						String.format("Se recibieron %d nuevas notificaciones. " +
@@ -159,7 +180,7 @@ public class Controller {
 			}
 			catch (RuntimeException e){
 				e.printStackTrace();
-				response(t, 500, "Error\n");
+				response(t, 500, "Error");
 			}
 		}
 
